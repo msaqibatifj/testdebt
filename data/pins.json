@@ -1,0 +1,8 @@
+{
+  "commons-cli": {"commit": "fb6293fcd6a9b55ac8ecb550af6572daaed18fa1", "date": "2024-08-30", "match_rate": 0.987, "utr_tests": 78,
+                  "url": "https://github.com/apache/commons-cli.git", "java_home": "/usr/lib/jvm/java-17-openjdk-amd64"},
+  "gson":        {"commit": "58eaac338786f449335e389a7f3c73ed40252ea4", "date": "2024-09-22", "match_rate": 0.979, "utr_tests": 243,
+                  "url": "https://github.com/google/gson.git", "java_home": "/usr/lib/jvm/java-17-openjdk-amd64"},
+  "jsoup":       {"commit": "5136929fea4c786ddccc040da84905a3546e92ba", "date": "2020-03-01", "match_rate": 0.988, "utr_tests": 171,
+                  "url": "https://github.com/jhy/jsoup.git", "java_home": "/usr/lib/jvm/java-17-openjdk-amd64"}
+}
