@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+runs/*
+!runs/.gitkeep
+data/projects/
+data/eval_*.jsonl
+data/utrefactor/
+data/tools/*.jar
+.pytest_cache/
+*.egg-info/
+pom.pit.xml
