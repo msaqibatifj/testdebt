@@ -1,0 +1,173 @@
+{
+  "overall": {
+    "tests": 483,
+    "verified": false,
+    "accepted": null,
+    "accepted_rate": null,
+    "accepted_unverified": 479,
+    "static_ok_rate": 99.2,
+    "compile_rate": null,
+    "pass_rate": null,
+    "smell_reduction_tsdetect": 59.9,
+    "smells_targeted": 1085,
+    "smells_removed": 650,
+    "smell_reduction_strict": null,
+    "smell_reduction_manual": null,
+    "killset_checked": 0,
+    "accepted_losing_mutants": 0,
+    "accepted_losing_mutants_rate": null,
+    "accepted_losing_mutants_ci95": null,
+    "accepted_safe": null,
+    "accepted_safe_rate": null,
+    "retried": 0,
+    "tokens_total": 0,
+    "tokens_per_test": 0,
+    "tokens_per_accepted": null,
+    "wall_time_s": 227.8,
+    "multi_smell_tests": 377
+  },
+  "by_project": {
+    "commons-cli": {
+      "tests": 77,
+      "verified": false,
+      "accepted": null,
+      "accepted_rate": null,
+      "accepted_unverified": 76,
+      "static_ok_rate": 98.7,
+      "compile_rate": null,
+      "pass_rate": null,
+      "smell_reduction_tsdetect": 86.4,
+      "smells_targeted": 125,
+      "smells_removed": 108,
+      "smell_reduction_strict": null,
+      "smell_reduction_manual": null,
+      "killset_checked": 0,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": null,
+      "accepted_losing_mutants_ci95": null,
+      "accepted_safe": null,
+      "accepted_safe_rate": null,
+      "retried": 0,
+      "tokens_total": 0,
+      "tokens_per_test": 0,
+      "tokens_per_accepted": null,
+      "wall_time_s": 32.8,
+      "multi_smell_tests": 35,
+      "paper_reduction": 86.0,
+      "delta_vs_paper": 0.4,
+      "within_5_points": true
+    },
+    "gson": {
+      "tests": 238,
+      "verified": false,
+      "accepted": null,
+      "accepted_rate": null,
+      "accepted_unverified": 236,
+      "static_ok_rate": 99.2,
+      "compile_rate": null,
+      "pass_rate": null,
+      "smell_reduction_tsdetect": 58.4,
+      "smells_targeted": 575,
+      "smells_removed": 336,
+      "smell_reduction_strict": null,
+      "smell_reduction_manual": null,
+      "killset_checked": 0,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": null,
+      "accepted_losing_mutants_ci95": null,
+      "accepted_safe": null,
+      "accepted_safe_rate": null,
+      "retried": 0,
+      "tokens_total": 0,
+      "tokens_per_test": 0,
+      "tokens_per_accepted": null,
+      "wall_time_s": 120.2,
+      "multi_smell_tests": 200,
+      "paper_reduction": 89.0,
+      "delta_vs_paper": -30.6,
+      "within_5_points": false
+    },
+    "jsoup": {
+      "tests": 168,
+      "verified": false,
+      "accepted": null,
+      "accepted_rate": null,
+      "accepted_unverified": 167,
+      "static_ok_rate": 99.4,
+      "compile_rate": null,
+      "pass_rate": null,
+      "smell_reduction_tsdetect": 53.5,
+      "smells_targeted": 385,
+      "smells_removed": 206,
+      "smell_reduction_strict": null,
+      "smell_reduction_manual": null,
+      "killset_checked": 0,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": null,
+      "accepted_losing_mutants_ci95": null,
+      "accepted_safe": null,
+      "accepted_safe_rate": null,
+      "retried": 0,
+      "tokens_total": 0,
+      "tokens_per_test": 0,
+      "tokens_per_accepted": null,
+      "wall_time_s": 74.8,
+      "multi_smell_tests": 142,
+      "paper_reduction": 91.0,
+      "delta_vs_paper": -37.5,
+      "within_5_points": false
+    }
+  },
+  "by_smell": {
+    "EagerTest": {
+      "targeted": 343,
+      "removed": 109,
+      "removed_pct": 31.8
+    },
+    "AssertionRoulette": {
+      "targeted": 311,
+      "removed": 196,
+      "removed_pct": 63.0
+    },
+    "ExceptionHandling": {
+      "targeted": 222,
+      "removed": 202,
+      "removed_pct": 91.0
+    },
+    "SensitiveEquality": {
+      "targeted": 79,
+      "removed": 64,
+      "removed_pct": 81.0
+    },
+    "MagicNumberTest": {
+      "targeted": 55,
+      "removed": 29,
+      "removed_pct": 52.7
+    },
+    "DuplicateAssert": {
+      "targeted": 45,
+      "removed": 35,
+      "removed_pct": 77.8
+    },
+    "ConditionalTestLogic": {
+      "targeted": 10,
+      "removed": 8,
+      "removed_pct": 80.0
+    },
+    "RedundantAssertion": {
+      "targeted": 5,
+      "removed": 5,
+      "removed_pct": 100.0
+    },
+    "MysteryGuest": {
+      "targeted": 4,
+      "removed": 0,
+      "removed_pct": 0.0
+    },
+    "ResourceOptimism": {
+      "targeted": 4,
+      "removed": 2,
+      "removed_pct": 50.0
+    }
+  }
+}
