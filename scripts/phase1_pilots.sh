@@ -15,13 +15,18 @@ save() { mkdir -p "results/phase1/$1"; cp runs/"$1"/{report.md,report.json,decis
 run()  { local id=$1; shift; python3 -m testdebt.eval.run_baseline --run-id "$id" "$@"; save "$id"; }
 
 if [[ $WHAT == all || $WHAT == pit ]]; then
+  rm -rf runs/pit_cache runs/pit_pilot_b0replay_cli      # baseline matrices from before the 2026-10-24 fix are wrong
   # G1 tool check: PIT kill-sets on UTRefactor's own outputs. If killset_checked stays 0 or every kill-set is
   # empty, fullMutationMatrix is not filling killingTests: fix tools/pit.py before relying on G1.
   run pit_pilot_b0replay_cli --system b0replay --eval data/eval_set.jsonl --project commons-cli --limit 5 --pit
   python3 - <<'PY'
 import json; o = json.load(open("runs/pit_pilot_b0replay_cli/report.json"))["overall"]
-print(f"PIT pilot: kill-set checked on {o['killset_checked']} accepted tests, {o['accepted_losing_mutants']} lost mutants")
+recs = [json.loads(l) for l in open("runs/pit_pilot_b0replay_cli/state.jsonl")]
+before = [r["reports"][-1].get("mutants_killed_before") for r in recs if r["decision"] == "accepted" and r["reports"]]
+print(f"PIT pilot: kill-set checked on {o['killset_checked']} accepted tests ({o['killset_unknown']} unknown), "
+      f"{o['accepted_losing_mutants']} lost mutants; mutants killed by each original test: {before}")
 assert o["killset_checked"] > 0, "PIT produced no kill-sets - check tools/pit.py (plugin version / fullMutationMatrix)"
+assert all(b for b in before if b is not None), "some original test kills 0 mutants - kill attribution is wrong"
 PY
 fi
 
