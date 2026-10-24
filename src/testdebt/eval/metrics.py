@@ -63,7 +63,10 @@ def summarize(recs: list[dict]) -> dict:
         "pass_rate": _rate(passed, n) if any(f.get("passed") is not None for f in final) else None,
         "smell_reduction_tsdetect": _rate(removed, targeted), "smells_targeted": targeted, "smells_removed": removed,
         "smell_reduction_strict": None, "smell_reduction_manual": None,
-        "killset_checked": len(ks), "accepted_losing_mutants": lost,
+        "killset_checked": len(ks),
+        "killset_unknown": sum(1 for r, f in zip(recs, final) if r["decision"] == "accepted"
+                               and f.get("killset_preserved") is None and f.get("mutants_killed_before") == 0),
+        "accepted_losing_mutants": lost,
         "accepted_losing_mutants_rate": _rate(lost, len(ks)), "accepted_losing_mutants_ci95": wilson(lost, len(ks)),
         "accepted_safe": safe if ks else None, "accepted_safe_rate": _rate(safe, n) if ks else None,
         "retried": sum(1 for r in recs if r["retries"] > 0),

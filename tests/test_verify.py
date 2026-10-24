@@ -1,6 +1,8 @@
+from pathlib import Path
+
 from conftest import DEMO_TEST, FakeMaven
 from testdebt.contracts import TestRef
-from testdebt.java_utils import find_method
+from testdebt.java_utils import extract_test_methods, find_method
 from testdebt.verify import Verifier, add_imports, patch_source, static_checks
 
 GOOD = ('@Test\npublic void testTotals() {\n    ShoppingCart cart = new ShoppingCart();\n'
@@ -78,3 +80,39 @@ def test_removing_duplicate_or_redundant_assertions_is_allowed():
     # dropping a real (non-duplicate) assertion is still rejected, and so is ending with none at all
     assert not static_checks(dup, '@Test\nvoid t() { assertEquals(1, a()); }')[0]
     assert not static_checks('@Test\nvoid t() { assertEquals(x, x); }', '@Test\nvoid t() { }')[0]
+
+
+class FakePit:
+    """Records the test file content PIT 'sees'; original method -> 5 kills, refactored -> its own names."""
+
+    def __init__(self, test_file):
+        self.test_file, self.seen = test_file, []
+
+    def run(self, module_dir, fqn, targets, project=""):
+        src = Path(self.test_file).read_text()
+        self.seen.append(src)
+        names = [t["name"] for t in extract_test_methods(src)]
+        return {n: {("demo.ShoppingCart", "total", str(i), "M", "0") for i in range(5)} for n in names}
+
+
+def test_baseline_kill_matrix_comes_from_the_unmodified_class(demo, tmp_path):
+    f = demo / DEMO_TEST
+    before = f.read_text()
+    pit = FakePit(f)
+    split = GOOD.replace("testTotals()", "testTotals_Total()")      # a split renames the method
+    v = Verifier(FakeMaven(), pit=pit, pit_cache=tmp_path / "pit")
+    rep = v.verify(ref(demo), find_method(before, "testTotals")["text"], split, [], ["AssertionRoulette"])
+    assert "testTotals_Total" not in pit.seen[0]                      # first PIT run = original class
+    assert "testTotals_Total" in pit.seen[1]                          # second = refactored class
+    assert rep.mutants_killed_before == 5 and rep.killset_preserved is True
+
+
+def test_empty_baseline_killset_is_unknown_not_preserved(demo, tmp_path):
+    f = demo / DEMO_TEST
+    class NoKills(FakePit):
+        def run(self, *a, **k):
+            super().run(*a, **k)
+            return {}
+    v = Verifier(FakeMaven(), pit=NoKills(f), pit_cache=tmp_path / "pit")
+    rep = v.verify(ref(demo), find_method(f.read_text(), "testTotals")["text"], GOOD, [], ["AssertionRoulette"])
+    assert rep.killset_preserved is None and rep.mutants_killed_before == 0 and rep.ok
