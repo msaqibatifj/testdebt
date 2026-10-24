@@ -7,7 +7,8 @@
           1 attempt, accepted if it compiles and passes  (as in [1])
   b1      fixed pipeline: KB prompt, verify (compile, run, targeted smells gone, kill-set if PIT is on);
           on failure ONE fixed retry prompt carrying the error text, up to 2 retries, then rejected
-  b2, s3  Phase 2 (single tool-using agent; multi-agent with Supervisor) - same interface
+  s3      multi-agent system with Supervisor: see agents.py (Phase 1 skeleton)
+  b2      Phase 2 (single tool-using agent) - same interface
 """
 from __future__ import annotations
 
@@ -51,8 +52,10 @@ class Pipeline:
     def __init__(self, llm, verifier: Verifier, kb: KnowledgeBase, cfg: Config, run_dir: str | Path):
         if cfg.system not in SYSTEMS:
             raise ValueError(f"unknown system {cfg.system}; choose from {SYSTEMS}")
-        if cfg.system in ("b2", "s3"):
-            raise NotImplementedError(f"{cfg.system} is a Phase 2 deliverable (same interface as b1)")
+        if cfg.system == "b2":
+            raise NotImplementedError("b2 is a Phase 2 deliverable (same interface as b1)")
+        if cfg.system == "s3":
+            raise ValueError("s3 runs through testdebt.agents.Supervisor, not Pipeline")
         if cfg.system in ("b0", "b1") and not kb.available():
             raise RuntimeError("UTRefactor knowledge base not found: run scripts/setup_projects.sh (clones it to data/utrefactor)")
         self.llm, self.verifier, self.kb, self.cfg = llm, verifier, kb, cfg
@@ -114,7 +117,8 @@ class Pipeline:
                 accepted = rep.sane and rep.compiled is not False and rep.passed is not False
             st.reports.append(rep)
             if accepted:
-                st.decision, st.reason = "accepted", f"passed all checks on attempt {n + 1}"
+                st.decision, st.reason = "accepted", (f"passed all checks on attempt {n + 1}" if rep.compiled is not None
+                                                      else f"passed static checks on attempt {n + 1} (NOT compiled/run: --skip-verify)")
                 break
             st.decision, st.reason = "rejected", f"failed at {_stage(rep)}: {rep.problem[:300]}"
             if tokens >= self.cfg.token_cap_per_test:

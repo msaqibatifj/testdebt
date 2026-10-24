@@ -67,7 +67,7 @@ class VerificationReport:
 class RunState:
     """One record per test per system per seed: the unit of every metric."""
     run_id: str
-    system: str                       # "detect" | "single" | "b1"
+    system: str                       # "single" | "b0replay" | "b0" | "b1" | "s3" (b2 in Phase 2)
     seed: int
     test: TestRef
     finding: DebtFinding
@@ -76,6 +76,7 @@ class RunState:
     decision: Decision = "skipped"
     reason: str = ""
     wall_time_s: float = 0.0
+    trace: list[dict] = field(default_factory=list)   # S3 only: one entry per agent step (who, action, note)
 
     @property
     def final(self) -> VerificationReport | None:
