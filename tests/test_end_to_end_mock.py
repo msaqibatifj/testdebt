@@ -55,6 +55,8 @@ def test_skip_when_original_class_fails(demo, kb, tmp_path):
 
 def test_phase2_systems_are_explicitly_not_implemented(kb, tmp_path):
     with pytest.raises(NotImplementedError):
+        Pipeline(FakeLLM([]), Verifier(None), kb, Config(system="b2"), tmp_path / "r")
+    with pytest.raises(ValueError):                                 # s3 has its own runner (agents.Supervisor)
         Pipeline(FakeLLM([]), Verifier(None), kb, Config(system="s3"), tmp_path / "r")
 
 
@@ -63,3 +65,13 @@ def test_metrics_from_state(demo, kb, tmp_path):
     rep = metrics.report(metrics.load(p.state_file))
     o = rep["overall"]
     assert o["tests"] == 1 and o["accepted_rate"] == 100.0 and o["smell_reduction_tsdetect"] == 100.0
+
+
+def test_skip_verify_is_not_reported_as_acceptance(demo, kb, tmp_path):
+    t = TestRef("demo", str(demo), str(demo / DEMO_TEST), "ShoppingCartTest", "testTotals")
+    p = Pipeline(FakeLLM([f"```java\n{GOOD}\n```"]), Verifier(None, run_tests=False), kb, Config(system="b0"),
+                 tmp_path / "rs")
+    st = p.process(t, DebtFinding(t, ["AssertionRoulette"]))
+    assert "NOT compiled" in st.reason
+    o = metrics.report(metrics.load(p.state_file))["overall"]
+    assert o["verified"] is False and o["accepted_rate"] is None and o["accepted_unverified"] == 1

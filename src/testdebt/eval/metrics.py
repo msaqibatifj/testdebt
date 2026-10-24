@@ -51,8 +51,13 @@ def summarize(recs: list[dict]) -> dict:
     tokens = sum(r["tokens"] for r in recs)
     safe = sum(1 for r, f in zip(recs, final) if r["decision"] == "accepted" and f.get("killset_preserved") is True
                and not (set(r["finding"]["smells"]) & set(f.get("smells_after", []))))
+    # With --skip-verify nothing is compiled or run, so "accepted" only means "passed the static checks".
+    # Report it as unverified instead of as an acceptance rate.
+    verified = not any(r["decision"] == "accepted" and f.get("compiled") is None for r, f in zip(recs, final))
     return {
-        "tests": n, "accepted": accepted, "accepted_rate": _rate(accepted, n),
+        "tests": n, "verified": verified,
+        "accepted": accepted if verified else None, "accepted_rate": _rate(accepted, n) if verified else None,
+        "accepted_unverified": None if verified else accepted,
         "static_ok_rate": _rate(sane, n),
         "compile_rate": _rate(compiled, n) if any(f.get("compiled") is not None for f in final) else None,
         "pass_rate": _rate(passed, n) if any(f.get("passed") is not None for f in final) else None,
@@ -63,7 +68,7 @@ def summarize(recs: list[dict]) -> dict:
         "accepted_safe": safe if ks else None, "accepted_safe_rate": _rate(safe, n) if ks else None,
         "retried": sum(1 for r in recs if r["retries"] > 0),
         "tokens_total": tokens, "tokens_per_test": round(tokens / n) if n else 0,
-        "tokens_per_accepted": round(tokens / accepted) if accepted else None,
+        "tokens_per_accepted": round(tokens / accepted) if accepted and verified else None,
         "wall_time_s": round(sum(r["wall_time_s"] for r in recs), 1),
         "multi_smell_tests": sum(1 for r in recs if len(r["finding"]["smells"]) > 1),
     }

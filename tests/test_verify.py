@@ -68,3 +68,13 @@ def test_parameterized_rewrite_is_not_assertion_loss():
     imps = missing_param_imports("import org.junit.jupiter.api.Test;", new)
     assert "import org.junit.jupiter.params.ParameterizedTest;" in imps
     assert "import org.junit.jupiter.params.provider.CsvSource;" in imps
+
+
+def test_removing_duplicate_or_redundant_assertions_is_allowed():
+    dup = '@Test\nvoid t() { assertEquals(1, a()); assertEquals(1, a()); assertTrue(b()); }'
+    assert static_checks(dup, '@Test\nvoid t() { assertEquals("a", 1, a()); assertTrue("b", b()); }')[0]
+    red = '@Test\nvoid t() { assertEquals(x, x); assertTrue(b()); }'
+    assert static_checks(red, '@Test\nvoid t() { assertTrue("b", b()); }')[0]
+    # dropping a real (non-duplicate) assertion is still rejected, and so is ending with none at all
+    assert not static_checks(dup, '@Test\nvoid t() { assertEquals(1, a()); }')[0]
+    assert not static_checks('@Test\nvoid t() { assertEquals(x, x); }', '@Test\nvoid t() { }')[0]
