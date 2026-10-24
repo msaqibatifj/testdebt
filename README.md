@@ -14,7 +14,8 @@ mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
 | `b0` | UTRefactor reproduction: KB prompt (smell definition, DSL rule, checkpoints), 1 pass, accepted if it compiles and passes | working |
 | `b1` | Fixed pipeline: KB prompt, then verify. One fixed retry prompt carries the error text, up to 2 retries, then reject | working |
 | `single` | Plain prompt with no KB (the "direct LLM" reference in [1]) | working |
-| `b2`, `s3` | Single tool-using agent; multi-agent system with Supervisor | Phase 2 (raise `NotImplementedError`) |
+| `s3` | Multi-agent system: Detection, Planner, Refactor and Verifier agents under a Supervisor (accept, retry, switch strategy, escalate; memory of failed proposals) | Phase 1 skeleton (`agents.py`), tested with a fake LLM |
+| `b2` | Single tool-using agent | Phase 2 (raises `NotImplementedError`) |
 
 ## Status (Phase 1)
 
@@ -30,7 +31,8 @@ mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
 | Verifier: patch, checks, smells, compile, run, kill-set, always restore | done, tested with real `javac` |
 | Pipelines `b0replay`, `b0`, `b1`, `single`; resumable runs; metrics and decision report | done |
 | First results | `docs/results_phase1.md`: b0replay on Commons-cli, b0 LLM pilot, Gson error analysis |
-| JNose, JaCoCo, B2, S3 | Phase 2 |
+| S3 Supervisor loop (`agents.py`), decisions logged per step in `RunState.trace` | skeleton working (mock end-to-end tests) |
+| JNose, JaCoCo, B2, LLM-based planning in S3 | Phase 2 |
 
 ## Quick start (WSL / Ubuntu)
 
@@ -40,10 +42,11 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 27 tests (2 optional ones skip), no network or Java needed
+python3 -m pytest -q                        # 34 tests (2-3 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
+bash scripts/phase1_pilots.sh               # PIT pilot + b0replay/single/b0/b1/s3 on 10 Commons-cli tests -> results/phase1/
 ```
 
 ### Runs
@@ -55,6 +58,8 @@ python3 -m testdebt.eval.run_baseline --system b0replay --eval data/eval_set.jso
 python3 -m testdebt.eval.run_baseline --system b0 --eval data/eval_set.jsonl --limit 10 --skip-verify
 # full baselines on the 150-test stratified subset, 3 seeds
 for s in 1 2 3; do python3 -m testdebt.eval.run_baseline --system b1 --eval data/eval_subset150.jsonl --seed $s; done
+# multi-agent system (S3)
+python3 -m testdebt.eval.run_baseline --system s3 --eval data/eval_set.jsonl --project commons-cli --limit 10
 # recompute metrics for a run
 python3 -m testdebt.eval.run_baseline --report runs/<run_id>
 ```
@@ -72,13 +77,18 @@ Each run writes these files to `runs/<run_id>/`:
 - `report.json`
 - `report.md`
 
-Re-running with the same `--run-id` resumes the run.
+Re-running with the same `--run-id` resumes the run. `runs/` is not committed; the runs quoted in the docs are
+copied to `results/phase1/<run_id>/` (report, decisions, config).
+
+With `--skip-verify` nothing is compiled or run. The report then shows `accepted_rate` as `-` and counts
+`accepted_unverified` instead, so a static-only run is never mistaken for an acceptance rate.
 
 ## Initial results (Phase 1)
 
 | Run | Tests | Accepted | Compiles | Passes | Smell reduction (tsDetect) | Tokens/test |
 |---|---|---|---|---|---|---|
 | b0replay, Commons-cli (UTRefactor's published outputs) | 77 | 84.4% | 87.0% | 84.4% | 86.4% (paper: 86%) | 0 |
+| b0replay, all 3 projects, static only (`results/phase1/b0replay_all_skipverify`) | 483 | - | - | - | 59.9% | 0 |
 | b0, Commons-cli pilot (gpt-oss-120b) | 10 | 90% | 100% | 90% | 100% | 2,462 |
 
 Details, Gson analysis and caveats: `docs/results_phase1.md`.
@@ -96,7 +106,8 @@ src/testdebt/
   tools/tsdetect.py   method-level tsDetect (jar from the UTRefactor package)
   tools/pit.py        PIT via pom.pit.xml copy, full kill matrix, kill-set comparison
   verify.py           patch -> checks -> smells -> compile/run -> kill-set -> restore
-  pipeline.py         control flow of b0replay / b0 / b1 / single (b2, s3 in Phase 2)
+  pipeline.py         control flow of b0replay / b0 / b1 / single (b2 in Phase 2)
+  agents.py           S3: Detection, Planner, Refactor, Verifier agents + Supervisor
   eval/utr_dataset.py read UTRefactor reports, pin commits
   eval/build_eval_set.py  eval_set.jsonl + stratified seeded subset
   eval/metrics.py     rates, smell reduction by project and smell, kill-set loss with 95% CI, paper delta
@@ -107,11 +118,13 @@ data/eval_set*.jsonl  built by setup_projects.sh (not committed: contains UTRefa
 data/samples/demo/    tiny Maven project used by the tests
 docs/architecture.png methodology diagram (python3 scripts/make_diagram.py)
 docs/results_phase1.md
+results/phase1/       committed reports of the runs quoted in the docs
+scripts/phase1_pilots.sh  PIT pilot + LLM pilots, copies reports to results/phase1/
 ```
 
 ## Known limitations / to verify
 
-- PIT has not run on a real project yet. Check the plugin version in `tools/pit.py` and confirm that
+- PIT has not run on a real project yet: `bash scripts/phase1_pilots.sh pit` runs it on 5 Commons-cli tests and fails loudly if no kill-sets come back. Check the plugin version in `tools/pit.py` and confirm that
   `fullMutationMatrix` fills `killingTests` in the pilot (proposal section 9.12).
 - The pinned Gson build requires JDK 11 to 17, and old Jsoup needs JDK 19 or lower (`-source 1.7`). `data/pins.json`
   points all three projects at JDK 17.

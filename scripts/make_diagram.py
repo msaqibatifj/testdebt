@@ -49,7 +49,7 @@ def main():
     box(ax, 10.1, 5.9, 2.6, 0.85, "B2 single tool-using agent\n(state-machine guard)\n[Phase 2]", "base")
 
     # proposed system
-    ax.text(2.9, 4.95, "S3 (Phase 2): agents share one state record per test", fontsize=8.5, color=MUTED)
+    ax.text(2.9, 4.95, "S3 (Phase 1 skeleton in agents.py; JNose + LLM planning in Phase 2): agents share one state record per test", fontsize=8.5, color=MUTED)
     box(ax, 2.9, 3.6, 1.9, 1.0, "Detection agent\ntsDetect + JNose", "agent")
     box(ax, 5.1, 3.6, 1.9, 1.0, "Planner agent\nDSL rule per smell,\nsplit plan", "agent")
     box(ax, 7.3, 3.6, 1.9, 1.0, "Refactor agent\nLLM (gpt-oss-120b)", "agent")

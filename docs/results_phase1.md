@@ -32,25 +32,34 @@ tsDetect is run with the jar from the UTRefactor package, once per test method (
 ## 3. B0-replay: UTRefactor's own published refactorings, measured by our verifier (no LLM calls)
 
 Run: `python3 -m testdebt.eval.run_baseline --system b0replay --eval data/eval_set.jsonl --skip-verify`
+Artifacts: `results/phase1/b0replay_all_skipverify/` (re-run 2026-10-24 with the current code).
 
-| Project | Tests | Usable code | Smell reduction (tsDetect, rule i) | Paper (Table 5) | Within 5 points? |
+| Project | Tests | Passes static checks | Smell reduction (tsDetect, rule i) | Paper (Table 5) | Within 5 points? |
 |---|---|---|---|---|---|
-| Commons-cli | 77 | 97.4% | 84.0% | 86% | yes |
-| Gson | 238 | 97.9% | 57.4% | 89% | no (-31.6) |
-| Jsoup | 168 | 97.6% | 53.0% | 91% | no (-38.0) |
-| All | 483 | 97.7% | 58.9% | | |
+| Commons-cli | 77 | 98.7% | 86.4% (108/125) | 86% | yes |
+| Gson | 238 | 99.2% | 58.4% (336/575) | 89% | no (-30.6) |
+| Jsoup | 168 | 99.4% | 53.5% | 91% | no (-37.5) |
+| All | 483 | 99.2% | 59.9% | | |
+
+This is a static-only run (`--skip-verify`): nothing is compiled or run, so it gives no acceptance rate.
+An earlier version of this table (84.0% for Commons-cli) came from an older build of the verifier. The current code gives
+86.4% both here and in the full compile-and-run run below, so the two runs now agree.
+The 5 tests that fail the static checks: 3 published outputs with unbalanced braces, 1 with no published output
+(`ElementTest#testThrowsOnAddNullText`), and `testnstantiableEquals`, whose published "refactoring" comments out
+its only assertion and leaves an empty test.
 
 Per smell, all projects:
 
 | Smell | Targeted | Removed | % |
 |---|---|---|---|
-| EagerTest | 337 | 105 | 31.2 |
-| AssertionRoulette | 305 | 196 | 64.3 |
+| EagerTest | 343 | 109 | 31.8 |
+| AssertionRoulette | 310 | 196 | 63.2 |
 | ExceptionHandling | 222 | 202 | 91.0 |
 | SensitiveEquality | 79 | 64 | 81.0 |
-| MagicNumberTest | 53 | 28 | 52.8 |
-| DuplicateAssert | 39 | 30 | 76.9 |
+| MagicNumberTest | 54 | 29 | 53.7 |
+| DuplicateAssert | 45 | 35 | 77.8 |
 | ConditionalTestLogic | 10 | 8 | 80.0 |
+| MysteryGuest / ResourceOptimism / RedundantAssertion | 4 / 4 / 4 | 0 / 2 / 4 | |
 
 How to read this: on Commons-cli, our measurement agrees with the paper, which checks our pipeline. On Gson and Jsoup
 it does not. The gap comes mostly from:
@@ -91,7 +100,7 @@ fixed its imports by hand: our verifier adds missing JUnit imports automatically
 | System | Tests | Accepted % | Compile % | Pass % | Reduction % | Tokens/test |
 |---|---|---|---|---|---|---|
 | b0 (gpt-oss-120b), pilot: first 10 Commons-cli tests | 10 | 90 | 100 | 90 | 100 (19/19) | 2,462 |
-| b1 (gpt-oss-120b) | Phase 2 | | | | | |
+| b1, single, s3 (gpt-oss-120b) | same 10 tests: run `bash scripts/phase1_pilots.sh llm`, results go to `results/phase1/` | | | | | |
 
 On the same 10 tests, UTRefactor's published outputs (b0replay) also get 9/10 accepted. The rejected test differs:
 the published `testLongOptionQuoteHandlingWithoutStrip` does not compile. Our b0 `testDeprecated` compiles but fails an

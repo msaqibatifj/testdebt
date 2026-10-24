@@ -4,6 +4,7 @@
   python3 -m testdebt.eval.run_baseline --system b0 --eval data/eval_set.jsonl --limit 10
   python3 -m testdebt.eval.run_baseline --system b1 --eval data/eval_subset150.jsonl --seed 2 --pit
   python3 -m testdebt.eval.run_baseline --system b0 --eval data/eval_set.jsonl --limit 20 --skip-verify   # LLM-only pilot
+  python3 -m testdebt.eval.run_baseline --system s3 --eval data/eval_set.jsonl --project commons-cli --limit 10
   python3 -m testdebt.eval.run_baseline --report runs/<run_id>                                             # metrics only
 
 A run is resumable: re-running with the same --run-id skips tests already in state.jsonl.
@@ -84,7 +85,12 @@ def main() -> None:
     maven = None if a.skip_verify else runner_cls(mvn=paths.get("mvn", "mvn"), java_homes=java_homes)
     pit = PitRunner(mvn=paths.get("mvn", "mvn"), env=maven.env) if a.pit and maven else None
     verifier = Verifier(maven, tsd, pit, run_tests=not a.skip_verify)
-    pipe = Pipeline(llm, verifier, KnowledgeBase(paths.get("utrefactor", "data/utrefactor")), cfg, run_dir)
+    kb = KnowledgeBase(paths.get("utrefactor", "data/utrefactor"))
+    if cfg.system == "s3":
+        from ..agents import Supervisor
+        pipe = Supervisor(llm, verifier, kb, cfg, run_dir, max_attempts=1 + cfg.max_retries)
+    else:
+        pipe = Pipeline(llm, verifier, kb, cfg, run_dir)
     (run_dir / "config.json").write_text(json.dumps({"config": asdict(cfg), "model": llm.model, "eval": a.eval,
                                                      "skip_verify": a.skip_verify, "pit": a.pit}, indent=2))
 

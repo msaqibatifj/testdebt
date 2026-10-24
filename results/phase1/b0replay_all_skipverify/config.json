@@ -1,0 +1,15 @@
+{
+  "config": {
+    "system": "b0replay",
+    "max_retries": 2,
+    "max_tokens_per_call": 8000,
+    "token_cap_per_test": 60000,
+    "temperature": 0.7,
+    "seed": 1,
+    "require_smells_removed": true
+  },
+  "model": "gpt-oss-120b",
+  "eval": "data/eval_set.jsonl",
+  "skip_verify": true,
+  "pit": false
+}

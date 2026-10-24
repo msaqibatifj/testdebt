@@ -1,0 +1,6924 @@
+[
+  {
+    "test": "commons-cli:ArgumentIsOptionTest#testOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ArgumentIsOptionTest#testOptionAndOptionWithArgument",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ArgumentIsOptionTest#testOptionWithArgument",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testDeprecated",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testLongOptionQuoteHandlingWithoutStrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testLongOptionQuoteHandlingWithStrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testLongOptionWithEqualsQuoteHandling",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testLongOptionWithEqualsQuoteHandlingWithoutStrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testLongOptionWithEqualsQuoteHandlingWithStrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testShortOptionConcatenatedQuoteHandling",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testShortOptionQuoteHandlingWithoutStrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testShortOptionQuoteHandlingWithStrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testAccessors",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testAutomaticUsage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "DuplicateAssert",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testDefaultArgName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testFindWrapPos",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "DuplicateAssert",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testHeaderStartingWithLineSeparator0",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testHelpWithLongOptSeparator",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testIndentedHeaderAndFooter",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testOptionWithoutShortFormat",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testOptionWithoutShortFormat2",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintHelpNewlineFooter",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintHelpNewlineHeader",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintHelpWithEmptySyntax",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintHelpWithSince",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintOptionGroupUsage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintOptionWithEmptyArgNameUsage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintRequiredOptionGroupUsage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintSortedUsage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintSortedUsageWithNullComparator",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testPrintUsage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderSince",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextMultiLine",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextMultiLinePadded",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextSingleLine",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "ExceptionHandling",
+      "LazyTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextSingleLinePadded",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextSingleLinePadded2",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextWordCut",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRtrim",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testUsageWithLongOptSeparator",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testNoOptionsExtraArgs",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testSingleLongOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testSingleOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testSingleOptionFromGroup",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testTwoLongOptionsFromGroup",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testTwoOptionsFromDifferentGroup",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testTwoOptionsFromGroup",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testTwoOptionsFromGroupWithProperties",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testTwoValidLongOptions",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testTwoValidOptions",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:OptionGroupTest#testValidLongOnlyOptions",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testClassPattern",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testExistingFilePattern",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testExistingFilePatternFileNotExist",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testNumberPattern",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testObjectPattern",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testRequiredOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testUntypedPattern",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:PatternOptionBuilderTest#testURLPattern",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:SolrCliTest#testOptions",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testCreateClass",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testCreateFile",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "MysteryGuest",
+      "ResourceOptimism",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "ConditionalTestLogic",
+      "MysteryGuest",
+      "ResourceOptimism"
+    ]
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testCreateNumber",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testCreateObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testCreateURL",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testCreateValueExistingFile",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testnstantiableEquals",
+    "decision": "rejected",
+    "reason": "failed at static check: assertions dropped: 1 -> 0",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "RedundantAssertion"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:TypeHandlerTest#testRegister",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "commons-cli:UnrecognizedOptionExceptionTest#testConstructor",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "commons-cli:ValueTest#testLongNoArg",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ValueTest#testLongNoArgWithOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ValueTest#testLongWithArg",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "commons-cli:ValueTest#testLongWithArgWithOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "commons-cli:ValueTest#testShortNoArg",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ValueTest#testShortNoArgWithOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ValueTest#testShortWithArg",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ValueTest#testShortWithArgWithOption",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "gson:LongSerializationPolicyTest#testDefaultLongSerialization",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:LongSerializationPolicyTest#testDefaultLongSerializationIntegration",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:LongSerializationPolicyTest#testDefaultLongSerializationNull",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:LongSerializationPolicyTest#testStringLongSerialization",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:LongSerializationPolicyTest#testStringLongSerializationIntegration",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:LongSerializationPolicyTest#testStringLongSerializationNull",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:StreamsTest#testWriterForAppendable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:UnsafeAllocatorInstantiationTest#testInterfaceInstantiation",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:UnsafeAllocatorInstantiationTest#testAbstractClassInstantiation",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:UnsafeAllocatorInstantiationTest#testConcreteClassInstantiation",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:VersionExclusionStrategyTest#testSameVersion",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:VersionExclusionStrategyTest#testNewerVersion",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:VersionExclusionStrategyTest#testOlderVersion",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:GsonTest#testOverridesDefaultExcluder",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:GsonTest#testGetAdapter_Null",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:GsonTest#testGetAdapter_Concurrency",
+    "decision": "rejected",
+    "reason": "failed at static check: unbalanced braces or parentheses",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:GsonTest#testNewJsonWriter_Default",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:GsonTest#testNewJsonWriter_Custom",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:GsonTest#testNewJsonReader_Default",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:GsonTest#testNewJsonReader_Custom",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:GsonTest#testDefaultGsonNewBuilderModification",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:GsonTest#testNewBuilderModification",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JavaSerializationTest#testMapIsSerializable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JavaSerializationTest#testListIsSerializable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JavaSerializationTest#testNumberIsSerializable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testGet",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testSet",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testRemoveIndex",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testRemoveElement",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testClear",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testContains",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testIndexOf",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testEqualsHashCode",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonArrayAsListTest#testViewUpdates",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testAddingAndRemovingObjectProperties",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testAddingNullPropertyValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testAddingNullOrEmptyPropertyName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testAddingBooleanProperties",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testAddingStringProperties",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testAddingCharacterProperties",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testReadPropertyWithEmptyStringName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testEqualsOnEmptyObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "RedundantAssertion"
+    ],
+    "smells_after": [
+      "EmptyTest",
+      "UnknownTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testEqualsNonEmptyObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "UnknownTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testEqualsHashCodeIgnoringOrder",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testSize",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testIsEmpty",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testDeepCopy",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonObjectTest#testToString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testNulls",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testBoolean",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testParsingStringAsBoolean",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testParsingStringAsNumber",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testAsNumber_Boolean",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testExponential",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testByteEqualsShort",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testByteEqualsInteger",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testByteEqualsLong",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testByteEqualsBigInteger",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testShortEqualsInteger",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testShortEqualsLong",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testShortEqualsBigInteger",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testIntegerEqualsLong",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testIntegerEqualsBigInteger",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testLongEqualsBigInteger",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testFloatEqualsDouble",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testFloatEqualsBigDecimal",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testDoubleEqualsBigDecimal",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testEquals",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "RedundantAssertion"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testEqualsAcrossTypes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testEqualsDoesNotEquateStringAndNonStringTypes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testBigDecimalEquals",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testBigDecimalEqualsZero",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonPrimitiveTest#testBigDecimalEqualsTransitive",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipArrayElements",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipArrayEnd",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipObjectNames",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipObjectValues",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipObjectEnd",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipNestedStructures",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderPathTest#skipEndOfDocument",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSetLenientTrue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testSetLenientFalse",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testSetStrictness",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testEscapedNewlineNotAllowedInStrictMode",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testEscapedNewlineAllowedInDefaultMode",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictModeAllowsOtherControlCharacters",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testNonStrictModeParsesUnescapedControlCharacter",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testCapitalizedTrueFailWhenStrict",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testCapitalizedFalseFailWhenStrict",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testCapitalizedNullFailWhenStrict",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testReadEmptyArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testReadObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testReadEmptyObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testHasNextEndOfDocument",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipArrayAfterPeek",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipTopLevelObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipObjectAfterPeek",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipObjectName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipObjectNameSingleQuoted",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipObjectNameUnquoted",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipDouble",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testInvalidJsonInput",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testEmptyString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testEscapeCharacterQuoteInStrictMode",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testEscapeCharacterQuoteWithoutStrictMode",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testUnescapingInvalidCharacters",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testUnescapingTruncatedCharacters",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictNonFiniteDoubles",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictQuotedNonFiniteDoubles",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictNonFiniteDoublesWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLongs",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testNumberWithOctalPrefix",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testPeekingUnquotedStringsPrefixedWithBooleans",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testPeekingUnquotedStringsPrefixedWithIntegers",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testPeekLongMinValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testPeekLongMaxValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testLongLargerThanMaxLongThatWrapsAround",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLongLargerThanMinLongThatWrapsAround",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testNegativeZero",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testPeekMuchLargerThanLongMinValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testQuotedNumberWithEscape",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testMixedCaseLiterals",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testMissingValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testPrematureEndOfInput",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ExceptionHandling",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testPrematurelyClosed",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testIntegerMismatchFailuresDoNotAdvance",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStringNullIsNotNull",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testNullLiteralIsNotAString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientNameValueSeparator",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictNameValueSeparatorWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testCommentsInStringValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictUnquotedNames",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientUnquotedNames",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictUnquotedNamesWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSingleQuotedNames",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientSingleQuotedNames",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSingleQuotedNamesWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictUnquotedStrings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictUnquotedStringsWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientUnquotedStrings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSingleQuotedStrings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientSingleQuotedStrings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSingleQuotedStringsWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSemicolonDelimitedArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientSemicolonDelimitedArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSemicolonDelimitedArrayWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSemicolonDelimitedNameValuePair",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientSemicolonDelimitedNameValuePair",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictSemicolonDelimitedNameValuePairWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictUnnecessaryArraySeparators",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientUnnecessaryArraySeparators",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictUnnecessaryArraySeparatorsWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictMultipleTopLevelValues",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientMultipleTopLevelValues",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictMultipleTopLevelValuesWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testTopLevelValueTypeWithSkipValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientNonExecutePrefix",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientNonExecutePrefixWithLeadingWhitespace",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientPartialNonExecutePrefix",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testBomForbiddenAsOtherCharacterInDocument",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testFailWithPositionDeepPath",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictVeryLongNumber",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testNestingLimitDefault",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ConditionalTestLogic",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStringEndingInSlash",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testDocumentWithCommentEndingInSlash",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStringWithLeadingSlash",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testUnterminatedObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testVeryLongQuotedString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testVeryLongUnquotedString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testVeryLongUnterminatedString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipTopLevelUnquotedString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testSkipTopLevelQuotedString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStringAsNumberWithTruncatedExponent",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStringAsNumberWithDigitAndNonDigitExponent",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testStringAsNumberWithNonDigitExponent",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testEmptyStringName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testStrictExtraCommasInMaps",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testLenientExtraCommasInMaps",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testMalformedDocuments",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonReaderTest#testUnterminatedStringFailure",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonReaderTest#testReadAcrossBuffers",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ConditionalTestLogic",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonStreamParserTest#testParseTwoStrings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonStreamParserTest#testCallingNextBeyondAvailableInput",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "GeneralFixture"
+    ]
+  },
+  {
+    "test": "gson:JsonStreamParserTest#testIncompleteInput",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonStreamParserTest#testMalformedInput",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testDefaultStrictness",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testSetLenientTrue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testSetLenientFalse",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testSetStrictness",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testSetStrictnessNull",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testTopLevelValueTypes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNameInArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testTwoNames",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNameWithoutValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testValueWithoutName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testMultipleTopLevelValues",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testMultipleTopLevelValuesStrict",
+    "decision": "rejected",
+    "reason": "failed at static check: unbalanced braces or parentheses",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testMultipleTopLevelValuesLenient",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testBadNestingObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testBadNestingArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNullName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNullStringValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testJsonValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteFloats",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteFloatsWhenStrict",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteDoublesWhenStrict",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteNumbers",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteNumbersWhenStrict",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteFloatsWhenLenient",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteDoublesWhenLenient",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNonFiniteNumbersWhenLenient",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testFloats",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testDoubles",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testLongs",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testNumbers",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testMalformedNumbers",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ConditionalTestLogic",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ConditionalTestLogic",
+      "UnknownTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testBooleans",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testBoxedBooleans",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testNulls",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testStrings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testUnicodeLineBreaksEscaped",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testEmptyArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testEmptyObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testObjectsInArrays",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testArraysInObjects",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testDeepNestingArrays",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ConditionalTestLogic",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testDeepNestingObjects",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ConditionalTestLogic",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testRepeatedName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testPrettyPrintObject",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testPrettyPrintArray",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "gson:JsonWriterTest#testClosedWriterThrowsOnStructure",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "GeneralFixture"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testClosedWriterThrowsOnName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testClosedWriterThrowsOnValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testClosedWriterThrowsOnFlush",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testWriterCloseIsIdempotent",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "DuplicateAssert",
+      "EagerTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testSetGetFormattingStyle",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "gson:JsonWriterTest#testIndentOverwritesFormattingStyle",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#handlesBaseUri",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#setBaseUriIsRecursive",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#handlesAbsPrefix",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#handlesAbsOnImage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#handlesAbsPrefixOnHasAttr",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#literalAbsPrefix",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#handleAbsOnFileUris",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#handlesAbsOnProtocolessAbsoluteUris",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#absHandlesRelativeQuery",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#testRemove",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#testReplace",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#ownerDocument",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#root",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#before",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#after",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#unwrap",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#unwrapNoChildren",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#traverse",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#orphanNodeReturnsNullForSiblingElements",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:NodeTest#nodeIsNotASiblingOfItself",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#childNodesCopy",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:NodeTest#supportsClone",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:ParseTest#testSmhBizArticle",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling",
+      "MagicNumberTest",
+      "MysteryGuest",
+      "ResourceOptimism"
+    ],
+    "smells_after": [
+      "ConditionalTestLogic",
+      "ExceptionHandling",
+      "MysteryGuest"
+    ]
+  },
+  {
+    "test": "jsoup:ParseTest#testNewsHomepage",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling",
+      "MysteryGuest",
+      "ResourceOptimism"
+    ],
+    "smells_after": [
+      "ExceptionHandling",
+      "MysteryGuest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testBlank",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testTextBean",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "DuplicateAssert",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testSplitText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testSplitAnEmbolden",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:TextNodeTest#testLeadNodesHaveNoChildren",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:TextNodeTest#testSpaceNormalise",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "DuplicateAssert",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testClone",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testCloneAfterAttributesHit",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:TextNodeTest#testHasTextWhenIterating",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ConditionalTestLogic",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:AttributesTest#html",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "DuplicateAssert",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testIteratorRemovable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testIteratorHasNext",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ConditionalTestLogic",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "ConditionalTestLogic"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testIterator",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ConditionalTestLogic",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:AttributesTest#testIteratorSkipsInternal",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ConditionalTestLogic",
+      "DuplicateAssert",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "DuplicateAssert",
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testListSkipsInternal",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#htmlSkipsInternals",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:AttributesTest#testIteratorEmpty",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#removeCaseSensitive",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testSetKeyConsistency",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ConditionalTestLogic",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testBoolean",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributesTest#testSizeWhenHasInternal",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributeTest#html",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributeTest#testWithSupplementaryCharacterInAttributeKeyAndValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest",
+      "SensitiveEquality"
+    ]
+  },
+  {
+    "test": "jsoup:AttributeTest#booleanAttributesAreEmptyStringValues",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:AttributeTest#hasValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:CommentTest#testToString",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:CommentTest#testHtmlNoPretty",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:CommentTest#testClone",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "RedundantAssertion"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "GeneralFixture",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:CommentTest#isXmlDeclaration",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:ConnectTest#fetchURl",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#fetchURIWithWhitespace",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#doesPost",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#doesPostMultipartWithoutInputstream",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "jsoup:ConnectTest#sendsRequestBodyJsonWithData",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#sendsRequestBodyJsonWithoutData",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "ExceptionHandling"
+    ]
+  },
+  {
+    "test": "jsoup:ConnectTest#sendsRequestBody",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#sendsRequestBodyWithUrlParams",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#doesGet",
+    "decision": "rejected",
+    "reason": "failed at static check: unbalanced braces or parentheses",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#doesPut",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#multipleParsesOkAfterBufferUp",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ConnectTest#bodyAndBytesAvailableBeforeParse",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "GeneralFixture"
+    ]
+  },
+  {
+    "test": "jsoup:ConnectTest#multiCookieSet",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#setTextPreservesDocumentStructure",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testTitles",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "DuplicateAssert",
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testOutputEncoding",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testXhtmlReferences",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testClone",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testClonesDeclarations",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testLocation",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "MysteryGuest",
+      "ResourceOptimism"
+    ],
+    "smells_after": [
+      "ConditionalTestLogic",
+      "DuplicateAssert",
+      "GeneralFixture",
+      "LazyTest",
+      "MysteryGuest",
+      "ResourceOptimism"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testHtmlAndXmlSyntax",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#htmlParseDefaultsToHtmlOutputSyntax",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testHtmlAppendable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#DocumentsWithSameContentAreEqual",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling",
+      "RedundantAssertion"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#DocumentsWithSameContentAreVerifiable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateUtf8",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateIso8859",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateNoCharset",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateDisabled",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateEnabledAfterCharsetChange",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateCleanup",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateXmlUtf8",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateXmlIso8859",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateXmlNoCharset",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateXmlDisabled",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:DocumentTest#testMetaCharsetUpdateXmlDisabledNoChanges",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#testShiftJisRoundtrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTest#parseAndHtmlOnDifferentThreads",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTypeTest#outerHtmlGeneration",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:DocumentTypeTest#testRoundTrip",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#getElementsByTagName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#getNamespacedElementsByTag",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetElementById",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetChildText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testKeepsPreTextInCode",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testKeepsPreTextAtDepth",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testBrHasSpace",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testWholeText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetSiblings",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetSiblingsWithDuplicateContent",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetParents",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testElementSiblingIndex",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testElementSiblingIndexSameContent",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetElementsWithClass",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetElementsWithAttribute",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetElementsWithAttributeDash",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetElementsWithAttributeValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testClassDomMethods",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testHasClassDomMethods",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testClassUpdates",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:ElementTest#testInnerHtml",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testNotPretty",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testContainerOutput",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testSetText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testAddBooleanAttribute",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testAppendRowToTable",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testPrependElement",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testAddNewText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testPrependText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testThrowsOnAddNullText",
+    "decision": "skipped",
+    "reason": "no published UTRefactor output for this test",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": null
+  },
+  {
+    "test": "jsoup:ElementTest#testSetHtml",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testSetHtmlTitle",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testWrap",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#before",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#after",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testWrapWithRemainder",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testHasText",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testClone",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testTagNameSet",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testHtmlContainsOuter",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetTextNodes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testManipulateTextNodes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testGetDataNodes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#elementIsNotASiblingOfItself",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testChildThrowsIndexOutOfBoundsOnMissing",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "ExceptionHandling",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#moveByAppend",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#insertChildrenArgumentValidation",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "DuplicateAssert",
+      "EagerTest",
+      "ExceptionHandling"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#insertChildrenAtPosition",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#insertChildrenAsCopy",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testCssPath",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testHashAndEqualsAndValue",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest",
+      "RedundantAssertion"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testRelativeUrls",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testChainedRemoveAttributes",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:ElementTest#testIs",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "AssertionRoulette",
+      "EagerTest",
+      "LazyTest",
+      "MagicNumberTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#escape",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#escapedSupplementary",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#unescapeMultiChars",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#xhtml",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:EntitiesTest#getByName",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#escapeSupplementaryCharacter",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#unescape",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#strictUnescape",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#caseSensitive",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:EntitiesTest#letterDigitEntities",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "jsoup:EntitiesTest#escapesGtInXmlAttributesButNotInHtml",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:FormElementTest#hasAssociatedControls",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:FormElementTest#createsFormData",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:FormElementTest#formDataUsesFirstAttribute",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest",
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:FormElementTest#createsSubmitableConnection",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  },
+  {
+    "test": "jsoup:FormElementTest#actionWithNoBaseUri",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:FormElementTest#formsAddedAfterParseAreFormElements",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:FormElementTest#controlsAddedAfterParseAreLinkedWithForms",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest",
+      "SensitiveEquality"
+    ],
+    "smells_after": [
+      "EagerTest"
+    ]
+  },
+  {
+    "test": "jsoup:FormElementTest#usesOnForCheckboxValueIfNoValueSet",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:FormElementTest#adoptedFormsRetainInputs",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "MagicNumberTest"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "jsoup:FormElementTest#removeFormElement",
+    "decision": "accepted",
+    "reason": "passed static checks on attempt 1 (NOT compiled/run: --skip-verify)",
+    "retries": 0,
+    "tokens": 0,
+    "smells_before": [
+      "AssertionRoulette",
+      "EagerTest",
+      "MagicNumberTest"
+    ],
+    "smells_after": [
+      "LazyTest"
+    ]
+  }
+]
