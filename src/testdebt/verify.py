@@ -10,7 +10,7 @@ from pathlib import Path
 
 from .contracts import TestRef, VerificationReport
 from .java_utils import extract_test_methods, find_method, mask
-from .smells import analyze_code, count_assertions
+from .smells import analyze_code, count_assertions, removable_assertions
 from .tools import pit as pitmod
 from .tools.maven import MavenRunner
 from .tools.tsdetect import TsDetect, focal_class_file
@@ -92,8 +92,12 @@ def static_checks(original: str, block: str) -> tuple[bool, str, dict]:
     if not new_tests:
         return False, "no @Test method in the reply", info
     parameterized = re.search(r"@(ParameterizedTest|RunWith\s*\(\s*Parameterized)", block) is not None
-    if info["assertions_after"] < info["assertions_before"] and not parameterized:
-        # a data-driven rewrite legitimately has fewer assertion call sites; PIT's kill-set is the real check
+    dropped = info["assertions_before"] - info["assertions_after"]
+    # Allowed drops: a data-driven rewrite has fewer call sites (PIT's kill-set is the real check), and
+    # removing duplicate (DuplicateAssert) or redundant (RedundantAssertion) assertions is the intended fix.
+    # Never allowed: ending with no assertion at all.
+    allowed = parameterized or dropped <= removable_assertions(original)
+    if dropped > 0 and (not allowed or (info["assertions_before"] > 0 and info["assertions_after"] == 0)):
         return False, f"assertions dropped: {info['assertions_before']} -> {info['assertions_after']}", info
     return True, "", info
 

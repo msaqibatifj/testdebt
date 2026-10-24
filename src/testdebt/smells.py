@@ -54,6 +54,26 @@ def count_assertions(text: str) -> int:
     return len(_assertions(text, mask(text)))
 
 
+_SELF_TRUE = {("assertTrue", "true"), ("assertFalse", "false"), ("assertNull", "null")}
+
+
+def _is_redundant(name: str, args) -> bool:
+    """assertEquals(x, x) / assertSame(x, x) / assertTrue(true) ...: always passes whatever the code does."""
+    vals = [a[0] for a in args if not a[0].startswith('"')]          # drop a String-literal message
+    if name in ("assertEquals", "assertSame", "assertArrayEquals") and len(vals) >= 2:
+        return re.sub(r"\s+", "", vals[0]) == re.sub(r"\s+", "", vals[1])
+    return bool(vals) and (name, vals[0].strip()) in _SELF_TRUE
+
+
+def removable_assertions(text: str) -> int:
+    """How many assertion call sites a correct refactoring may legitimately delete:
+    extra copies of an identical assertion (DuplicateAssert) plus redundant ones (RedundantAssertion)."""
+    real = [a for a in _assertions(text, mask(text)) if a[0] != "fail"]
+    dup = sum(c - 1 for c in Counter(s for _, _, s in real).values())
+    red = sum(1 for n, args, _ in real if _is_redundant(n, args))
+    return dup + red
+
+
 def has_message(name: str, args) -> bool:
     if name == "assertThat":                       # Hamcrest: assertThat(reason, actual, matcher)
         return len(args) == 3
