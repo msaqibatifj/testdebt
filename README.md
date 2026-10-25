@@ -15,7 +15,7 @@ mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
 | `b1` | Fixed pipeline: KB prompt, then verify. One fixed retry prompt carries the error text, up to 2 retries, then reject | working |
 | `single` | Plain prompt with no KB (the "direct LLM" reference in [1]) | working |
 | `s3` | Multi-agent system: Detection, Planner (LLM-written JSON plan, KB rule fallback), Refactor and Verifier agents under an adaptive Supervisor (accept, retry, switch strategy, narrow targets, revert to the best attempt, escalate; memory of failed proposals within a test and of failed approaches across tests). `--policy fixed` and `--memory off` switch G6 parts off for the ablation | working (G6); G1/G2 components in progress |
-| `b2` | Single tool-using agent | Phase 2 (raises `NotImplementedError`) |
+| `b2` | Single tool-using agent: one LLM loop that picks its own tool each reply (`detect`, `compile_and_run`, `pit`, `submit`), same KB prompt, verifier and token cap as S3, no Supervisor policy. Isolates G6 | working |
 
 ## Status (Phase 1)
 
@@ -42,7 +42,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 52 tests (2-3 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 58 tests (2-3 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
@@ -56,6 +56,8 @@ bash scripts/phase1_pilots.sh               # PIT pilot + b0replay/single/b0/b1/
 python3 -m testdebt.cli --system b0replay --split all
 # tuning and debugging: dev split only (80 tests)
 python3 -m testdebt.cli --system s3 --split dev --seed 1
+# G6 comparison: a single tool-using agent with the same tools and cap
+python3 -m testdebt.cli --system b2 --split dev --seed 1
 # G6 ablations: B1's fixed retry script inside S3, or S3 without memory
 python3 -m testdebt.cli --system s3 --split dev --seed 1 --policy fixed
 python3 -m testdebt.cli --system s3 --split dev --seed 1 --memory off
@@ -82,6 +84,10 @@ Each run writes these files to `runs/<run_id>/`:
 - `trajectories/<test>.jsonl`: one event per agent step (LLM calls with prompt, reply and reasoning; tool calls with
   their output; decisions and state changes). Long texts are cut and kept whole in `blobs/`. Print one as a
   timeline with `python3 -m testdebt.trace runs/<run_id> '<project>:<Class>#<method>'`.
+
+Escalated S3 tests wait for a person: `python3 -m testdebt.review runs/<run_id>` shows each one (diff of the last
+attempt, why it failed, lost mutants) and records accept / reject / note in `escalations.jsonl`;
+`--list` shows the queue and `--summary` counts the decisions. Human decisions never change the automatic metrics.
 
 Re-running with the same `--run-id` resumes the run. A test that raised an exception (LLM, Maven, PIT, detector)
 is recorded with decision `error` and the run continues; resuming retries those tests. `runs/` is not committed; the runs quoted in the docs are
@@ -134,14 +140,15 @@ src/testdebt/
   tools/tsdetect.py   method-level tsDetect (jar from the UTRefactor package)
   tools/pit.py        PIT via pom.pit.xml copy, full kill matrix, kill-set comparison
   verify.py           patch -> checks -> smells -> compile/run -> kill-set -> restore
-  pipeline.py         control flow of b0replay / b0 / b1 / single (b2 in Phase 2)
-  agents/             S3: detection, planner, refactor agents, supervisor policy, cross-test memory
+  pipeline.py         control flow of b0replay / b0 / b1 / single
+  agents/             S3: detection, planner, refactor agents, supervisor policy, cross-test memory; b2.py
                       (the Verifier agent is verify.py)
   data/utr_dataset.py read UTRefactor reports, pin commits
   data/build_eval_set.py  eval_set.jsonl + stratified seeded subset
   data/splits.py      fixed dev/test/rest splits
   eval/metrics.py     rates, smell reduction by project and smell, kill-set loss with 95% CI, paper delta
   trace.py            trajectory writer (runs/<run>/trajectories/) and timeline viewer
+  review.py           human review queue for escalated tests (escalations.jsonl, reported separately)
   cli.py              CLI (eval/run_baseline.py is kept as an alias for the Phase 1 commands)
 configs/default.json  model, caps, retries, temperature, paths
 data/pins.json        pinned commits + JAVA_HOME per project

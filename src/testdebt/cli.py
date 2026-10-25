@@ -113,6 +113,9 @@ def main() -> None:
     if cfg.system == "s3":
         from .agents import Supervisor
         pipe = Supervisor(llm, verifier, kb, cfg, run_dir, max_attempts=1 + cfg.max_retries)
+    elif cfg.system == "b2":
+        from .agents import B2Agent
+        pipe = B2Agent(llm, verifier, kb, cfg, run_dir)
     else:
         pipe = Pipeline(llm, verifier, kb, cfg, run_dir)
     (run_dir / "config.json").write_text(json.dumps({"config": asdict(cfg), "model": llm.model, "eval": a.eval,

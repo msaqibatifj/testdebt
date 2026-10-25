@@ -140,7 +140,10 @@ class Verifier:
         return self._baseline[key]
 
     # ---- main entry ----
-    def verify(self, test: TestRef, original: str, block: str, imports: list[str], targeted: list[str]) -> VerificationReport:
+    def verify(self, test: TestRef, original: str, block: str, imports: list[str], targeted: list[str],
+               pit: bool = True) -> VerificationReport:
+        """pit=False skips mutation testing for this call (B2's compile_and_run tool)."""
+        use_pit = bool(pit and self.pit)
         sane, problem, info = static_checks(original, block)
         rep = VerificationReport(sane=sane, problem=problem, assertions_before=info["assertions_before"],
                                  assertions_after=info["assertions_after"])
@@ -163,7 +166,7 @@ class Verifier:
         # The baseline kill matrix MUST come from the unmodified class, so it is computed (or read from cache)
         # before the patch is written. Computing it lazily after the write measured the refactored code.
         before = (pitmod.kill_set(self.baseline_matrix(test), {test.method})
-                  if self.pit and self.run_tests and self.maven else None)
+                  if use_pit and self.run_tests and self.maven else None)
         try:
             path.write_text(patched, encoding="utf-8")
             if self.run_tests and self.maven:
@@ -173,11 +176,11 @@ class Verifier:
                     rep.problem = "compilation failed:\n" + r["log"]
                 elif not r["passed"]:
                     rep.problem = "test run failed:\n" + r["log"]
-            if self.pit and rep.compiled and rep.passed and not before:
+            if use_pit and rep.compiled and rep.passed and not before:
                 # empty baseline kill-set: nothing to preserve is NOT evidence of safety -> unknown, not preserved
                 # (counted as "killset_unknown" in metrics; not a rejection reason by itself)
                 rep.killset_preserved, rep.mutants_killed_before = None, 0
-            elif self.pit and rep.compiled and rep.passed:
+            elif use_pit and rep.compiled and rep.passed:
                 fqn, targets = self._pit_target(test, patched)
                 after_mat = self.pit.run(test.module_dir, fqn, targets, test.project)
                 cmp = pitmod.compare(before, pitmod.kill_set(after_mat, new_tests))

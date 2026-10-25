@@ -8,7 +8,8 @@
   b1      fixed pipeline: KB prompt, verify (compile, run, targeted smells gone, kill-set if PIT is on);
           on failure ONE fixed retry prompt carrying the error text, up to 2 retries, then rejected
   s3      multi-agent system with Supervisor: see agents.py (Phase 1 skeleton)
-  b2      Phase 2 (single tool-using agent) - same interface
+  b2      single tool-using agent: one LLM loop that calls detect / compile_and_run / pit / submit itself,
+          same KB prompt, tools and token cap (agents/b2.py); isolates G6 (agent deciding vs Supervisor policy)
 """
 from __future__ import annotations
 
@@ -36,6 +37,7 @@ class Config:
     seed: int = 1
     require_smells_removed: bool = True   # b1 gate
     policy: str = "adaptive"         # s3 only: "adaptive" (G6) | "fixed" (B1's retry script, the -G6 ablation)
+    max_steps: int = 6               # b2 only: LLM replies per test (tool calls + submit), under the same token cap
     memory: bool = True              # s3 only: cross-test memory + failed-proposal memory (off = -memory ablation)
 
 
@@ -55,10 +57,8 @@ class Pipeline:
     def __init__(self, llm, verifier: Verifier, kb: KnowledgeBase, cfg: Config, run_dir: str | Path):
         if cfg.system not in SYSTEMS:
             raise ValueError(f"unknown system {cfg.system}; choose from {SYSTEMS}")
-        if cfg.system == "b2":
-            raise NotImplementedError("b2 is a Phase 2 deliverable (same interface as b1)")
-        if cfg.system == "s3":
-            raise ValueError("s3 runs through testdebt.agents.Supervisor, not Pipeline")
+        if cfg.system in ("s3", "b2"):
+            raise ValueError(f"{cfg.system} runs through testdebt.agents (Supervisor / B2Agent), not Pipeline")
         if cfg.system in ("b0", "b1") and not kb.available():
             raise RuntimeError("UTRefactor knowledge base not found: run scripts/setup_projects.sh (clones it to data/utrefactor)")
         self.llm, self.verifier, self.kb, self.cfg = llm, verifier, kb, cfg

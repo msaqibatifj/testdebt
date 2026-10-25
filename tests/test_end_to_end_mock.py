@@ -53,11 +53,10 @@ def test_skip_when_original_class_fails(demo, kb, tmp_path):
     assert st.decision == "skipped" and not llm.prompts            # no tokens spent
 
 
-def test_phase2_systems_are_explicitly_not_implemented(kb, tmp_path):
-    with pytest.raises(NotImplementedError):
-        Pipeline(FakeLLM([]), Verifier(None), kb, Config(system="b2"), tmp_path / "r")
-    with pytest.raises(ValueError):                                 # s3 has its own runner (agents.Supervisor)
-        Pipeline(FakeLLM([]), Verifier(None), kb, Config(system="s3"), tmp_path / "r")
+def test_agent_systems_have_their_own_runners(kb, tmp_path):
+    for system in ("s3", "b2"):                                    # agents.Supervisor / agents.B2Agent
+        with pytest.raises(ValueError):
+            Pipeline(FakeLLM([]), Verifier(None), kb, Config(system=system), tmp_path / "r")
 
 
 def test_metrics_from_state(demo, kb, tmp_path):
