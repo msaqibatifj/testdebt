@@ -3,8 +3,14 @@
 Group: M Saqib Atif (23I-0769), Gulsher Khan (23I-0066), Hasan Altaf (23I-0698). Supervisor: Meemon Khan.
 
 Goal: refactor test smells in Java/JUnit projects. A refactoring is accepted only when tools show it is safe: it
-compiles, it passes, the targeted smells are gone (tsDetect, plus JNose later), and the test still kills every
+compiles, it passes, the targeted smells are gone (tsDetect, and JNose with G2), and the test still kills every
 mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
+
+![Architecture: baselines and the S3 multi-agent system](docs/architecture.png)
+
+Selected gaps: **G1** a refactoring must not weaken the test (kill-set gate), **G2** smell presence and removal
+confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervision instead of a fixed retry script
+(S3 vs B1 and B2). Each has a switch for the ablation.
 
 ## Systems (selected with `--system`, same model, KB, tools, caps and tests)
 
@@ -14,10 +20,10 @@ mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
 | `b0` | UTRefactor reproduction: KB prompt (smell definition, DSL rule, checkpoints), 1 pass, accepted if it compiles and passes | working |
 | `b1` | Fixed pipeline: KB prompt, then verify. One fixed retry prompt carries the error text, up to 2 retries, then reject | working |
 | `single` | Plain prompt with no KB (the "direct LLM" reference in [1]) | working |
-| `s3` | Multi-agent system: Detection, Planner (LLM-written JSON plan, KB rule fallback), Refactor and Verifier agents under an adaptive Supervisor (accept, retry, switch strategy, narrow targets, revert to the best attempt, escalate; memory of failed proposals within a test and of failed approaches across tests). `--policy fixed` and `--memory off` switch G6 parts off for the ablation | working (G6); G1/G2 components in progress |
+| `s3` | Multi-agent system: Detection, Planner (LLM-written JSON plan, KB rule fallback), Refactor and Verifier agents under an adaptive Supervisor (accept, retry, switch strategy, narrow targets, revert to the best attempt, escalate; memory of failed proposals within a test and of failed approaches across tests). `--policy fixed` and `--memory off` switch G6 parts off for the ablation | working (G6); G1 gate (`--killset-gate`) and G2 consensus (`--detector`) are built and being merged by their owners |
 | `b2` | Single tool-using agent: one LLM loop that picks its own tool each reply (`detect`, `compile_and_run`, `pit`, `submit`), same KB prompt, verifier and token cap as S3, no Supervisor policy. Isolates G6 | working |
 
-## Status (Phase 1)
+## Status
 
 | Component | State |
 |---|---|
@@ -31,8 +37,11 @@ mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
 | Verifier: patch, checks, smells, compile, run, kill-set, always restore | done, tested with real `javac` |
 | Pipelines `b0replay`, `b0`, `b1`, `single`; resumable runs; metrics and decision report | done |
 | First results | `docs/results_phase1.md`: b0replay on Commons-cli, b0 LLM pilot, Gson error analysis |
-| S3 Supervisor loop (`agents.py`), decisions logged per step in `RunState.trace` | skeleton working (mock end-to-end tests) |
-| JNose, JaCoCo, B2, LLM-based planning in S3 | Phase 2 |
+| S3: Detection, LLM Planner (schema fallback), Refactor, Verifier under the adaptive Supervisor; memory within and across tests | working (mock and real runs) |
+| B2 single tool-using agent; human review queue (`testdebt review`) | working |
+| Trajectories (one JSON event per step), per-test error capture, daily token cap, `testdebt` CLI | working |
+| G1 kill-set gate, G2 JNose + consensus, experiment runner E1-E6, statistics, CI | built; being merged by Gulsher (G1, runner, CI) and Hasan (G2, statistics, analysis) |
+| JaCoCo coverage | not implemented: the PIT kill-set is the test-strength measure |
 
 ## Quick start (WSL / Ubuntu)
 
@@ -42,7 +51,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 58 tests (2-3 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 65 tests (2 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
@@ -50,6 +59,10 @@ bash scripts/phase1_pilots.sh               # PIT pilot + b0replay/single/b0/b1/
 ```
 
 ### Runs
+
+After `pip install -e .` the `testdebt` command is available: `testdebt run <flags>` is the same as
+`python3 -m testdebt.cli <flags>` (the `run` may be left out), and `testdebt experiment`, `testdebt summarize`,
+`testdebt trace` and `testdebt review` reach the experiment runner, the trajectory viewer and the review queue.
 
 ```bash
 # no LLM: measure UTRefactor's own outputs on all 484 tests (add --pit for kill-sets; slow)
@@ -89,6 +102,11 @@ Escalated S3 tests wait for a person: `python3 -m testdebt.review runs/<run_id>`
 attempt, why it failed, lost mutants) and records accept / reject / note in `escalations.jsonl`;
 `--list` shows the queue and `--summary` counts the decisions. Human decisions never change the automatic metrics.
 
+Daily token budget: `llm.daily_token_cap` in `configs/default.json` (950,000, under the free tier's 1M tokens/day;
+0 turns it off) counts today's non-cached tokens from `runs/llm_calls.jsonl`. When it is reached the run stops with
+exit code 3 before the next LLM call; the test in progress is not recorded, so running the same command with the same
+`--run-id` the next day resumes from it.
+
 Re-running with the same `--run-id` resumes the run. A test that raised an exception (LLM, Maven, PIT, detector)
 is recorded with decision `error` and the run continues; resuming retries those tests. `runs/` is not committed; the runs quoted in the docs are
 copied to `results/phase1/<run_id>/` (report, decisions, config).
@@ -98,7 +116,7 @@ With `--skip-verify` nothing is compiled or run. The report then shows `accepted
 
 ### Data splits
 
-`data/splits/{dev,test,rest}.jsonl` hold test IDs only and were built once with
+`data/splits/{dev,test,rest}.jsonl` hold test IDs only and were built once (commit `0e1f7da`) with
 `python3 -m testdebt.data.splits --seed 1` (stratified by project x single/multi smell; dev seed 1, test seed 2).
 
 | Split | Tests | Commons-cli / Gson / Jsoup | Used for |
@@ -106,6 +124,14 @@ With `--skip-verify` nothing is compiled or run. The report then shows `accepted
 | `dev` | 80 | 13 / 39 / 28 | prompt, threshold and cap tuning, debugging, devlog measurements |
 | `test` | 150 | 24 / 74 / 52 | E1-E6 LLM runs (needs `--frozen`); never for design decisions |
 | `rest` | 254 | 40 / 125 / 89 | no-LLM runs only (b0replay, detector agreement) |
+
+## Gap-resolution table
+
+Generated from `results/` (`python3 -m testdebt.team.hasan.gap_table --readme README.md`); never typed by hand.
+
+<!-- gap-table -->
+_Filled after the E2-E4 test-split runs._
+<!-- /gap-table -->
 
 ## Changes since Phase 1
 
@@ -115,6 +141,8 @@ With `--skip-verify` nothing is compiled or run. The report then shows `accepted
 - Fixed dev/test/rest split added (see Data splits); Phase 1 pilot numbers came from the first 10 Commons-cli tests and are not reused as results.
 - 2026-10-25: `stratified()` allocates by largest remainder so a subset always has exactly n tests (rounding gave 79 for n=80); `data/eval_subset150.jsonl` is unchanged.
 - 2026-10-25: metrics add `smell_reduction_accepted` (rule i counted over accepted outputs only) and an `errors` count.
+- 2026-10-25: `testdebt` command with subcommands; daily token cap (`llm.daily_token_cap`) that stops a run cleanly so it resumes the next day.
+- 2026-10-25: JaCoCo coverage, listed as a Phase 2 tool in Phase 1, is not used; test strength is measured by the PIT kill-set only.
 - Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
 
 ## Initial results (Phase 1)
@@ -132,7 +160,7 @@ Details, Gson analysis and caveats: `docs/results_phase1.md`.
 ```
 src/testdebt/
   contracts.py        TestRef, DebtFinding, RefactorProposal, VerificationReport, RunState
-  llm_client.py       logged/cached/rate-limited chat client (.env aware)
+  llm_client.py       logged/cached/rate-limited chat client (.env aware), daily token cap
   java_utils.py       mask comments/strings, find/replace JUnit test methods, find module pom
   smells.py           fast rules detector (approximation, JUnit 4 + 5); final numbers come from tsDetect
   prompts.py          UTRefactor KB lookup + its prompt template, plain prompt, fixed retry prompt
@@ -149,7 +177,7 @@ src/testdebt/
   eval/metrics.py     rates, smell reduction by project and smell, kill-set loss with 95% CI, paper delta
   trace.py            trajectory writer (runs/<run>/trajectories/) and timeline viewer
   review.py           human review queue for escalated tests (escalations.jsonl, reported separately)
-  cli.py              CLI (eval/run_baseline.py is kept as an alias for the Phase 1 commands)
+  cli.py              `testdebt` CLI: run, experiment, summarize, trace, review (eval/run_baseline.py is kept as an alias)
 configs/default.json  model, caps, retries, temperature, paths
 data/pins.json        pinned commits + JAVA_HOME per project
 data/splits/          dev/test/rest test IDs (committed, never regenerated)

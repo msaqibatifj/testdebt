@@ -1,0 +1,59 @@
+[
+  {
+    "test": "commons-cli:UnrecognizedOptionExceptionTest#testConstructor",
+    "decision": "accepted",
+    "reason": "submitted and passed all checks on reply 1",
+    "retries": 0,
+    "tokens": 1396,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": [
+      "DuplicateAssert"
+    ]
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testHeaderStartingWithLineSeparator0",
+    "decision": "accepted",
+    "reason": "submitted and passed all checks on reply 1",
+    "retries": 0,
+    "tokens": 2345,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:HelpFormatterTest#testRenderWrappedTextMultiLine",
+    "decision": "accepted",
+    "reason": "submitted and passed all checks on reply 2",
+    "retries": 1,
+    "tokens": 4263,
+    "smells_before": [
+      "SensitiveEquality"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:DefaultParserTest#testShortOptionConcatenatedQuoteHandling",
+    "decision": "accepted",
+    "reason": "submitted and passed all checks on reply 1",
+    "retries": 0,
+    "tokens": 1894,
+    "smells_before": [
+      "ExceptionHandling"
+    ],
+    "smells_after": []
+  },
+  {
+    "test": "commons-cli:ValueTest#testShortNoArgWithOption",
+    "decision": "accepted",
+    "reason": "submitted and passed all checks on reply 2",
+    "retries": 1,
+    "tokens": 3208,
+    "smells_before": [
+      "AssertionRoulette"
+    ],
+    "smells_after": []
+  }
+]

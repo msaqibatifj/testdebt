@@ -1,0 +1,94 @@
+{
+  "overall": {
+    "tests": 5,
+    "verified": true,
+    "errors": 0,
+    "accepted": 5,
+    "accepted_rate": 100.0,
+    "accepted_unverified": null,
+    "static_ok_rate": 100.0,
+    "compile_rate": 100.0,
+    "pass_rate": 100.0,
+    "smell_reduction_tsdetect": 100.0,
+    "smells_targeted": 5,
+    "smells_removed": 5,
+    "smell_reduction_accepted": 100.0,
+    "smell_reduction_strict": 100.0,
+    "smell_reduction_strict_tests": 5,
+    "smell_reduction_manual": null,
+    "killset_checked": 5,
+    "killset_unknown": 0,
+    "accepted_losing_mutants": 0,
+    "accepted_losing_mutants_rate": 0.0,
+    "accepted_losing_mutants_ci95": [
+      -0.0,
+      43.4
+    ],
+    "accepted_safe": 5,
+    "accepted_safe_rate": 100.0,
+    "retried": 2,
+    "pit_calls": 8,
+    "tokens_total": 13106,
+    "tokens_per_test": 2621,
+    "tokens_per_accepted": 2621,
+    "wall_time_s": 560.0,
+    "multi_smell_tests": 0
+  },
+  "by_project": {
+    "commons-cli": {
+      "tests": 5,
+      "verified": true,
+      "errors": 0,
+      "accepted": 5,
+      "accepted_rate": 100.0,
+      "accepted_unverified": null,
+      "static_ok_rate": 100.0,
+      "compile_rate": 100.0,
+      "pass_rate": 100.0,
+      "smell_reduction_tsdetect": 100.0,
+      "smells_targeted": 5,
+      "smells_removed": 5,
+      "smell_reduction_accepted": 100.0,
+      "smell_reduction_strict": 100.0,
+      "smell_reduction_strict_tests": 5,
+      "smell_reduction_manual": null,
+      "killset_checked": 5,
+      "killset_unknown": 0,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": 0.0,
+      "accepted_losing_mutants_ci95": [
+        -0.0,
+        43.4
+      ],
+      "accepted_safe": 5,
+      "accepted_safe_rate": 100.0,
+      "retried": 2,
+      "pit_calls": 8,
+      "tokens_total": 13106,
+      "tokens_per_test": 2621,
+      "tokens_per_accepted": 2621,
+      "wall_time_s": 560.0,
+      "multi_smell_tests": 0,
+      "paper_reduction": 86.0,
+      "delta_vs_paper": 14.0,
+      "within_5_points": false
+    }
+  },
+  "by_smell": {
+    "AssertionRoulette": {
+      "targeted": 2,
+      "removed": 2,
+      "removed_pct": 100.0
+    },
+    "SensitiveEquality": {
+      "targeted": 2,
+      "removed": 2,
+      "removed_pct": 100.0
+    },
+    "ExceptionHandling": {
+      "targeted": 1,
+      "removed": 1,
+      "removed_pct": 100.0
+    }
+  }
+}
