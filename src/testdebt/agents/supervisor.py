@@ -24,12 +24,14 @@ from __future__ import annotations
 import hashlib
 import json
 import time
+from dataclasses import asdict
 from pathlib import Path
 
 from ..contracts import DebtFinding, RefactorProposal, RunState, TestRef, VerificationReport
 from ..java_utils import find_method
 from ..pipeline import Config, _stage
 from ..prompts import KnowledgeBase, build_context, parse_reply, retry_prompt
+from ..trace import Trace
 from ..verify import Verifier
 from .detection import DetectionAgent
 from .planner import PlannerAgent
@@ -53,18 +55,23 @@ class Supervisor:
         recs = [json.loads(l) for l in self.state_file.read_text(encoding="utf-8").splitlines() if l.strip()]
         return {r["test_id"] for r in recs if r["decision"] != "error"}   # errors are retried on resume
 
-    @staticmethod
-    def _log(st: RunState, who: str, action: str, note: str = "") -> None:
+    EVENT = {"detection": "tool_call", "verifier": "tool_call", "planner": "state_change", "supervisor": "decision"}
+
+    def _log(self, st: RunState, who: str, action: str, note: str = "", **fields) -> None:
+        """Compact step in RunState.trace; the full event (tool output, state) goes to the trajectory file."""
         st.trace.append({"agent": who, "action": action, "note": note[:300]})
+        self.tr.event(who, self.EVENT[who], action=action, note=note or None, **fields)
 
     def process(self, test: TestRef, finding: DebtFinding, replay: str | None = None) -> RunState:
         """Any exception (LLM, Maven, PIT, detector) is recorded as decision 'error' and the run continues."""
         t0 = time.monotonic()
         st = RunState(run_id=self.run_dir.name, system="s3", seed=self.cfg.seed, test=test, finding=finding)
+        self.tr = Trace(self.run_dir, test.id)
         try:
             return self._process(st, test, finding, replay, t0)
         except Exception as e:   # keeps the partial state: tokens already spent still count
             st.decision, st.reason = "error", f"{type(e).__name__}: {e}"[:300]
+            self.tr.event("supervisor", "error", output=st.reason)
             return self._save(st, t0)
 
     def _process(self, st: RunState, test: TestRef, finding: DebtFinding, replay: str | None, t0: float) -> RunState:
@@ -80,13 +87,15 @@ class Supervisor:
 
         original, context = m["text"], build_context(src, test.class_name)
         targets = self.detect.run(test, src, finding)
-        self._log(st, "detection", "smells", ",".join(targets))
+        self._log(st, "detection", "smells", ",".join(targets), tool="tsdetect", input=finding.smells, output=targets)
 
         strategy, failed, last_stage, tokens = "kb", set(), None, 0
         prompt = self.planner.prompt(strategy, original, context, targets)
-        self._log(st, "planner", "plan", f"strategy={strategy} targets={targets}")
+        self._log(st, "planner", "plan", f"strategy={strategy} targets={targets}",
+                  state_after={"strategy": strategy, "targets": targets})
         for n in range(self.max_attempts):
             reply, r = self.refactor.run(prompt, tag=f"s3:{test.id}:{n}")
+            self.tr.llm("refactor", prompt, r)
             u = r.get("usage", {})
             tokens += u.get("total_tokens", 0)
             block, imports = parse_reply(reply)
@@ -98,9 +107,12 @@ class Supervisor:
                 rep = VerificationReport(sane=False, problem="identical to an earlier rejected proposal")
                 self._log(st, "supervisor", "memory-hit", "proposal repeats a failed one")
             else:
+                tv = time.monotonic()
                 rep = self.verifier.verify(test, original, block, imports, finding.smells)
                 self._log(st, "verifier", "report", f"sane={rep.sane} compiled={rep.compiled} passed={rep.passed} "
-                                                    f"killset={rep.killset_preserved} smells_after={rep.smells_after}")
+                                                    f"killset={rep.killset_preserved} smells_after={rep.smells_after}",
+                          tool="verify", input={"attempt": n, "imports": imports}, output=asdict(rep),
+                          latency_s=round(time.monotonic() - tv, 3))
             st.reports.append(rep)
             left = sorted(set(targets) & set(rep.smells_after))
             if rep.ok and not left:
@@ -124,7 +136,8 @@ class Supervisor:
                     targets = left
                 base = self.planner.prompt(strategy, original, context, targets)
                 prompt = retry_prompt(base, stage, problem, block)
-                self._log(st, "supervisor", "switch", f"strategy={strategy} targets={targets}")
+                self._log(st, "supervisor", "switch", f"strategy={strategy} targets={targets}",
+                          state_after={"attempt": n + 1, "strategy": strategy, "targets": targets})
             else:
                 prompt = retry_prompt(self.planner.prompt(strategy, original, context, targets), stage, problem, block)
                 self._log(st, "supervisor", "retry", stage)
@@ -133,6 +146,7 @@ class Supervisor:
 
     def _save(self, st: RunState, t0: float) -> RunState:
         st.wall_time_s = round(time.monotonic() - t0, 2)
+        self.tr.event("supervisor", "state_change", state_after={"decision": st.decision, "reason": st.reason})
         with self.state_file.open("a", encoding="utf-8") as f:
             f.write(json.dumps(st.to_json(), ensure_ascii=False) + "\n")
         return st

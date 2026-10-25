@@ -42,7 +42,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 40 tests (2-3 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 43 tests (2-3 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
@@ -76,6 +76,9 @@ Each run writes these files to `runs/<run_id>/`:
 - `decisions.json`
 - `report.json`
 - `report.md`
+- `trajectories/<test>.jsonl`: one event per agent step (LLM calls with prompt, reply and reasoning; tool calls with
+  their output; decisions and state changes). Long texts are cut and kept whole in `blobs/`. Print one as a
+  timeline with `python3 -m testdebt.trace runs/<run_id> '<project>:<Class>#<method>'`.
 
 Re-running with the same `--run-id` resumes the run. A test that raised an exception (LLM, Maven, PIT, detector)
 is recorded with decision `error` and the run continues; resuming retries those tests. `runs/` is not committed; the runs quoted in the docs are
@@ -134,6 +137,7 @@ src/testdebt/
   data/build_eval_set.py  eval_set.jsonl + stratified seeded subset
   data/splits.py      fixed dev/test/rest splits
   eval/metrics.py     rates, smell reduction by project and smell, kill-set loss with 95% CI, paper delta
+  trace.py            trajectory writer (runs/<run>/trajectories/) and timeline viewer
   cli.py              CLI (eval/run_baseline.py is kept as an alias for the Phase 1 commands)
 configs/default.json  model, caps, retries, temperature, paths
 data/pins.json        pinned commits + JAVA_HOME per project

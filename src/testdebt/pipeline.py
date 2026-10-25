@@ -14,12 +14,13 @@ from __future__ import annotations
 
 import json
 import time
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from .contracts import DebtFinding, RefactorProposal, RunState, TestRef, VerificationReport
 from .java_utils import find_method
 from .prompts import SYSTEM, KnowledgeBase, build_context, parse_reply, plain_prompt, retry_prompt, utr_prompt
+from .trace import Trace
 from .verify import Verifier
 
 SYSTEMS = ("single", "b0replay", "b0", "b1", "b2", "s3")
@@ -80,10 +81,12 @@ class Pipeline:
         """Any exception (LLM, Maven, PIT, detector) is recorded as decision 'error' and the run continues."""
         t0 = time.monotonic()
         st = RunState(run_id=self.run_dir.name, system=self.cfg.system, seed=self.cfg.seed, test=test, finding=finding)
+        self.tr = Trace(self.run_dir, test.id)
         try:
             return self._process(st, test, finding, replay, t0)
         except Exception as e:   # keeps the partial state: tokens already spent still count
             st.decision, st.reason = "error", f"{type(e).__name__}: {e}"[:300]
+            self.tr.event("pipeline", "error", output=st.reason)
             return self._save(st, t0)
 
     def _process(self, st: RunState, test: TestRef, finding: DebtFinding, replay: str | None, t0: float) -> RunState:
@@ -109,13 +112,17 @@ class Pipeline:
                 reply, r = f"```java\n{replay}\n```", {"usage": {}, "latency_s": 0.0, "cached": True}
             else:
                 reply, r = self._call(prompt, tag=f"{self.cfg.system}:{test.id}:{n}")
+                self.tr.llm("refactor", prompt, r)
             u = r.get("usage", {})
             tokens += u.get("total_tokens", 0)
             block, imports = parse_reply(reply)
             st.proposals.append(RefactorProposal(test, original, block, n, u.get("total_tokens", 0),
                                                  (u.get("completion_tokens_details") or {}).get("reasoning_tokens", 0),
                                                  r.get("latency_s", 0.0), r.get("cached", False)))
+            tv = time.monotonic()
             rep = self.verifier.verify(test, original, block, imports, finding.smells)
+            self.tr.event("verifier", "tool_call", tool="verify", input={"attempt": n, "imports": imports},
+                          output=asdict(rep), latency_s=round(time.monotonic() - tv, 3))
             if self.cfg.system == "b1":
                 if self.cfg.require_smells_removed and rep.ok:
                     left = sorted(set(finding.smells) & set(rep.smells_after))
@@ -134,10 +141,12 @@ class Pipeline:
                 st.reason += " | token cap reached"
                 break
             prompt = retry_prompt(base, _stage(rep), rep.problem or "unknown", block)
+            self.tr.event("pipeline", "decision", action="retry", note=_stage(rep), state_after={"attempt": n + 1})
         return self._save(st, t0)
 
     def _save(self, st: RunState, t0: float) -> RunState:
         st.wall_time_s = round(time.monotonic() - t0, 2)
+        self.tr.event("pipeline", "state_change", state_after={"decision": st.decision, "reason": st.reason})
         with self.state_file.open("a", encoding="utf-8") as f:
             f.write(json.dumps(st.to_json(), ensure_ascii=False) + "\n")
         return st
