@@ -35,6 +35,8 @@ class Config:
     temperature: float = 0.7
     seed: int = 1
     require_smells_removed: bool = True   # b1 gate
+    policy: str = "adaptive"         # s3 only: "adaptive" (G6) | "fixed" (B1's retry script, the -G6 ablation)
+    memory: bool = True              # s3 only: cross-test memory + failed-proposal memory (off = -memory ablation)
 
 
 def _stage(rep: VerificationReport) -> str:

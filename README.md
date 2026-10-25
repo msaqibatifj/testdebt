@@ -14,7 +14,7 @@ mutant the original killed (PIT). Base paper: UTRefactor (FSE 2025) [1].
 | `b0` | UTRefactor reproduction: KB prompt (smell definition, DSL rule, checkpoints), 1 pass, accepted if it compiles and passes | working |
 | `b1` | Fixed pipeline: KB prompt, then verify. One fixed retry prompt carries the error text, up to 2 retries, then reject | working |
 | `single` | Plain prompt with no KB (the "direct LLM" reference in [1]) | working |
-| `s3` | Multi-agent system: Detection, Planner, Refactor and Verifier agents under a Supervisor (accept, retry, switch strategy, escalate; memory of failed proposals) | Phase 1 skeleton (`agents.py`), tested with a fake LLM |
+| `s3` | Multi-agent system: Detection, Planner (LLM-written JSON plan, KB rule fallback), Refactor and Verifier agents under an adaptive Supervisor (accept, retry, switch strategy, narrow targets, revert to the best attempt, escalate; memory of failed proposals within a test and of failed approaches across tests). `--policy fixed` and `--memory off` switch G6 parts off for the ablation | working (G6); G1/G2 components in progress |
 | `b2` | Single tool-using agent | Phase 2 (raises `NotImplementedError`) |
 
 ## Status (Phase 1)
@@ -42,7 +42,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 43 tests (2-3 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 52 tests (2-3 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
@@ -56,6 +56,9 @@ bash scripts/phase1_pilots.sh               # PIT pilot + b0replay/single/b0/b1/
 python3 -m testdebt.cli --system b0replay --split all
 # tuning and debugging: dev split only (80 tests)
 python3 -m testdebt.cli --system s3 --split dev --seed 1
+# G6 ablations: B1's fixed retry script inside S3, or S3 without memory
+python3 -m testdebt.cli --system s3 --split dev --seed 1 --policy fixed
+python3 -m testdebt.cli --system s3 --split dev --seed 1 --memory off
 # reported runs: test split (150 tests), 3 seeds, only from a clean tree (--frozen records the commit)
 for s in 1 2 3; do python3 -m testdebt.cli --system b1 --split test --frozen --seed $s; done
 # pilot: tokens per test, no Maven
@@ -132,7 +135,8 @@ src/testdebt/
   tools/pit.py        PIT via pom.pit.xml copy, full kill matrix, kill-set comparison
   verify.py           patch -> checks -> smells -> compile/run -> kill-set -> restore
   pipeline.py         control flow of b0replay / b0 / b1 / single (b2 in Phase 2)
-  agents/             S3: detection, planner, refactor agents + supervisor (the Verifier agent is verify.py)
+  agents/             S3: detection, planner, refactor agents, supervisor policy, cross-test memory
+                      (the Verifier agent is verify.py)
   data/utr_dataset.py read UTRefactor reports, pin commits
   data/build_eval_set.py  eval_set.jsonl + stratified seeded subset
   data/splits.py      fixed dev/test/rest splits

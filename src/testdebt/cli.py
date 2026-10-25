@@ -69,6 +69,8 @@ def main() -> None:
     ap.add_argument("--pit", action="store_true", help="kill-set gate/measurement with PIT (slow)")
     ap.add_argument("--runner", choices=["fast", "maven"], default="fast",
                     help="fast: Maven once per module, then javac + JUnit launcher per test (default)")
+    ap.add_argument("--policy", choices=["adaptive", "fixed"], help="s3: fixed = B1's retry script (-G6 ablation)")
+    ap.add_argument("--memory", choices=["on", "off"], help="s3: off = no memory of failed approaches (ablation)")
     ap.add_argument("--report", default="", help="only (re)compute metrics for an existing run dir")
     a = ap.parse_args()
 
@@ -88,6 +90,10 @@ def main() -> None:
         cfg.system = a.system
     if a.seed is not None:
         cfg.seed = a.seed
+    if a.policy:
+        cfg.policy = a.policy
+    if a.memory:
+        cfg.memory = a.memory == "on"
     paths = c.get("paths", {})
     run_id = a.run_id or f"{cfg.system}_s{cfg.seed}_{time.strftime('%Y%m%d_%H%M%S')}"
     run_dir = Path("runs", run_id)
@@ -134,7 +140,7 @@ def main() -> None:
         st = pipe.process(test, DebtFinding(test, r["smells"], detector="tsdetect[1]", all_smells=r["smells"]),
                           replay=r.get("utr_refactored"))
         print(f"[{i}/{len(rows)}] {test.id}: {st.decision} ({len(st.proposals)} attempt(s), "
-              f"{sum(p.tokens for p in st.proposals)} tok) {st.reason[:120]}")
+              f"{sum(p.tokens for p in st.proposals) + st.plan_tokens} tok) {st.reason[:120]}")
     rep = write_report(run_dir)
     print(json.dumps(rep["overall"], indent=2))
     print(f"saved {run_dir}/report.md")

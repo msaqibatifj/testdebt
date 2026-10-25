@@ -1,6 +1,6 @@
 import json
 
-from test_agents_s3 import FAIL, OK, run
+from test_agents_s3 import FAIL, OK, plan, run
 from test_end_to_end_mock import BAD, kb  # noqa: F401  (pytest fixture)
 from test_verify import GOOD
 from testdebt.trace import Trace, file_name, timeline
@@ -22,12 +22,13 @@ def test_long_text_is_cut_and_kept_whole_in_a_blob(tmp_path):
 
 
 def test_s3_trajectory_records_llm_calls_tool_output_and_decisions(demo, kb, tmp_path):  # noqa: F811
-    st, _, sup = run([BAD, f"```java\n{GOOD}\n```"], [OK, FAIL], demo, kb, tmp_path)
+    st, _, sup = run([plan("AssertionRoulette"), BAD, f"```java\n{GOOD}\n```"], [OK, FAIL], demo, kb, tmp_path)
     ev = events(sup.tr.path)
     kinds = [(e["agent"], e["event"]) for e in ev]
     assert kinds[0] == ("detection", "tool_call") and kinds[-1] == ("supervisor", "state_change")
     assert kinds.count(("refactor", "llm_call")) == 2 and kinds.count(("verifier", "tool_call")) == 2
-    llm = next(e for e in ev if e["event"] == "llm_call")
+    assert kinds[1] == ("planner", "llm_call") and json.loads(ev[1]["output"])["smells"]
+    llm = next(e for e in ev if e["agent"] == "refactor")
     assert llm["tokens"] == 100 and llm["cached"] is False and llm["input"] and llm["output"] == BAD
     verify = [e for e in ev if e.get("tool") == "verify"]
     assert json.loads(verify[0]["output"])["sane"] is False and "latency_s" in verify[0]
