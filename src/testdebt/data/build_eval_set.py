@@ -41,12 +41,18 @@ def stratified(rows: list[dict], n: int, seed: int) -> list[dict]:
     groups = defaultdict(list)
     for r in rows:
         groups[(r["project"], r["multi_smell"])].append(r)
-    rng, total, out = random.Random(seed), len(rows), []
-    for k in sorted(groups):
+    keys, total = sorted(groups), len(rows)
+    # largest remainder, so the strata always add up to exactly n (plain rounding gave 79 for n=80)
+    quota = {k: n * len(groups[k]) / total for k in keys}
+    take = {k: int(quota[k]) for k in keys}
+    for k in sorted(keys, key=lambda k: take[k] - quota[k])[:n - sum(take.values())]:
+        take[k] += 1
+    rng, out = random.Random(seed), []
+    for k in keys:
         g = sorted(groups[k], key=lambda r: (r["class_name"], r["method"]))
         rng.shuffle(g)
-        out += g[:max(1, round(n * len(g) / total))]
-    return out[:n]
+        out += g[:take[k]]
+    return out
 
 
 def main() -> None:
