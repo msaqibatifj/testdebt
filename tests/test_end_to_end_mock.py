@@ -89,3 +89,11 @@ def test_exception_is_recorded_as_error_and_retried_on_resume(demo, kb, tmp_path
     recs = metrics.load(p.state_file)
     assert len(p.state_file.read_text().splitlines()) == 2 and len(recs) == 1   # counted once, last record wins
     assert recs[0]["decision"] == "accepted" and metrics.summarize(recs)["errors"] == 0
+
+
+def test_reduction_among_accepted_ignores_rejected_outputs():
+    def rec(decision, after):
+        return {"decision": decision, "finding": {"smells": ["A", "B"]}, "retries": 0, "tokens": 0,
+                "wall_time_s": 0, "reports": [{"sane": True, "compiled": True, "passed": True, "smells_after": after}]}
+    s = metrics.summarize([rec("accepted", ["A"]), rec("rejected", [])])
+    assert s["smell_reduction_tsdetect"] == 75.0 and s["smell_reduction_accepted"] == 50.0
