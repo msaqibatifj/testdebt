@@ -3,7 +3,7 @@ import shutil
 import pytest
 
 from conftest import DEMO, DEMO_TEST, ROOT
-from testdebt.eval.utr_dataset import read_reports
+from testdebt.data.utr_dataset import read_reports
 from testdebt.tools.tsdetect import TsDetect, keep_only, focal_class_file
 
 JAR = ROOT / "data/utrefactor/detection/v3/TestSmellDetector.jar"

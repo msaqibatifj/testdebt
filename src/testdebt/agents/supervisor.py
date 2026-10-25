@@ -26,51 +26,14 @@ import json
 import time
 from pathlib import Path
 
-from .contracts import DebtFinding, RefactorProposal, RunState, TestRef, VerificationReport
-from .java_utils import find_method
-from .pipeline import Config, _stage
-from .prompts import SYSTEM, KnowledgeBase, build_context, parse_reply, plain_prompt, retry_prompt, utr_prompt
-from .verify import Verifier
-
-
-class DetectionAgent:
-    def __init__(self, verifier: Verifier):
-        self.verifier = verifier
-
-    def run(self, test: TestRef, src: str, finding: DebtFinding) -> list[str]:
-        tsd = self.verifier.tsdetect
-        if tsd and tsd.available():
-            from .tools.tsdetect import focal_class_file
-            seen = tsd.detect_source(src, test.class_name, {test.method}, focal_class_file(test.file))
-            present = [s for s in finding.smells if s in seen]
-            return present or list(finding.smells)
-        return list(finding.smells)
-
-
-class PlannerAgent:
-    STRATEGIES = ("kb", "plain")
-
-    def __init__(self, kb: KnowledgeBase):
-        self.kb = kb
-
-    def prompt(self, strategy: str, original: str, context: str, smells: list[str]) -> str:
-        if strategy == "kb" and self.kb.available():
-            return utr_prompt(self.kb, original, context, smells)
-        return plain_prompt(original, context, smells)
-
-    def switch(self, strategy: str) -> str:
-        return "plain" if strategy == "kb" else "kb"
-
-
-class RefactorAgent:
-    def __init__(self, llm, cfg: Config):
-        self.llm, self.cfg = llm, cfg
-
-    def run(self, prompt: str, tag: str) -> tuple[str, dict]:
-        r = self.llm.chat([{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}],
-                          temperature=self.cfg.temperature, max_tokens=self.cfg.max_tokens_per_call, tag=tag,
-                          seed=self.cfg.seed)
-        return r["text"], r
+from ..contracts import DebtFinding, RefactorProposal, RunState, TestRef, VerificationReport
+from ..java_utils import find_method
+from ..pipeline import Config, _stage
+from ..prompts import KnowledgeBase, build_context, parse_reply, retry_prompt
+from ..verify import Verifier
+from .detection import DetectionAgent
+from .planner import PlannerAgent
+from .refactor import RefactorAgent
 
 
 class Supervisor:

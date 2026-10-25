@@ -1,7 +1,7 @@
 """Build data/eval_set.jsonl from UTRefactor's inputs on the pinned project checkouts.
 
-  python3 -m testdebt.eval.build_eval_set                # all projects in data/pins.json
-  python3 -m testdebt.eval.build_eval_set --subset 150 --seed 1 --out data/eval_subset150.jsonl
+  python3 -m testdebt.data.build_eval_set                # all projects in data/pins.json
+  python3 -m testdebt.data.build_eval_set --subset 150 --seed 1 --out data/eval_subset150.jsonl
 
 One row per smelly test: project, file, module_dir, class_name, method, smells (tsDetect labels from [1]),
 matched (original text found verbatim at the pinned commit), multi_smell.
