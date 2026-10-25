@@ -19,9 +19,9 @@ for name in commons-cli gson jsoup; do
 done
 
 if [ "${1:-}" = "--repin" ]; then
-  python3 -m testdebt.eval.utr_dataset pin --project cli   --repo data/projects/commons-cli
-  python3 -m testdebt.eval.utr_dataset pin --project gson  --repo data/projects/gson
-  python3 -m testdebt.eval.utr_dataset pin --project jsoup --repo data/projects/jsoup
+  python3 -m testdebt.data.utr_dataset pin --project cli   --repo data/projects/commons-cli
+  python3 -m testdebt.data.utr_dataset pin --project gson  --repo data/projects/gson
+  python3 -m testdebt.data.utr_dataset pin --project jsoup --repo data/projects/jsoup
 fi
 
 for name in commons-cli gson jsoup; do
@@ -29,5 +29,5 @@ for name in commons-cli gson jsoup; do
   git -C data/projects/$name checkout -q "$c" && echo "$name -> $c"
 done
 
-python3 -m testdebt.eval.build_eval_set
-python3 -m testdebt.eval.build_eval_set --subset 150 --seed 1 --out data/eval_subset150.jsonl
+python3 -m testdebt.data.build_eval_set
+python3 -m testdebt.data.build_eval_set --subset 150 --seed 1 --out data/eval_subset150.jsonl

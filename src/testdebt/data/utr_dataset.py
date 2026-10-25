@@ -6,7 +6,7 @@ commit of each project it used, and the current HEADs differ (e.g. Commons-cli l
 its JUnit 5 tests, which tsDetect then ignores). So we scan the project history and pick the commit whose
 test files contain the largest share of those original methods verbatim (whitespace-insensitive).
 
-  python3 -m testdebt.eval.utr_dataset pin --utr data/utrefactor --project cli --repo data/projects/commons-cli
+  python3 -m testdebt.data.utr_dataset pin --utr data/utrefactor --project cli --repo data/projects/commons-cli
 """
 from __future__ import annotations
 

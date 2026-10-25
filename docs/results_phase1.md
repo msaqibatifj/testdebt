@@ -6,7 +6,7 @@ All numbers below were produced by the code in this repo. Re-create them with th
 
 The paper does not name the project commits it used, and today's HEADs differ (for example, Commons-cli later
 removed `public` from its JUnit 5 tests, and tsDetect ignores non-public test methods, so it finds no smells there).
-`testdebt.eval.utr_dataset pin` scans each project's history for the commit whose test files contain the most
+`testdebt.data.utr_dataset pin` scans each project's history for the commit whose test files contain the most
 of UTRefactor's published input methods verbatim.
 
 | Project | Pinned commit | Date | Inputs found verbatim | Tests in eval set |
