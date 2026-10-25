@@ -49,3 +49,9 @@ def test_s3_memory_blocks_repeated_proposal_and_escalates(demo, kb, tmp_path):
     assert ("supervisor", "memory-hit") in actions(st) and ("supervisor", "escalate") in actions(st)
     o = metrics.report(metrics.load(sup.state_file))["overall"]
     assert o["tests"] == 1 and o["accepted_rate"] == 0.0
+
+
+def test_s3_records_exception_as_error(demo, kb, tmp_path):
+    st, _, sup = run([], [OK], demo, kb, tmp_path)
+    assert st.decision == "error" and "IndexError" in st.reason
+    assert metrics.summarize(metrics.load(sup.state_file))["errors"] == 1

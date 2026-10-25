@@ -67,7 +67,8 @@ class Pipeline:
         """Resume support: tests already recorded in this run."""
         if not self.state_file.exists():
             return set()
-        return {json.loads(l)["test_id"] for l in self.state_file.read_text(encoding="utf-8").splitlines() if l.strip()}
+        recs = [json.loads(l) for l in self.state_file.read_text(encoding="utf-8").splitlines() if l.strip()]
+        return {r["test_id"] for r in recs if r["decision"] != "error"}   # errors are retried on resume
 
     def _call(self, prompt: str, tag: str) -> tuple[str, dict]:
         r = self.llm.chat([{"role": "system", "content": SYSTEM}, {"role": "user", "content": prompt}],
@@ -76,8 +77,16 @@ class Pipeline:
         return r["text"], r
 
     def process(self, test: TestRef, finding: DebtFinding, replay: str | None = None) -> RunState:
+        """Any exception (LLM, Maven, PIT, detector) is recorded as decision 'error' and the run continues."""
         t0 = time.monotonic()
         st = RunState(run_id=self.run_dir.name, system=self.cfg.system, seed=self.cfg.seed, test=test, finding=finding)
+        try:
+            return self._process(st, test, finding, replay, t0)
+        except Exception as e:   # keeps the partial state: tokens already spent still count
+            st.decision, st.reason = "error", f"{type(e).__name__}: {e}"[:300]
+            return self._save(st, t0)
+
+    def _process(self, st: RunState, test: TestRef, finding: DebtFinding, replay: str | None, t0: float) -> RunState:
         src = Path(test.file).read_text(encoding="utf-8", errors="replace")
         m = find_method(src, test.method)
         if m is None:

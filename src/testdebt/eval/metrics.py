@@ -15,7 +15,9 @@ PAPER_REDUCTION = {"commons-cli": 86.0, "gson": 89.0, "jsoup": 91.0}   # Table 5
 
 
 def load(state_file: str | Path) -> list[dict]:
-    return [json.loads(l) for l in Path(state_file).read_text(encoding="utf-8").splitlines() if l.strip()]
+    """Last record per test: a resumed run appends a new record for each test that ended in 'error'."""
+    recs = [json.loads(l) for l in Path(state_file).read_text(encoding="utf-8").splitlines() if l.strip()]
+    return list({r["test_id"]: r for r in recs}.values())
 
 
 def _rate(k: int, n: int) -> float | None:
@@ -55,7 +57,7 @@ def summarize(recs: list[dict]) -> dict:
     # Report it as unverified instead of as an acceptance rate.
     verified = not any(r["decision"] == "accepted" and f.get("compiled") is None for r, f in zip(recs, final))
     return {
-        "tests": n, "verified": verified,
+        "tests": n, "verified": verified, "errors": sum(1 for r in recs if r["decision"] == "error"),
         "accepted": accepted if verified else None, "accepted_rate": _rate(accepted, n) if verified else None,
         "accepted_unverified": None if verified else accepted,
         "static_ok_rate": _rate(sane, n),
