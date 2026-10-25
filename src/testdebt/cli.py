@@ -6,6 +6,8 @@
   python3 -m testdebt.cli --system b0 --eval data/eval_set.jsonl --limit 20 --skip-verify   # LLM-only pilot
   python3 -m testdebt.cli --system s3 --eval data/eval_set.jsonl --project commons-cli --limit 10
   python3 -m testdebt.cli --report runs/<run_id>                                             # metrics only
+  python3 -m testdebt.cli --system b1 --split dev --seed 1                                   # tuning: dev split only
+  python3 -m testdebt.cli --system s3 --split test --frozen --seed 1                          # reported runs: clean tree
 
 A run is resumable: re-running with the same --run-id skips tests already in state.jsonl.
 """
@@ -13,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -25,6 +28,7 @@ from .tools.maven import MavenRunner
 from .tools.pit import PitRunner
 from .tools.tsdetect import TsDetect
 from .verify import Verifier
+from .data import splits
 from .eval import metrics
 
 
@@ -44,6 +48,12 @@ def write_report(run_dir: Path) -> dict:
     return rep
 
 
+def git_state() -> tuple[str, bool]:
+    """(HEAD commit, tracked files modified): recorded in config.json so every number names the code it came from."""
+    git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True).stdout.strip()
+    return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no"))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/default.json")
@@ -51,6 +61,8 @@ def main() -> None:
     ap.add_argument("--eval", default="data/eval_set.jsonl")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--project", default="", help="only tests of this project, e.g. commons-cli")
+    ap.add_argument("--split", choices=["dev", "test", "rest", "all"], help="only tests in data/splits/<split>.jsonl")
+    ap.add_argument("--frozen", action="store_true", help="required for --split test: clean tree, results count")
     ap.add_argument("--seed", type=int)
     ap.add_argument("--run-id", default="")
     ap.add_argument("--skip-verify", action="store_true", help="no Maven: static checks + smells only")
@@ -63,6 +75,12 @@ def main() -> None:
     if a.report:
         print(json.dumps(write_report(Path(a.report))["overall"], indent=2))
         return
+
+    commit, dirty = git_state()
+    if a.split == "test" and not a.frozen:
+        ap.error("--split test is for final runs only: pass --frozen (tune on --split dev)")
+    if a.frozen and dirty:
+        ap.error("--frozen needs a clean tree (commit first) so config.json names the code that ran")
 
     c = load_config(a.config)
     cfg = Config(**{k: v for k, v in c.get("pipeline", {}).items() if k in Config.__dataclass_fields__})
@@ -92,9 +110,19 @@ def main() -> None:
     else:
         pipe = Pipeline(llm, verifier, kb, cfg, run_dir)
     (run_dir / "config.json").write_text(json.dumps({"config": asdict(cfg), "model": llm.model, "eval": a.eval,
-                                                     "skip_verify": a.skip_verify, "pit": a.pit}, indent=2))
+                                                     "skip_verify": a.skip_verify, "pit": a.pit, "split": a.split,
+                                                     "frozen": a.frozen, "git_commit": commit, "git_dirty": dirty},
+                                                    indent=2))
 
     rows = [json.loads(l) for l in Path(a.eval).read_text().splitlines() if l.strip()]
+    if a.split:
+        ids = splits.load(a.split)
+        by_id = {splits.test_id(r): r for r in rows}
+        missing = [i for i in ids if i not in by_id]
+        if missing:
+            raise SystemExit(f"{len(missing)} test(s) of split '{a.split}' are not in {a.eval} (e.g. {missing[0]}): "
+                             "the eval set was built differently from the one the splits came from")
+        rows = [by_id[i] for i in ids]
     if a.project:
         rows = [r for r in rows if r["project"] == a.project]
     rows = rows[:a.limit] if a.limit else rows
