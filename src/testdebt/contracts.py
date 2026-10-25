@@ -77,6 +77,9 @@ class RunState:
     reason: str = ""
     wall_time_s: float = 0.0
     trace: list[dict] = field(default_factory=list)   # S3 only: one entry per agent step (who, action, note)
+    plan: dict | None = None          # S3 only: the planner's last valid JSON plan
+    plan_tokens: int = 0              # S3 only: tokens spent on planner calls (count toward the cap)
+    schema: int = 2                   # 2: Phase 2 fields (error decision, plan, plan_tokens)
 
     @property
     def final(self) -> VerificationReport | None:
@@ -86,5 +89,5 @@ class RunState:
         d = asdict(self)
         d["test_id"] = self.test.id
         d["retries"] = max(0, len(self.proposals) - 1)
-        d["tokens"] = sum(p.tokens for p in self.proposals)
+        d["tokens"] = sum(p.tokens for p in self.proposals) + self.plan_tokens
         return d
