@@ -1,5 +1,11 @@
 """Run one system over an evaluation set and write runs/<run_id>/{config.json,state.jsonl,report.json,report.md}.
 
+  testdebt run --system s3 --split dev --seed 1      # same flags as below; `run` may be left out
+  testdebt experiment E3 --dev --limit 5             # E1-E6 runner (experiments package)
+  testdebt summarize E3                              # results/E3/{runs.csv,summary.json,table.tex}
+  testdebt trace runs/<run_id> '<project>:<Class>#<method>'
+  testdebt review runs/<run_id> [--list | --summary]
+
   python3 -m testdebt.cli --system b0replay --eval data/eval_set.jsonl      # no LLM: paper's own outputs
   python3 -m testdebt.cli --system b0 --eval data/eval_set.jsonl --limit 10
   python3 -m testdebt.cli --system b1 --eval data/eval_subset150.jsonl --seed 2 --pit
@@ -16,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
+import sys
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -54,7 +61,7 @@ def git_state() -> tuple[str, bool]:
     return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no"))
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/default.json")
     ap.add_argument("--system", choices=["single", "b0replay", "b0", "b1", "b2", "s3"])
@@ -72,7 +79,7 @@ def main() -> None:
     ap.add_argument("--policy", choices=["adaptive", "fixed"], help="s3: fixed = B1's retry script (-G6 ablation)")
     ap.add_argument("--memory", choices=["on", "off"], help="s3: off = no memory of failed approaches (ablation)")
     ap.add_argument("--report", default="", help="only (re)compute metrics for an existing run dir")
-    a = ap.parse_args()
+    a = ap.parse_args(argv)
 
     if a.report:
         print(json.dumps(write_report(Path(a.report))["overall"], indent=2))
@@ -99,7 +106,8 @@ def main() -> None:
     run_dir = Path("runs", run_id)
 
     from .llm_client import LLMClient   # imported late so --report works without requests/keys
-    llm = LLMClient(max_requests_per_min=c.get("llm", {}).get("max_requests_per_min", 5))
+    llm = LLMClient(max_requests_per_min=c.get("llm", {}).get("max_requests_per_min", 5),
+                    daily_token_cap=c.get("llm", {}).get("daily_token_cap", 0))
     tsd = TsDetect(paths.get("tsdetect_jar", "data/utrefactor/detection/v3/TestSmellDetector.jar"))
     if not tsd.available():
         print("WARNING: tsDetect jar not found -> smells-after uses the rules approximation (not comparable to [1])")
@@ -149,5 +157,37 @@ def main() -> None:
     print(f"saved {run_dir}/report.md")
 
 
+SUBCOMMANDS = ("run", "experiment", "summarize", "trace", "review")
+
+
+def entry(argv: list[str] | None = None) -> None:
+    """`testdebt <subcommand> ...`; without a subcommand the arguments go to `run` (the Phase 1 commands)."""
+    argv = sys.argv[1:] if argv is None else argv
+    cmd, rest = (argv[0], argv[1:]) if argv and argv[0] in SUBCOMMANDS else ("run", argv)
+    from .llm_client import BudgetExhausted
+    try:
+        if cmd == "run":
+            main(rest)
+        elif cmd in ("experiment", "summarize"):
+            try:
+                from .team.gulsher import experiments
+            except ImportError:
+                raise SystemExit("the experiment runner (testdebt.team.gulsher.experiments) is not installed")
+            sys.argv = ["testdebt", "run" if cmd == "experiment" else "summarize", *rest]
+            experiments.main()
+        elif cmd == "trace":
+            from .trace import timeline
+            if len(rest) != 2:
+                raise SystemExit("usage: testdebt trace runs/<run_id> '<project>:<Class>#<method>'")
+            print(timeline(*rest))
+        else:
+            from . import review
+            sys.argv = ["testdebt review", *rest]
+            review.main()
+    except BudgetExhausted as e:
+        print(f"STOP: {e}", file=sys.stderr)
+        raise SystemExit(3)
+
+
 if __name__ == "__main__":
-    main()
+    entry()

@@ -42,6 +42,11 @@ BASE_URL = os.environ.get("LLM_BASE_URL", "https://api.cerebras.ai/v1")
 DEFAULT_MODEL = os.environ.get("LLM_MODEL", "gpt-oss-120b")  # pin ONE model for all experiments
 
 
+class BudgetExhausted(BaseException):
+    """Daily token cap reached. A BaseException so the per-test error capture (except Exception) does not record
+    the current test as 'error': the run stops, and rerunning the same --run-id tomorrow resumes it."""
+
+
 class LLMClient:
     def __init__(
         self,
@@ -54,6 +59,7 @@ class LLMClient:
         max_retries: int = 6,
         timeout: float = 120,
         sleep=time.sleep,
+        daily_token_cap: int = 0,          # 0 = no cap; non-cached tokens per calendar day, counted from the log
     ) -> None:
         self.model = model
         self.api_key = api_key or os.environ.get("CEREBRAS_API_KEY", "")
@@ -65,6 +71,8 @@ class LLMClient:
         self.timeout = timeout
         self._sleep = sleep
         self._last_call = 0.0
+        self.daily_token_cap = daily_token_cap
+        self._day, self._spent = "", 0
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
         if self.cache_dir:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -77,6 +85,15 @@ class LLMClient:
         wait = self.min_interval - (time.monotonic() - self._last_call)
         if wait > 0:
             self._sleep(wait)
+
+    def spent_today(self) -> int:
+        # shortcut: reads the log once per day, then counts this process's calls; parallel processes sharing one
+        # key each see only their own spend after start-up. Re-read the log per call if runs go parallel.
+        day = time.strftime("%Y-%m-%d")
+        if day != self._day:
+            self._day = day
+            self._spent = total_tokens(self.log_path, since=time.mktime(time.strptime(day, "%Y-%m-%d")))
+        return self._spent
 
     def _log(self, record: dict[str, Any]) -> None:
         with self.log_path.open("a", encoding="utf-8") as f:
@@ -111,6 +128,9 @@ class LLMClient:
 
         if not self.api_key:
             raise RuntimeError("CEREBRAS_API_KEY is not set")
+        if self.daily_token_cap and self.spent_today() >= self.daily_token_cap:
+            raise BudgetExhausted(f"daily token cap reached ({self.spent_today()} >= {self.daily_token_cap} tokens "
+                                  "today): rerun the same command with the same --run-id tomorrow to resume")
 
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
         last_err = ""
@@ -142,6 +162,8 @@ class LLMClient:
                 if cache_file:
                     cache_file.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
                 self._log({"ts": time.time(), "tag": tag, "key": key, "cached": False, **result})
+                self.spent_today()
+                self._spent += result["usage"].get("total_tokens", 0)
                 return {**result, "cached": False}
 
             last_err = f"HTTP {resp.status_code}: {resp.text[:300]}"
@@ -159,14 +181,14 @@ class LLMClient:
         raise RuntimeError(f"LLM call failed after retries: {last_err}")
 
 
-def total_tokens(log_path: str | Path = "runs/llm_calls.jsonl", include_cached: bool = False) -> int:
-    """Sum total_tokens over the call log (use to track the 1M tokens/day free-tier budget)."""
+def total_tokens(log_path: str | Path = "runs/llm_calls.jsonl", include_cached: bool = False, since: float = 0) -> int:
+    """Sum total_tokens over the call log, for calls at or after `since` (epoch seconds)."""
     total = 0
     if not Path(log_path).exists():
         return 0
     for line in Path(log_path).read_text(encoding="utf-8").splitlines():
         rec = json.loads(line)
-        if rec.get("cached") and not include_cached:
+        if (rec.get("cached") and not include_cached) or rec.get("ts", 0) < since:
             continue
         total += rec.get("usage", {}).get("total_tokens", 0)
     return total

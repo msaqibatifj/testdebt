@@ -3,7 +3,8 @@
     "provider": "cerebras",
     "model_env": "LLM_MODEL",
     "model_default": "gpt-oss-120b",
-    "max_requests_per_min": 5
+    "max_requests_per_min": 5,
+    "daily_token_cap": 950000
   },
   "pipeline": {
     "system": "b1",
