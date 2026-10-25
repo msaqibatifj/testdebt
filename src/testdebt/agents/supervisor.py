@@ -47,6 +47,7 @@ RANK = {"static check": 0, "compile": 1, "test run": 2, "kill-set (mutation test
 class Supervisor:
     """Owns the per-test loop and the RunState; same run-dir layout and resume behaviour as Pipeline."""
 
+    SYSTEM_NAME = "s3"
     EVENT = {"detection": "tool_call", "verifier": "tool_call", "planner": "state_change", "supervisor": "decision"}
 
     def __init__(self, llm, verifier: Verifier, kb: KnowledgeBase, cfg: Config, run_dir: str | Path,
@@ -73,7 +74,7 @@ class Supervisor:
     def process(self, test: TestRef, finding: DebtFinding, replay: str | None = None) -> RunState:
         """Any exception (LLM, Maven, PIT, detector) is recorded as decision 'error' and the run continues."""
         t0 = time.monotonic()
-        st = RunState(run_id=self.run_dir.name, system="s3", seed=self.cfg.seed, test=test, finding=finding)
+        st = RunState(run_id=self.run_dir.name, system=self.SYSTEM_NAME, seed=self.cfg.seed, test=test, finding=finding)
         self.tr = Trace(self.run_dir, test.id)
         try:
             return self._process(st, test, finding, replay, t0)

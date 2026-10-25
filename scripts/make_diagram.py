@@ -46,16 +46,16 @@ def main():
     box(ax, 2.9, 5.9, 2.0, 0.85, "B0 (D1)\nUTRefactor prompt\n1 pass, compile+run", "base")
     box(ax, 5.1, 5.9, 2.2, 0.85, "B0-replay\npublished outputs of [1]\nthrough our verifier", "base")
     box(ax, 7.5, 5.9, 2.4, 0.85, "B1 fixed pipeline\nverify -> fixed retry prompt\n(<= 2 retries) -> reject", "base")
-    box(ax, 10.1, 5.9, 2.6, 0.85, "B2 single tool-using agent\n(state-machine guard)\n[Phase 2]", "base")
+    box(ax, 10.1, 5.9, 2.6, 0.85, "B2 single tool-using agent\ntools: detect, compile_and_run,\npit, submit", "base")
 
     # proposed system
-    ax.text(2.9, 4.95, "S3 (Phase 1 skeleton in agents.py; JNose + LLM planning in Phase 2): agents share one state record per test", fontsize=8.5, color=MUTED)
-    box(ax, 2.9, 3.6, 1.9, 1.0, "Detection agent\ntsDetect + JNose", "agent")
-    box(ax, 5.1, 3.6, 1.9, 1.0, "Planner agent\nDSL rule per smell,\nsplit plan", "agent")
+    ax.text(2.9, 4.95, "S3 (agents/): agents share one state record per test; G1, G2 and G6 parts switch off for the ablation", fontsize=8.5, color=MUTED)
+    box(ax, 2.9, 3.6, 1.9, 1.0, "Detection agent\ntsDetect + JNose\nconsensus (G2)", "agent")
+    box(ax, 5.1, 3.6, 1.9, 1.0, "Planner agent\nLLM JSON plan,\nKB rule fallback", "agent")
     box(ax, 7.3, 3.6, 1.9, 1.0, "Refactor agent\nLLM (gpt-oss-120b)", "agent")
-    box(ax, 9.5, 3.6, 1.9, 1.0, "Verifier agent\nevidence only", "agent")
-    box(ax, 3.4, 2.2, 5.8, 0.9, "Supervisor: accept | retry with feedback | switch rule | revert | escalate\n"
-                                "(<= 3 attempts, token cap, memory of failed (rule, context) pairs)", "agent", size=7.8)
+    box(ax, 9.5, 3.6, 1.9, 1.0, "Verifier agent\nevidence only,\nkill-set gate (G1)", "agent")
+    box(ax, 3.4, 2.2, 5.8, 0.9, "Supervisor (G6): accept | retry with feedback | switch | narrow | revert | escalate\n"
+                                "(token cap; memory of failed proposals and of failed approaches across tests)", "agent", size=7.8)
     for x1, x2 in [(4.8, 5.1), (7.0, 7.3), (9.2, 9.5)]:
         arrow(ax, x1, 4.1, x2, 4.1)
     arrow(ax, 10.45, 3.6, 9.0, 3.1, "report")
@@ -66,13 +66,13 @@ def main():
     # tools
     ax.text(0.2, 1.75, "Tools (every number comes from a tool, never from the LLM)", fontsize=8.5, color=MUTED)
     tools = [("Maven runner\ncompile + run class", 0.2), ("tsDetect\nmethod-level", 2.35), ("JNose\n2nd detector", 4.5),
-             ("PIT full kill matrix\nK(T) subset of union K(t')", 6.65), ("JaCoCo\ncoverage", 8.8), ("Run log\ntokens, time", 10.95)]
+             ("PIT full kill matrix\nK(T) subset of union K(t')", 6.65), ("Run log + trajectories\ntokens, time, steps", 8.8)]
     for t, x in tools:
         box(ax, x, 0.7, 2.0, 0.85, t, "tool", size=8)
-    arrow(ax, 10.45, 3.6, 9.8, 1.55)
+    arrow(ax, 11.0, 3.6, 10.4, 1.55)
 
     # outputs
-    box(ax, 11.6, 2.2, 1.3, 0.9, "Decision report\n+ escalation\nqueue", "data", size=7.5)
+    box(ax, 11.6, 2.2, 1.3, 0.9, "Decision report\n+ human review\nqueue", "data", size=7.5)
     arrow(ax, 9.2, 2.65, 11.6, 2.65)
 
     badge(ax, 7.65, 1.65, "G1 kill-set gate")
