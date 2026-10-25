@@ -2,6 +2,7 @@
 
 Smell reduction (rule i, tsDetect only, as in [1]): targeted smells that are gone after the FINAL attempt,
 counted over every test (a test with no usable reply counts as nothing removed).
+Also reported among accepted outputs only (smell_reduction_accepted), since rule i credits rejected outputs.
 Rules ii (strict, tsDetect AND JNose) and iii (manual sample) need JNose / labels: reported as null until added.
 """
 from __future__ import annotations
@@ -15,7 +16,9 @@ PAPER_REDUCTION = {"commons-cli": 86.0, "gson": 89.0, "jsoup": 91.0}   # Table 5
 
 
 def load(state_file: str | Path) -> list[dict]:
-    return [json.loads(l) for l in Path(state_file).read_text(encoding="utf-8").splitlines() if l.strip()]
+    """Last record per test: a resumed run appends a new record for each test that ended in 'error'."""
+    recs = [json.loads(l) for l in Path(state_file).read_text(encoding="utf-8").splitlines() if l.strip()]
+    return list({r["test_id"]: r for r in recs}.values())
 
 
 def _rate(k: int, n: int) -> float | None:
@@ -40,12 +43,13 @@ def summarize(recs: list[dict]) -> dict:
     passed = sum(1 for f in final if f.get("passed") is True)
     sane = sum(1 for f in final if f.get("sane"))
     accepted = sum(1 for r in recs if r["decision"] == "accepted")
-    targeted = removed = 0
+    targeted = removed = acc_targeted = acc_removed = 0
     for r, f in zip(recs, final):
         t = set(r["finding"]["smells"])
-        targeted += len(t)
-        if f.get("sane"):
-            removed += len(t - set(f.get("smells_after", [])))
+        gone = len(t - set(f.get("smells_after", []))) if f.get("sane") else 0
+        targeted, removed = targeted + len(t), removed + gone
+        if r["decision"] == "accepted":
+            acc_targeted, acc_removed = acc_targeted + len(t), acc_removed + gone
     ks = [f for r, f in zip(recs, final) if r["decision"] == "accepted" and f.get("killset_preserved") is not None]
     lost = sum(1 for f in ks if f["killset_preserved"] is False)
     tokens = sum(r["tokens"] for r in recs)
@@ -55,13 +59,15 @@ def summarize(recs: list[dict]) -> dict:
     # Report it as unverified instead of as an acceptance rate.
     verified = not any(r["decision"] == "accepted" and f.get("compiled") is None for r, f in zip(recs, final))
     return {
-        "tests": n, "verified": verified,
+        "tests": n, "verified": verified, "errors": sum(1 for r in recs if r["decision"] == "error"),
         "accepted": accepted if verified else None, "accepted_rate": _rate(accepted, n) if verified else None,
         "accepted_unverified": None if verified else accepted,
         "static_ok_rate": _rate(sane, n),
         "compile_rate": _rate(compiled, n) if any(f.get("compiled") is not None for f in final) else None,
         "pass_rate": _rate(passed, n) if any(f.get("passed") is not None for f in final) else None,
         "smell_reduction_tsdetect": _rate(removed, targeted), "smells_targeted": targeted, "smells_removed": removed,
+        # among accepted outputs only: rule i above also credits smells "removed" by outputs that were rejected
+        "smell_reduction_accepted": _rate(acc_removed, acc_targeted),
         "smell_reduction_strict": None, "smell_reduction_manual": None,
         "killset_checked": len(ks),
         "killset_unknown": sum(1 for r, f in zip(recs, final) if r["decision"] == "accepted"
@@ -110,7 +116,7 @@ def report(recs: list[dict]) -> dict:
 
 def markdown(rep: dict, title: str) -> str:
     keys = ["tests", "accepted_rate", "compile_rate", "pass_rate", "smell_reduction_tsdetect",
-            "accepted_losing_mutants_rate", "accepted_safe_rate", "tokens_per_test", "wall_time_s"]
+            "smell_reduction_accepted", "accepted_losing_mutants_rate", "accepted_safe_rate", "tokens_per_test", "wall_time_s"]
     rows = [("overall", rep["overall"])] + list(rep["by_project"].items())
     lines = [f"# {title}", "", "| scope | " + " | ".join(keys) + " |", "|" + "---|" * (len(keys) + 1)]
     for name, s in rows:

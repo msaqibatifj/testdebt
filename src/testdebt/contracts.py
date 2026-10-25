@@ -8,7 +8,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Literal
 
-Decision = Literal["accepted", "rejected", "escalated", "skipped"]
+Decision = Literal["accepted", "rejected", "escalated", "skipped", "error"]
 
 
 @dataclass(frozen=True)

@@ -42,7 +42,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 34 tests (2-3 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 40 tests (2-3 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
@@ -52,16 +52,16 @@ bash scripts/phase1_pilots.sh               # PIT pilot + b0replay/single/b0/b1/
 ### Runs
 
 ```bash
-# no LLM: measure UTRefactor's own outputs (add --pit for kill-sets; slow)
-python3 -m testdebt.eval.run_baseline --system b0replay --eval data/eval_set.jsonl --project commons-cli
+# no LLM: measure UTRefactor's own outputs on all 484 tests (add --pit for kill-sets; slow)
+python3 -m testdebt.cli --system b0replay --split all
+# tuning and debugging: dev split only (80 tests)
+python3 -m testdebt.cli --system s3 --split dev --seed 1
+# reported runs: test split (150 tests), 3 seeds, only from a clean tree (--frozen records the commit)
+for s in 1 2 3; do python3 -m testdebt.cli --system b1 --split test --frozen --seed $s; done
 # pilot: tokens per test, no Maven
-python3 -m testdebt.eval.run_baseline --system b0 --eval data/eval_set.jsonl --limit 10 --skip-verify
-# full baselines on the 150-test stratified subset, 3 seeds
-for s in 1 2 3; do python3 -m testdebt.eval.run_baseline --system b1 --eval data/eval_subset150.jsonl --seed $s; done
-# multi-agent system (S3)
-python3 -m testdebt.eval.run_baseline --system s3 --eval data/eval_set.jsonl --project commons-cli --limit 10
+python3 -m testdebt.cli --system b0 --split dev --limit 10 --skip-verify
 # recompute metrics for a run
-python3 -m testdebt.eval.run_baseline --report runs/<run_id>
+python3 -m testdebt.cli --report runs/<run_id>
 ```
 
 Speed: by default (`--runner fast`) Maven runs once per module to compile and record the classpath. After that,
@@ -71,17 +71,39 @@ pass under Maven, that class falls back to Maven automatically. Use `--runner ma
 
 Each run writes these files to `runs/<run_id>/`:
 
-- `config.json`
+- `config.json` (also records `split`, `frozen`, `git_commit`, `git_dirty`)
 - `state.jsonl`: one record per test, with every attempt, its error and the verdict
 - `decisions.json`
 - `report.json`
 - `report.md`
 
-Re-running with the same `--run-id` resumes the run. `runs/` is not committed; the runs quoted in the docs are
+Re-running with the same `--run-id` resumes the run. A test that raised an exception (LLM, Maven, PIT, detector)
+is recorded with decision `error` and the run continues; resuming retries those tests. `runs/` is not committed; the runs quoted in the docs are
 copied to `results/phase1/<run_id>/` (report, decisions, config).
 
 With `--skip-verify` nothing is compiled or run. The report then shows `accepted_rate` as `-` and counts
 `accepted_unverified` instead, so a static-only run is never mistaken for an acceptance rate.
+
+### Data splits
+
+`data/splits/{dev,test,rest}.jsonl` hold test IDs only and were built once with
+`python3 -m testdebt.data.splits --seed 1` (stratified by project x single/multi smell; dev seed 1, test seed 2).
+
+| Split | Tests | Commons-cli / Gson / Jsoup | Used for |
+|---|---|---|---|
+| `dev` | 80 | 13 / 39 / 28 | prompt, threshold and cap tuning, debugging, devlog measurements |
+| `test` | 150 | 24 / 74 / 52 | E1-E6 LLM runs (needs `--frozen`); never for design decisions |
+| `rest` | 254 | 40 / 125 / 89 | no-LLM runs only (b0replay, detector agreement) |
+
+## Changes since Phase 1
+
+- Evaluation set is 484 tests, not 593: the replication package has reports for 492, and 484 match the pinned commits verbatim.
+- Gson is reported against its own test dependencies at the matched commit; [1] compiled it in a different setup.
+- PIT baseline kill matrix is computed before patching (bug found in the Phase 1 pilot, fixed in `5cf24e3`).
+- Fixed dev/test/rest split added (see Data splits); Phase 1 pilot numbers came from the first 10 Commons-cli tests and are not reused as results.
+- 2026-10-25: `stratified()` allocates by largest remainder so a subset always has exactly n tests (rounding gave 79 for n=80); `data/eval_subset150.jsonl` is unchanged.
+- 2026-10-25: metrics add `smell_reduction_accepted` (rule i counted over accepted outputs only) and an `errors` count.
+- Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
 
 ## Initial results (Phase 1)
 
@@ -107,13 +129,15 @@ src/testdebt/
   tools/pit.py        PIT via pom.pit.xml copy, full kill matrix, kill-set comparison
   verify.py           patch -> checks -> smells -> compile/run -> kill-set -> restore
   pipeline.py         control flow of b0replay / b0 / b1 / single (b2 in Phase 2)
-  agents.py           S3: Detection, Planner, Refactor, Verifier agents + Supervisor
-  eval/utr_dataset.py read UTRefactor reports, pin commits
-  eval/build_eval_set.py  eval_set.jsonl + stratified seeded subset
+  agents/             S3: detection, planner, refactor agents + supervisor (the Verifier agent is verify.py)
+  data/utr_dataset.py read UTRefactor reports, pin commits
+  data/build_eval_set.py  eval_set.jsonl + stratified seeded subset
+  data/splits.py      fixed dev/test/rest splits
   eval/metrics.py     rates, smell reduction by project and smell, kill-set loss with 95% CI, paper delta
-  eval/run_baseline.py    CLI
+  cli.py              CLI (eval/run_baseline.py is kept as an alias for the Phase 1 commands)
 configs/default.json  model, caps, retries, temperature, paths
 data/pins.json        pinned commits + JAVA_HOME per project
+data/splits/          dev/test/rest test IDs (committed, never regenerated)
 data/eval_set*.jsonl  built by setup_projects.sh (not committed: contains UTRefactor's published code)
 data/samples/demo/    tiny Maven project used by the tests
 docs/architecture.png methodology diagram (python3 scripts/make_diagram.py)

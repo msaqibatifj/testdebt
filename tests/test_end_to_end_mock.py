@@ -75,3 +75,25 @@ def test_skip_verify_is_not_reported_as_acceptance(demo, kb, tmp_path):
     assert "NOT compiled" in st.reason
     o = metrics.report(metrics.load(p.state_file))["overall"]
     assert o["verified"] is False and o["accepted_rate"] is None and o["accepted_unverified"] == 1
+
+
+def test_exception_is_recorded_as_error_and_retried_on_resume(demo, kb, tmp_path):
+    # FakeLLM runs out of replies on attempt 2 -> IndexError, like an HTTP 401 mid-run
+    st, _, p = run("b1", [BAD], [], demo, kb, tmp_path)
+    assert st.decision == "error" and st.reason.startswith("IndexError") and len(st.proposals) == 1
+    assert (demo / DEMO_TEST).read_text().count("expectedTotal") == 0         # project untouched
+    assert p.done_ids() == set()                                               # resume retries it
+    t = st.test
+    p.llm = FakeLLM([f"```java\n{GOOD}\n```"])
+    p.process(t, DebtFinding(t, ["AssertionRoulette"]))
+    recs = metrics.load(p.state_file)
+    assert len(p.state_file.read_text().splitlines()) == 2 and len(recs) == 1   # counted once, last record wins
+    assert recs[0]["decision"] == "accepted" and metrics.summarize(recs)["errors"] == 0
+
+
+def test_reduction_among_accepted_ignores_rejected_outputs():
+    def rec(decision, after):
+        return {"decision": decision, "finding": {"smells": ["A", "B"]}, "retries": 0, "tokens": 0,
+                "wall_time_s": 0, "reports": [{"sane": True, "compiled": True, "passed": True, "smells_after": after}]}
+    s = metrics.summarize([rec("accepted", ["A"]), rec("rejected", [])])
+    assert s["smell_reduction_tsdetect"] == 75.0 and s["smell_reduction_accepted"] == 50.0
