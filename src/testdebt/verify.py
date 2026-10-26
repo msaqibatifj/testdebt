@@ -104,8 +104,8 @@ def static_checks(original: str, block: str) -> tuple[bool, str, dict]:
 
 class Verifier:
     def __init__(self, maven: MavenRunner | None, tsdetect: TsDetect | None = None, pit: pitmod.PitRunner | None = None,
-                 pit_cache: str | Path = "runs/pit_cache", run_tests: bool = True):
-        self.maven, self.tsdetect, self.pit = maven, tsdetect, pit
+                 pit_cache: str | Path = "runs/pit_cache", run_tests: bool = True, jnose=None):
+        self.maven, self.tsdetect, self.pit, self.jnose = maven, tsdetect, pit, jnose
         self.pit_cache, self.run_tests = Path(pit_cache), run_tests
 
     # ---- baseline kill matrix per test class (cached on disk, computed once) ----
@@ -163,6 +163,8 @@ class Verifier:
         else:
             after = set(analyze_code(block))
         rep.smells_after = sorted(after)
+        if self.jnose and self.jnose.available():        # G2 second detector, same method isolation
+            rep.smells_after_jnose = sorted(self.jnose.detect_source(patched, test.class_name, new_tests))
         # The baseline kill matrix MUST come from the unmodified class, so it is computed (or read from cache)
         # before the patch is written. Computing it lazily after the write measured the refactored code.
         before = (pitmod.kill_set(self.baseline_matrix(test), {test.method})

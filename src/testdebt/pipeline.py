@@ -39,6 +39,7 @@ class Config:
     policy: str = "adaptive"         # s3 only: "adaptive" (G6) | "fixed" (B1's retry script, the -G6 ablation)
     max_steps: int = 6               # b2 only: LLM replies per test (tool calls + submit), under the same token cap
     memory: bool = True              # s3 only: cross-test memory + failed-proposal memory (off = -memory ablation)
+    detector: str = "consensus"      # s3 only: "consensus" | "union" (G2) | "tsdetect" (-G2 ablation, as in [1])
 
 
 def _stage(rep: VerificationReport) -> str:
