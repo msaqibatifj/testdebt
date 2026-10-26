@@ -40,7 +40,9 @@ confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervi
 | S3: Detection, LLM Planner (schema fallback), Refactor, Verifier under the adaptive Supervisor; memory within and across tests | working (mock and real runs) |
 | B2 single tool-using agent; human review queue (`testdebt review`) | working |
 | Trajectories (one JSON event per step), per-test error capture, daily token cap, `testdebt` CLI | working |
-| G1 kill-set gate, G2 JNose + consensus, experiment runner E1-E6, statistics, CI | built; being merged by Gulsher (G1, runner, CI) and Hasan (G2, statistics, analysis) |
+| G2: JNose second detector, consensus targets (`--detector`), rule ii strict reduction; detector agreement (`results/E4/`) | merged (Hasan, `team/hasan/`) |
+| Statistics, failure categories and case export, manual-sample labelling, figures, gap table, reference check | merged (Hasan, `team/hasan/`) |
+| G1 kill-set gate, experiment runner E1-E6, CI | being merged by Gulsher |
 | JaCoCo coverage | not implemented: the PIT kill-set is the test-strength measure |
 
 ## Quick start (WSL / Ubuntu)
@@ -51,8 +53,9 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 65 tests (2 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 80 tests (3 optional ones skip without Java), no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
+bash src/testdebt/team/hasan/get_jnose.sh   # JNose jars (second detector, G2); needs Java 21 to run
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
 python3 scripts/smoke_test.py               # one LLM call
 bash scripts/phase1_pilots.sh               # PIT pilot + b0replay/single/b0/b1/s3 on 10 Commons-cli tests -> results/phase1/
@@ -143,6 +146,9 @@ _Filled after the E2-E4 test-split runs._
 - 2026-10-25: metrics add `smell_reduction_accepted` (rule i counted over accepted outputs only) and an `errors` count.
 - 2026-10-25: `testdebt` command with subcommands; daily token cap (`llm.daily_token_cap`) that stops a run cleanly so it resumes the next day.
 - 2026-10-25: JaCoCo coverage, listed as a Phase 2 tool in Phase 1, is not used; test strength is measured by the PIT kill-set only.
+- 2026-10-25: JNose is jnose-core 0.9.0, the last release built for Java 21 (0.9.3 fixes an IgnoredTest false positive
+  but needs Java 25). S3 targets the smells both detectors confirm (`--detector consensus`); `--detector tsdetect` is the
+  -G2 ablation and matches [1].
 - Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
 
 ## Initial results (Phase 1)
@@ -154,6 +160,12 @@ _Filled after the E2-E4 test-split runs._
 | b0, Commons-cli pilot (gpt-oss-120b) | 10 | 90% | 100% | 90% | 100% | 2,462 |
 
 Details, Gson analysis and caveats: `docs/results_phase1.md`.
+
+G2 detector agreement (`python3 -m testdebt.team.hasan.agreement --split all`, no LLM, `results/E4/`): on all 484
+original tests JNose confirms 76.2% of the 1,086 smell labels of [1] (tsDetect 100%). They agree well on most smells
+(kappa 0.68-1.0) but not on ExceptionHandling (tsDetect 224, JNose 10, kappa 0.02: JNose flags only `try` blocks,
+tsDetect also `throws` clauses) and DuplicateAssert (45 vs 130, kappa 0.42).
+
 
 ## Layout
 
@@ -174,7 +186,9 @@ src/testdebt/
   data/utr_dataset.py read UTRefactor reports, pin commits
   data/build_eval_set.py  eval_set.jsonl + stratified seeded subset
   data/splits.py      fixed dev/test/rest splits
-  eval/metrics.py     rates, smell reduction by project and smell, kill-set loss with 95% CI, paper delta
+  eval/metrics.py     rates, smell reduction (rule i tsDetect, rule ii tsDetect AND JNose), kill-set loss with 95% CI, paper delta
+  team/hasan/         G2 and evaluation: jnose.py (+ jnose/JNoseMain.java, get_jnose.sh), consensus.py, agreement.py,
+                      stats.py, failures.py, manual.py (+ labelling_guide.md), figures.py, gap_table.py, check_refs.py
   trace.py            trajectory writer (runs/<run>/trajectories/) and timeline viewer
   review.py           human review queue for escalated tests (escalations.jsonl, reported separately)
   cli.py              `testdebt` CLI: run, experiment, summarize, trace, review (eval/run_baseline.py is kept as an alias)
@@ -186,6 +200,7 @@ data/samples/demo/    tiny Maven project used by the tests
 docs/architecture.png methodology diagram (python3 scripts/make_diagram.py)
 docs/results_phase1.md
 results/phase1/       committed reports of the runs quoted in the docs
+results/E4/           G2 detector agreement on all 484 originals (tsDetect vs JNose, kappa per smell)
 scripts/phase1_pilots.sh  PIT pilot + LLM pilots, copies reports to results/phase1/
 ```
 
