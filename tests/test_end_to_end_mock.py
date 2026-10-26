@@ -96,3 +96,14 @@ def test_reduction_among_accepted_ignores_rejected_outputs():
                 "wall_time_s": 0, "reports": [{"sane": True, "compiled": True, "passed": True, "smells_after": after}]}
     s = metrics.summarize([rec("accepted", ["A"]), rec("rejected", [])])
     assert s["smell_reduction_tsdetect"] == 75.0 and s["smell_reduction_accepted"] == 50.0
+
+
+def test_rule_ii_needs_both_detectors_to_agree_a_smell_is_gone():
+    def rec(ts_after, jn_after):
+        return {"decision": "accepted", "finding": {"smells": ["A", "B"]}, "retries": 0, "tokens": 0, "wall_time_s": 0,
+                "reports": [{"sane": True, "compiled": True, "passed": True, "killset_preserved": True,
+                             "smells_after": ts_after, "smells_after_jnose": jn_after}]}
+    s = metrics.summarize([rec([], ["B"]), rec([], [])])
+    assert s["smell_reduction_tsdetect"] == 100.0 and s["smell_reduction_strict"] == 75.0
+    assert s["accepted_safe"] == 1                       # the first output still has B under rule ii
+    assert metrics.summarize([rec([], None)])["smell_reduction_strict"] is None
