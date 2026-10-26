@@ -1,0 +1,15 @@
+smell,tests,tsdetect,jnose,both,kappa,labelled_by_utr,labels_confirmed_tsdetect,labels_confirmed_jnose,labels_confirmed_both
+AssertionRoulette,484,321,340,297,0.681,314,314,290,290
+ConditionalTestLogic,484,10,10,10,1.0,10,10,10,10
+DependentTest,484,0,15,0,0.0,0,0,0,0
+DuplicateAssert,484,45,130,44,0.423,45,45,44,44
+EagerTest,484,347,359,331,0.77,345,345,329,329
+ExceptionHandling,484,224,10,7,0.021,224,224,7,7
+IgnoredTest,484,0,102,0,0.0,0,0,0,0
+LazyTest,484,3,104,3,0.045,0,0,0,0
+MagicNumberTest,484,89,90,89,0.993,55,55,55,55
+MysteryGuest,484,4,4,4,1.0,4,4,4,4
+RedundantAssertion,484,6,6,6,1.0,6,6,6,6
+ResourceOptimism,484,4,4,4,1.0,4,4,4,4
+SensitiveEquality,484,80,80,80,1.0,79,79,79,79
+VerboseTest,484,0,14,0,0.0,0,0,0,0

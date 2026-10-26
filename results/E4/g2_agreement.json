@@ -1,0 +1,180 @@
+{
+ "overall": {
+  "split": "all",
+  "tests": 484,
+  "labelled_smells": 1086,
+  "labels_confirmed_tsdetect_pct": 100.0,
+  "labels_confirmed_jnose_pct": 76.2,
+  "labels_confirmed_both_pct": 76.2
+ },
+ "by_smell": [
+  {
+   "smell": "AssertionRoulette",
+   "tests": 484,
+   "tsdetect": 321,
+   "jnose": 340,
+   "both": 297,
+   "kappa": 0.681,
+   "labelled_by_utr": 314,
+   "labels_confirmed_tsdetect": 314,
+   "labels_confirmed_jnose": 290,
+   "labels_confirmed_both": 290
+  },
+  {
+   "smell": "ConditionalTestLogic",
+   "tests": 484,
+   "tsdetect": 10,
+   "jnose": 10,
+   "both": 10,
+   "kappa": 1.0,
+   "labelled_by_utr": 10,
+   "labels_confirmed_tsdetect": 10,
+   "labels_confirmed_jnose": 10,
+   "labels_confirmed_both": 10
+  },
+  {
+   "smell": "DependentTest",
+   "tests": 484,
+   "tsdetect": 0,
+   "jnose": 15,
+   "both": 0,
+   "kappa": 0.0,
+   "labelled_by_utr": 0,
+   "labels_confirmed_tsdetect": 0,
+   "labels_confirmed_jnose": 0,
+   "labels_confirmed_both": 0
+  },
+  {
+   "smell": "DuplicateAssert",
+   "tests": 484,
+   "tsdetect": 45,
+   "jnose": 130,
+   "both": 44,
+   "kappa": 0.423,
+   "labelled_by_utr": 45,
+   "labels_confirmed_tsdetect": 45,
+   "labels_confirmed_jnose": 44,
+   "labels_confirmed_both": 44
+  },
+  {
+   "smell": "EagerTest",
+   "tests": 484,
+   "tsdetect": 347,
+   "jnose": 359,
+   "both": 331,
+   "kappa": 0.77,
+   "labelled_by_utr": 345,
+   "labels_confirmed_tsdetect": 345,
+   "labels_confirmed_jnose": 329,
+   "labels_confirmed_both": 329
+  },
+  {
+   "smell": "ExceptionHandling",
+   "tests": 484,
+   "tsdetect": 224,
+   "jnose": 10,
+   "both": 7,
+   "kappa": 0.021,
+   "labelled_by_utr": 224,
+   "labels_confirmed_tsdetect": 224,
+   "labels_confirmed_jnose": 7,
+   "labels_confirmed_both": 7
+  },
+  {
+   "smell": "IgnoredTest",
+   "tests": 484,
+   "tsdetect": 0,
+   "jnose": 102,
+   "both": 0,
+   "kappa": 0.0,
+   "labelled_by_utr": 0,
+   "labels_confirmed_tsdetect": 0,
+   "labels_confirmed_jnose": 0,
+   "labels_confirmed_both": 0
+  },
+  {
+   "smell": "LazyTest",
+   "tests": 484,
+   "tsdetect": 3,
+   "jnose": 104,
+   "both": 3,
+   "kappa": 0.045,
+   "labelled_by_utr": 0,
+   "labels_confirmed_tsdetect": 0,
+   "labels_confirmed_jnose": 0,
+   "labels_confirmed_both": 0
+  },
+  {
+   "smell": "MagicNumberTest",
+   "tests": 484,
+   "tsdetect": 89,
+   "jnose": 90,
+   "both": 89,
+   "kappa": 0.993,
+   "labelled_by_utr": 55,
+   "labels_confirmed_tsdetect": 55,
+   "labels_confirmed_jnose": 55,
+   "labels_confirmed_both": 55
+  },
+  {
+   "smell": "MysteryGuest",
+   "tests": 484,
+   "tsdetect": 4,
+   "jnose": 4,
+   "both": 4,
+   "kappa": 1.0,
+   "labelled_by_utr": 4,
+   "labels_confirmed_tsdetect": 4,
+   "labels_confirmed_jnose": 4,
+   "labels_confirmed_both": 4
+  },
+  {
+   "smell": "RedundantAssertion",
+   "tests": 484,
+   "tsdetect": 6,
+   "jnose": 6,
+   "both": 6,
+   "kappa": 1.0,
+   "labelled_by_utr": 6,
+   "labels_confirmed_tsdetect": 6,
+   "labels_confirmed_jnose": 6,
+   "labels_confirmed_both": 6
+  },
+  {
+   "smell": "ResourceOptimism",
+   "tests": 484,
+   "tsdetect": 4,
+   "jnose": 4,
+   "both": 4,
+   "kappa": 1.0,
+   "labelled_by_utr": 4,
+   "labels_confirmed_tsdetect": 4,
+   "labels_confirmed_jnose": 4,
+   "labels_confirmed_both": 4
+  },
+  {
+   "smell": "SensitiveEquality",
+   "tests": 484,
+   "tsdetect": 80,
+   "jnose": 80,
+   "both": 80,
+   "kappa": 1.0,
+   "labelled_by_utr": 79,
+   "labels_confirmed_tsdetect": 79,
+   "labels_confirmed_jnose": 79,
+   "labels_confirmed_both": 79
+  },
+  {
+   "smell": "VerboseTest",
+   "tests": 484,
+   "tsdetect": 0,
+   "jnose": 14,
+   "both": 0,
+   "kappa": 0.0,
+   "labelled_by_utr": 0,
+   "labels_confirmed_tsdetect": 0,
+   "labels_confirmed_jnose": 0,
+   "labels_confirmed_both": 0
+  }
+ ]
+}
