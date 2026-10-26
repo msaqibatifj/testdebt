@@ -3,7 +3,9 @@
 Smell reduction (rule i, tsDetect only, as in [1]): targeted smells that are gone after the FINAL attempt,
 counted over every test (a test with no usable reply counts as nothing removed).
 Also reported among accepted outputs only (smell_reduction_accepted), since rule i credits rejected outputs.
-Rules ii (strict, tsDetect AND JNose) and iii (manual sample) need JNose / labels: reported as null until added.
+Rule ii (strict): a smell counts as removed only if tsDetect AND JNose both no longer report it; computed over the
+tests whose reports carry JNose output (null when JNose was not run). Rule iii (manual sample) is computed by
+team/hasan/manual.py from the labels file. accepted_safe uses rule ii when JNose ran, else rule i.
 """
 from __future__ import annotations
 
@@ -35,6 +37,11 @@ def wilson(k: int, n: int, z: float = 1.96) -> list[float] | None:
     return [round(100 * (c - h), 1), round(100 * (c + h), 1)]
 
 
+def _after_strict(f: dict) -> set[str]:
+    """Smells still present under rule ii: reported by either detector (rule i when JNose did not run)."""
+    return set(f.get("smells_after", [])) | set(f.get("smells_after_jnose") or [])
+
+
 def summarize(recs: list[dict]) -> dict:
     recs = [r for r in recs if r["decision"] != "skipped"]
     n = len(recs)
@@ -53,8 +60,10 @@ def summarize(recs: list[dict]) -> dict:
     ks = [f for r, f in zip(recs, final) if r["decision"] == "accepted" and f.get("killset_preserved") is not None]
     lost = sum(1 for f in ks if f["killset_preserved"] is False)
     tokens = sum(r["tokens"] for r in recs)
+    strict = [(set(r["finding"]["smells"]), _after_strict(f)) for r, f in zip(recs, final)
+              if f.get("sane") and f.get("smells_after_jnose") is not None]
     safe = sum(1 for r, f in zip(recs, final) if r["decision"] == "accepted" and f.get("killset_preserved") is True
-               and not (set(r["finding"]["smells"]) & set(f.get("smells_after", []))))
+               and not (set(r["finding"]["smells"]) & _after_strict(f)))
     # With --skip-verify nothing is compiled or run, so "accepted" only means "passed the static checks".
     # Report it as unverified instead of as an acceptance rate.
     verified = not any(r["decision"] == "accepted" and f.get("compiled") is None for r, f in zip(recs, final))
@@ -68,7 +77,8 @@ def summarize(recs: list[dict]) -> dict:
         "smell_reduction_tsdetect": _rate(removed, targeted), "smells_targeted": targeted, "smells_removed": removed,
         # among accepted outputs only: rule i above also credits smells "removed" by outputs that were rejected
         "smell_reduction_accepted": _rate(acc_removed, acc_targeted),
-        "smell_reduction_strict": None, "smell_reduction_manual": None,
+        "smell_reduction_strict": _rate(sum(len(t - a) for t, a in strict), sum(len(t) for t, _ in strict)),
+        "smell_reduction_strict_tests": len(strict), "smell_reduction_manual": None,
         "killset_checked": len(ks),
         "killset_unknown": sum(1 for r, f in zip(recs, final) if r["decision"] == "accepted"
                                and f.get("killset_preserved") is None and f.get("mutants_killed_before") == 0),
@@ -115,7 +125,7 @@ def report(recs: list[dict]) -> dict:
 
 
 def markdown(rep: dict, title: str) -> str:
-    keys = ["tests", "accepted_rate", "compile_rate", "pass_rate", "smell_reduction_tsdetect",
+    keys = ["tests", "accepted_rate", "compile_rate", "pass_rate", "smell_reduction_tsdetect", "smell_reduction_strict",
             "smell_reduction_accepted", "accepted_losing_mutants_rate", "accepted_safe_rate", "tokens_per_test", "wall_time_s"]
     rows = [("overall", rep["overall"])] + list(rep["by_project"].items())
     lines = [f"# {title}", "", "| scope | " + " | ".join(keys) + " |", "|" + "---|" * (len(keys) + 1)]
