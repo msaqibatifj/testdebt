@@ -33,6 +33,7 @@ from ..contracts import DebtFinding, RefactorProposal, RunState, TestRef, Verifi
 from ..java_utils import find_method
 from ..pipeline import Config, _stage
 from ..prompts import KnowledgeBase, build_context, parse_reply, retry_prompt
+from ..team.hasan import consensus
 from ..trace import Trace
 from ..verify import Verifier
 from .detection import DetectionAgent
@@ -53,7 +54,7 @@ class Supervisor:
     def __init__(self, llm, verifier: Verifier, kb: KnowledgeBase, cfg: Config, run_dir: str | Path,
                  max_attempts: int = 3):
         self.verifier, self.cfg, self.max_attempts = verifier, cfg, max_attempts
-        self.detect, self.planner = DetectionAgent(verifier), PlannerAgent(kb, llm, cfg)
+        self.detect, self.planner = DetectionAgent(verifier, cfg.detector), PlannerAgent(kb, llm, cfg)
         self.refactor = RefactorAgent(llm, cfg)
         self.run_dir = Path(run_dir)
         self.run_dir.mkdir(parents=True, exist_ok=True)
@@ -110,8 +111,10 @@ class Supervisor:
             return self._save(st, t0)
 
         original, context = m["text"], build_context(src, test.class_name)
-        targets = self.detect.run(test, src, finding)
-        self._log(st, "detection", "smells", ",".join(targets), tool="tsdetect", input=finding.smells, output=targets)
+        targets, seen = self.detect.run(test, src, finding)
+        self._log(st, "detection", "smells", f"{','.join(targets)} ({seen['rule']})",
+                  tool="tsdetect+jnose" if seen["jnose"] is not None else "tsdetect", input=finding.smells,
+                  output={"targets": targets, **seen})
 
         adaptive = self.cfg.policy == "adaptive"
         strategy = self._make_plan(st, original, context, targets, None, 0) if adaptive else "kb"
@@ -141,7 +144,7 @@ class Supervisor:
                           tool="verify", input={"attempt": n, "imports": imports}, output=asdict(rep),
                           latency_s=round(time.monotonic() - tv, 3))
             st.reports.append(rep)
-            left = sorted(set(targets) & set(rep.smells_after))
+            left = consensus.left(targets, rep, self.cfg.detector)
             if rep.ok and not left:
                 st.decision, st.reason = "accepted", f"supervisor accepted on attempt {n + 1}"
                 self._log(st, "supervisor", "accept")

@@ -53,6 +53,7 @@ class VerificationReport:
     mutants_killed_before: int | None = None
     mutants_killed_after: int | None = None
     smells_after: list[str] = field(default_factory=list)
+    smells_after_jnose: list[str] | None = None        # second detector (G2); None = not run
     assertions_before: int = 0
     assertions_after: int = 0
     problem: str = ""                 # short error text fed back to the LLM on retry

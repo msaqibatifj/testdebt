@@ -68,6 +68,8 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--eval", default="data/eval_set.jsonl")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--project", default="", help="only tests of this project, e.g. commons-cli")
+    ap.add_argument("--detector", choices=["tsdetect", "consensus", "union"],
+                    help="s3: smells to target / count as gone; tsdetect = -G2 ablation")
     ap.add_argument("--split", choices=["dev", "test", "rest", "all"], help="only tests in data/splits/<split>.jsonl")
     ap.add_argument("--frozen", action="store_true", help="required for --split test: clean tree, results count")
     ap.add_argument("--seed", type=int)
@@ -97,6 +99,8 @@ def main(argv: list[str] | None = None) -> None:
         cfg.system = a.system
     if a.seed is not None:
         cfg.seed = a.seed
+    if a.detector:
+        cfg.detector = a.detector
     if a.policy:
         cfg.policy = a.policy
     if a.memory:
@@ -116,7 +120,13 @@ def main(argv: list[str] | None = None) -> None:
     runner_cls = MavenRunner if a.runner == "maven" else FastRunner
     maven = None if a.skip_verify else runner_cls(mvn=paths.get("mvn", "mvn"), java_homes=java_homes)
     pit = PitRunner(mvn=paths.get("mvn", "mvn"), env=maven.env) if a.pit and maven else None
-    verifier = Verifier(maven, tsd, pit, run_tests=not a.skip_verify)
+    from .team.hasan.jnose import JNose
+    jnose = JNose(paths.get("jnose_dir", "data/tools/jnose"))
+    if not jnose.available():
+        print("WARNING: JNose not found (bash src/testdebt/team/hasan/get_jnose.sh) -> rule ii and G2 consensus off")
+        if cfg.system == "s3" and cfg.detector != "tsdetect":
+            raise SystemExit(f"--detector {cfg.detector} needs JNose; run get_jnose.sh or pass --detector tsdetect")
+    verifier = Verifier(maven, tsd, pit, run_tests=not a.skip_verify, jnose=jnose if jnose.available() else None)
     kb = KnowledgeBase(paths.get("utrefactor", "data/utrefactor"))
     if cfg.system == "s3":
         from .agents import Supervisor

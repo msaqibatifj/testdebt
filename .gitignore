@@ -12,3 +12,4 @@ data/tools/*.jar
 *.egg-info/
 pom.pit.xml
 .claude
+data/tools/jnose/
