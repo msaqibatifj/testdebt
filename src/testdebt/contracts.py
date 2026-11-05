@@ -57,10 +57,13 @@ class VerificationReport:
     assertions_before: int = 0
     assertions_after: int = 0
     problem: str = ""                 # short error text fed back to the LLM on retry
+    killset_enforced: bool = True     # False = kill-set only measured (--killset-gate off, -G1 ablation)
+    lost_mutants: list = field(default_factory=list)   # (class, method, line, mutator, index), first 20
+    timings: dict = field(default_factory=dict)        # seconds: smells, compile_run, pit
 
     @property
     def ok(self) -> bool:
-        gates = [self.sane, self.compiled, self.passed, self.killset_preserved]
+        gates = [self.sane, self.compiled, self.passed, self.killset_preserved if self.killset_enforced else None]
         return all(g is not False for g in gates) and self.sane
 
 

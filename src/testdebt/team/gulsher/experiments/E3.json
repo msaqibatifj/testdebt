@@ -1,0 +1,2 @@
+{"experiment": "E3", "question": "What does the full system (G1 + G2 + G6 on) achieve?",
+ "runs": [{"name": "s3", "args": ["--system", "s3", "--pit"], "split": "test", "seeds": [1, 2, 3]}]}

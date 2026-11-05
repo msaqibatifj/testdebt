@@ -49,7 +49,7 @@ def _stage(rep: VerificationReport) -> str:
         return "compile"
     if rep.passed is False:
         return "test run"
-    if rep.killset_preserved is False:
+    if rep.killset_preserved is False and rep.killset_enforced:
         return "kill-set (mutation testing)"
     return "smell check"
 

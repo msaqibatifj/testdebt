@@ -1,8 +1,28 @@
 # Team parts: who owns what
 
-One package per owner. Saqib's parts (G6 and orchestration) live in the core package, not here: `agents/` (planner,
-supervisor, memory), `trace.py`, `cli.py`, `data/splits.py`. Gulsher's package (`team/gulsher/`: G1 kill-set gate,
-experiment runner, CI) is added by him.
+This folder holds a complete backup implementation of Gulsher's and Hasan's Phase 2 work, one package per owner,
+on the local branch `backup/full-system`. When an owner pushes their own version, theirs replaces the file here;
+the wiring points listed at the end are the only places the rest of the system touches these packages.
+
+Saqib's parts (G6 and orchestration) live in the core package, not here: `agents/` (planner, supervisor,
+memory), `trace.py`, `cli.py`, `data/splits.py`.
+
+## Gulsher: G1 and infrastructure (`team/gulsher/`)
+
+| File | What it does | Plan item |
+|---|---|---|
+| `killset_gate.py` | G1 kill-set gate: K(original) ⊆ ∪ K(new tests) from PIT; baseline and after-run matrices cached by SHA-256 of the class source; lost mutants named in the retry feedback; `enforce=False` measures only | G1, PIT caches |
+| `robustness.py` | `RestoreCheck` (project checkout must be unchanged after every test, else the run stops); `redact` (no API key in any trace file) | robustness, secrets check |
+| `experiments.py` | one entry point for E1-E6: `run` (fixed run ids, resumable, `--dev` dry runs) and `summarize` (results/E*/runs.csv, summary.json, table.tex; E4 paired tests; E6 cost/latency/reliability) | experiment runner, E1, E2, E4-G1, E6 |
+| `experiments/E1.json` … `E5.json` | which systems, flags, split and seeds each experiment runs | experiment YAMLs (JSON: no YAML library needed) |
+| `run_all.sh` | E1-E6 in order on the frozen commit, then failures and figures | `run_all.sh` |
+| `Dockerfile` | clean-machine check: JDK 17, Maven 3.9.9, Python, JNose | Dockerfile |
+| `../../../../.github/workflows/ci.yml` | pytest on every push (has to live in `.github/`) | CI |
+
+Not built (say so if asked): parallel workers per project. The LLM rate limit (5 requests/min) is the bottleneck;
+run one `experiments.py run` per project in separate terminals with `--only` if PIT time dominates.
+Subprocess timeouts already exist in `tools/` (Maven 900 s, PIT 3600 s, tsDetect 600 s); a timeout becomes
+decision `error`, and resuming the run retries it.
 
 ## Hasan: G2 and evaluation (`team/hasan/`)
 
@@ -24,15 +44,16 @@ First result (`results/E4/g2_agreement.json`, all 484 tests): JNose confirms 76.
 detectors disagree most on ExceptionHandling (tsDetect 224, JNose 10) and IgnoredTest (0 vs 102; jnose-core 0.9.3
 fixed an IgnoredTest false positive, but 0.9.3 needs Java 25).
 
-## Where the core calls into team/hasan
+## Where the core calls into these packages
 
 | Core file | Change |
 |---|---|
-| `verify.py` | runs JNose on the refactored methods after the patch (`smells_after_jnose`) |
-| `contracts.py` | `VerificationReport.smells_after_jnose` (None = JNose not run) |
-| `pipeline.py` | `Config.detector` (`consensus` by default for S3) |
+| `verify.py` | uses `KillsetGate`; runs JNose after the patch (`smells_after_jnose`); records `timings` |
+| `contracts.py` | `VerificationReport` gains `killset_enforced`, `lost_mutants`, `smells_after_jnose`, `timings` |
+| `pipeline.py` | `Config.detector`; a kill-set loss is a failure stage only when the gate is enforced |
 | `agents/detection.py`, `agents/supervisor.py` | targets and "smells left" through `consensus` |
-| `cli.py` | `--detector`; JNose loaded when its jars are present |
+| `cli.py` | `--killset-gate`, `--detector`; JNose loaded when present; `RestoreCheck` around every test |
+| `trace.py` | every traced text goes through `redact` |
 | `eval/metrics.py` | rule ii |
 
 ## Commands
@@ -43,4 +64,8 @@ python3 -m testdebt.team.hasan.agreement --split all               # E4-G2, no L
 python3 -m testdebt.team.hasan.failures runs/E3_s3_s1 --name E3 --case success1 '<test id>'   # + a case
 python3 -m testdebt.team.hasan.gap_table --readme README.md        # gap table into results/ and the README
 python3 -m testdebt.team.hasan.check_refs paper/refs.bib paper/*.tex
+python3 -m testdebt.team.gulsher.experiments run E3 --dev --limit 5  # try the pipeline on dev
+python3 -m testdebt.team.gulsher.experiments run E3 --frozen       # reported runs (clean tree)
+python3 -m testdebt.team.gulsher.experiments summarize E3
+bash src/testdebt/team/gulsher/run_all.sh                          # everything, resumable
 ```
