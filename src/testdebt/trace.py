@@ -64,6 +64,19 @@ class Trace:
                           cached=r.get("cached"))
 
 
+def final(run_dir: str | Path, test_id: str, decision: str, failure_mode: str | None) -> None:
+    """Append the closing `final` event of a test's trajectory (failure_mode only when it was not accepted)."""
+    path = Path(run_dir, "trajectories", file_name(test_id))
+    if not path.exists():   # b0replay and other no-trace systems
+        return
+    n = sum(1 for _ in path.open(encoding="utf-8"))
+    rec = {"step": n + 1, "agent": "pipeline", "event": "final", "decision": decision}
+    if failure_mode:
+        rec["failure_mode"] = failure_mode
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(rec) + "\n")
+
+
 def timeline(run_dir: str | Path, test_id: str) -> str:
     lines = []
     for l in Path(run_dir, "trajectories", file_name(test_id)).read_text(encoding="utf-8").splitlines():

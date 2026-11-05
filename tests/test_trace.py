@@ -41,3 +41,12 @@ def test_error_is_in_the_trajectory(demo, kb, tmp_path):  # noqa: F811
     st, _, sup = run([], [OK], demo, kb, tmp_path)
     ev = events(sup.tr.path)
     assert ("supervisor", "error") in [(e["agent"], e["event"]) for e in ev] and "IndexError" in ev[-2]["output"]
+
+
+def test_final_event(tmp_path):
+    import json
+    from testdebt.trace import Trace, final, file_name
+    Trace(tmp_path, "p:C#m").event("supervisor", "decision")
+    final(tmp_path, "p:C#m", "rejected", "compile: other")
+    last = json.loads((tmp_path / "trajectories" / file_name("p:C#m")).read_text().splitlines()[-1])
+    assert last["event"] == "final" and last["failure_mode"] == "compile: other" and last["step"] == 2

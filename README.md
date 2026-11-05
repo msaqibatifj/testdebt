@@ -117,6 +117,21 @@ copied to `results/phase1/<run_id>/` (report, decisions, config).
 With `--skip-verify` nothing is compiled or run. The report then shows `accepted_rate` as `-` and counts
 `accepted_unverified` instead, so a static-only run is never mistaken for an acceptance rate.
 
+### Reproduce E1-E6 (one command)
+
+```bash
+bash experiments/run_all.sh                          # test split, 3 seeds, frozen -> results/E1..E6, gap table into this README
+SPLIT=dev LIMIT=3 SEEDS="1" bash experiments/run_all.sh   # smoke run
+# one system, one seed, gaps chosen by name (gap1 kill-set gate, gap2 consensus detector, gap6 adaptive supervisor):
+python -m experiments.run_experiment --system s3 --split dev --limit 5 --gaps gap1,gap2,gap6 --seed 1
+```
+
+`run_system(cfg, gaps, seed, trace_dir)` in `experiments/run_experiment.py` returns one flat metrics dict per seed: report
+metrics, tool calls, retries, recovery rate, latency, tokens, and the reproducibility fields (model, temperature,
+prompt hash, seed, git commit). Every trajectory ends with a `final` event carrying `failure_mode` when the test was not accepted.
+E1 b0replay, E2 baselines (b0replay, b0, b1, single, b2), E3 full S3, E4 detector agreement, E5 ablations (-G1, -G2, -G6),
+E6 efficiency and reliability (from the E3 runs; cost is $0 on the Cerebras free tier, token counts are reported).
+
 ### Data splits
 
 `data/splits/{dev,test,rest}.jsonl` hold test IDs only and were built once (commit `0e1f7da`) with
@@ -136,8 +151,13 @@ Generated from `results/` (`python3 -m testdebt.team.hasan.gap_table --readme RE
 _Filled after the E2-E4 test-split runs._
 <!-- /gap-table -->
 
+## Phase 1 feedback addressed
+
+_One line per member: supervisor comment -> what we changed. To be filled by Saqib, Gulsher and Hasan before the final tag._
+
 ## Changes since Phase 1
 
+- 2026-11-05: `experiments/` package: `run_system()` wraps `testdebt run` and maps `gap1/gap2/gap6` onto `--pit`, `--detector`, `--policy/--memory`; `run_all.sh` reproduces E1-E6. Trajectories end with a `final` event.
 - Evaluation set is 484 tests, not 593: the replication package has reports for 492, and 484 match the pinned commits verbatim.
 - Gson is reported against its own test dependencies at the matched commit; [1] compiled it in a different setup.
 - PIT baseline kill matrix is computed before patching (bug found in the Phase 1 pilot, fixed in `5cf24e3`).

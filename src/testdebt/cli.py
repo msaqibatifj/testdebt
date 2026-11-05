@@ -160,6 +160,9 @@ def main(argv: list[str] | None = None) -> None:
             continue
         st = pipe.process(test, DebtFinding(test, r["smells"], detector="tsdetect[1]", all_smells=r["smells"]),
                           replay=r.get("utr_refactored"))
+        from .team.hasan.failures import classify
+        from .trace import final
+        final(run_dir, test.id, st.decision, None if st.decision == "accepted" else classify(asdict(st))[0])
         print(f"[{i}/{len(rows)}] {test.id}: {st.decision} ({len(st.proposals)} attempt(s), "
               f"{sum(p.tokens for p in st.proposals) + st.plan_tokens} tok) {st.reason[:120]}")
     rep = write_report(run_dir)
