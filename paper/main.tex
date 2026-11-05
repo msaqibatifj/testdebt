@@ -1,0 +1,51 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{graphicx,booktabs,amsmath,cite}
+\begin{document}
+\title{VeriRefactor: Verified, Agentic Test-Smell Refactoring with Kill-Set Gating and Detector Consensus}
+\author{\IEEEauthorblockN{M Saqib Atif, Gulsher Khan, Hasan Altaf}
+\IEEEauthorblockA{Group G2-10, AI4015, FAST-NUCES Islamabad\\
+% TODO confirm the email format with the group
+i230769@isb.nu.edu.pk, i230066@isb.nu.edu.pk, i230698@isb.nu.edu.pk\\
+IDs: 23I-0769, 23I-0066, 23I-0698}}
+\maketitle
+
+\begin{abstract}
+TODO (write last, 150--250 words: problem, approach, 2--3 headline numbers from results/E3, contributions).
+\end{abstract}
+
+\section{Introduction}
+LLM refactoring of test smells can silently weaken a test: the new code compiles and passes but kills fewer
+mutants. UTRefactor~\cite{utrefactor} accepts a refactoring once it compiles and passes. We study three gaps in that setting.
+\textbf{RQ1 (G1)}: does a kill-set gate stop accepted refactorings that lose mutants?
+\textbf{RQ2 (G2)}: does requiring two detectors (tsDetect, JNose) to agree make smell removal more trustworthy?
+\textbf{RQ3 (G6)}: does adaptive supervision (retry, switch strategy, memory) beat a fixed retry script and a single tool-using agent?
+Contributions: (i) a verifier that accepts a refactoring only if it compiles, passes, removes the targeted smells and preserves the PIT kill set;
+(ii) tsDetect+JNose consensus targets; (iii) an adaptive Supervisor with an LLM planner and cross-test memory;
+(iv) a controlled comparison of six systems on 150 held-out tests with 3 seeds.
+
+\section{Related Work}
+TODO (UTRefactor, tsDetect, JNose, PIT/mutation testing, LLM agents for refactoring; 25--30 references with DOIs in refs.bib).
+
+\section{Problem Formulation}
+Input: a Java/JUnit project $P$ and a test suite $T=\{t_1,\dots,t_n\}$ (test methods). Smell set $S$ (the tsDetect smells in~\cite{utrefactor}).
+Tool set $\mathcal{K}=\{\textsf{detect},\textsf{compile\_and\_run},\textsf{pit},\textsf{submit}\}$.
+For a test $t$, $D(t)\subseteq S$ is its detected smells. A state is $(t, t', D(t'), a)$: original, current candidate,
+its smells, and the attempt count $a\le a_{\max}$ (with a per-test token cap). The output is a decision
+$d(t)\in\{\text{accept},\text{reject},\text{escalate}\}$ and, if accepted, $t'$.
+Constraints: $t'$ compiles and passes; $D(t')\cap D(t)=\emptyset$ for targeted smells; behaviour preservation
+$K(t')\supseteq K(t)$ where $K$ is the set of PIT mutants killed. Objective: maximise the rate of accepted-and-safe tests at minimal tokens.
+
+\section{Proposed System}
+Figure~\ref{fig:arch} shows the system. A Supervisor drives four agents: Detection (tsDetect, JNose, G2 consensus),
+Planner (LLM-written JSON plan with a rule fallback), Refactor (LLM) and Verifier (patch, compile, run, smells, PIT kill-set gate, G1).
+The Supervisor accepts, retries, switches strategy, narrows targets, reverts to the best attempt or escalates (G6);
+memory holds failed proposals within a test and failed approaches across tests. Every step is logged as a trajectory event.
+\begin{figure}[t]\centering\includegraphics[width=\columnwidth]{architecture.png}
+\caption{Architecture and where each gap plugs in.}\label{fig:arch}\end{figure}
+
+\section{Experimental Setup}\section{Results}\section{Discussion and Threats to Validity}\section{Conclusion}
+TODO
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}
