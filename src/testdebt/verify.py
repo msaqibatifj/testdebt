@@ -4,8 +4,8 @@ Every number comes from a tool (Maven, tsDetect, PIT, the rules detector), never
 """
 from __future__ import annotations
 
-import json
 import re
+import time
 from pathlib import Path
 
 from .contracts import TestRef, VerificationReport
@@ -13,6 +13,7 @@ from .java_utils import extract_test_methods, find_method, mask
 from .smells import analyze_code, count_assertions, removable_assertions
 from .tools import pit as pitmod
 from .tools.maven import MavenRunner
+from .team.gulsher.killset_gate import KillsetGate
 from .tools.tsdetect import TsDetect, focal_class_file
 
 
@@ -104,25 +105,10 @@ def static_checks(original: str, block: str) -> tuple[bool, str, dict]:
 
 class Verifier:
     def __init__(self, maven: MavenRunner | None, tsdetect: TsDetect | None = None, pit: pitmod.PitRunner | None = None,
-                 pit_cache: str | Path = "runs/pit_cache", run_tests: bool = True, jnose=None):
-        self.maven, self.tsdetect, self.pit, self.jnose = maven, tsdetect, pit, jnose
-        self.pit_cache, self.run_tests = Path(pit_cache), run_tests
-
-    # ---- baseline kill matrix per test class (cached on disk, computed once) ----
-    def _pit_target(self, test: TestRef, src: str) -> tuple[str, str]:
-        pkg = pitmod.package_of(src)
-        return (f"{pkg}.{test.class_name}" if pkg else test.class_name), (f"{pkg}.*" if pkg else "*")
-
-    def baseline_matrix(self, test: TestRef) -> dict[str, set]:
-        f = self.pit_cache / f"{test.project}__{test.class_name}.json"
-        if f.exists():
-            return {k: {tuple(x) for x in v} for k, v in json.loads(f.read_text()).items()}
-        src = Path(test.file).read_text(encoding="utf-8")
-        fqn, targets = self._pit_target(test, src)
-        mat = self.pit.run(test.module_dir, fqn, targets, test.project)
-        f.parent.mkdir(parents=True, exist_ok=True)
-        f.write_text(json.dumps({k: sorted(v) for k, v in mat.items()}))
-        return mat
+                 pit_cache: str | Path = "runs/pit_cache", run_tests: bool = True, killset_enforce: bool = True,
+                 jnose=None):
+        self.maven, self.tsdetect, self.pit, self.run_tests, self.jnose = maven, tsdetect, pit, run_tests, jnose
+        self.gate = KillsetGate(pit, pit_cache, killset_enforce) if pit else None
 
     # ---- the ORIGINAL class must compile and pass here, otherwise nothing after can be trusted ----
     def baseline_ok(self, test: TestRef) -> tuple[bool, str]:
@@ -146,7 +132,8 @@ class Verifier:
         use_pit = bool(pit and self.pit)
         sane, problem, info = static_checks(original, block)
         rep = VerificationReport(sane=sane, problem=problem, assertions_before=info["assertions_before"],
-                                 assertions_after=info["assertions_after"])
+                                 assertions_after=info["assertions_after"],
+                                 killset_enforced=self.gate.enforce if self.gate else True)
         if not sane:
             return rep
         path = Path(test.file)
@@ -157,6 +144,7 @@ class Verifier:
             rep.sane, rep.problem = False, f"could not locate {test.method} uniquely in {path.name}"
             return rep
         new_tests = set(info["new_tests"])
+        t = time.monotonic()
         # smells after: tsDetect when available (the measurement of record), else the rules approximation
         if self.tsdetect and self.tsdetect.available():
             after = self.tsdetect.detect_source(patched, test.class_name, new_tests, focal_class_file(path))
@@ -165,32 +153,33 @@ class Verifier:
         rep.smells_after = sorted(after)
         if self.jnose and self.jnose.available():        # G2 second detector, same method isolation
             rep.smells_after_jnose = sorted(self.jnose.detect_source(patched, test.class_name, new_tests))
+        rep.timings["smells"] = round(time.monotonic() - t, 3)
         # The baseline kill matrix MUST come from the unmodified class, so it is computed (or read from cache)
         # before the patch is written. Computing it lazily after the write measured the refactored code.
-        before = (pitmod.kill_set(self.baseline_matrix(test), {test.method})
-                  if use_pit and self.run_tests and self.maven else None)
+        before = self.gate.before(test, src) if use_pit and self.run_tests and self.maven else None
         try:
             path.write_text(patched, encoding="utf-8")
             if self.run_tests and self.maven:
+                t = time.monotonic()
                 r = self.maven.run_test_class(test.module_dir, test.class_name, test.project, test_file=path)
                 rep.compiled, rep.passed = r["compiled"], r["passed"]
                 if not r["compiled"]:
                     rep.problem = "compilation failed:\n" + r["log"]
                 elif not r["passed"]:
                     rep.problem = "test run failed:\n" + r["log"]
+                rep.timings["compile_run"] = round(time.monotonic() - t, 3)
             if use_pit and rep.compiled and rep.passed and not before:
                 # empty baseline kill-set: nothing to preserve is NOT evidence of safety -> unknown, not preserved
                 # (counted as "killset_unknown" in metrics; not a rejection reason by itself)
                 rep.killset_preserved, rep.mutants_killed_before = None, 0
             elif use_pit and rep.compiled and rep.passed:
-                fqn, targets = self._pit_target(test, patched)
-                after_mat = self.pit.run(test.module_dir, fqn, targets, test.project)
-                cmp = pitmod.compare(before, pitmod.kill_set(after_mat, new_tests))
-                rep.killset_preserved = cmp["preserved"]
+                t = time.monotonic()
+                cmp = self.gate.check(test, patched, new_tests, before)
+                rep.timings["pit"] = round(time.monotonic() - t, 3)
+                rep.killset_preserved, rep.lost_mutants = cmp["preserved"], [list(m) for m in cmp["lost_mutants"]]
                 rep.mutants_killed_before, rep.mutants_killed_after = cmp["killed_before"], cmp["killed_after"]
-                if not cmp["preserved"]:
-                    rep.problem = (f"kill-set lost: {cmp['lost']} mutant(s) killed by the original test are no longer "
-                                   f"killed, e.g. {cmp['lost_mutants'][:3]}")
+                if cmp["problem"] and self.gate.enforce:    # off: measured only, never a retry reason
+                    rep.problem = cmp["problem"]
         finally:
             path.write_text(src, encoding="utf-8")          # never leave the project modified
         return rep

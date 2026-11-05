@@ -36,6 +36,7 @@ from .tools.pit import PitRunner
 from .tools.tsdetect import TsDetect
 from .verify import Verifier
 from .data import splits
+from .team.gulsher.robustness import RestoreCheck
 from .eval import metrics
 
 
@@ -78,6 +79,8 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--pit", action="store_true", help="kill-set gate/measurement with PIT (slow)")
     ap.add_argument("--runner", choices=["fast", "maven"], default="fast",
                     help="fast: Maven once per module, then javac + JUnit launcher per test (default)")
+    ap.add_argument("--killset-gate", choices=["on", "off"], default="on",
+                    help="with --pit: off = kill-set only measured, never rejects (-G1 ablation)")
     ap.add_argument("--policy", choices=["adaptive", "fixed"], help="s3: fixed = B1's retry script (-G6 ablation)")
     ap.add_argument("--memory", choices=["on", "off"], help="s3: off = no memory of failed approaches (ablation)")
     ap.add_argument("--report", default="", help="only (re)compute metrics for an existing run dir")
@@ -126,7 +129,8 @@ def main(argv: list[str] | None = None) -> None:
         print("WARNING: JNose not found (bash src/testdebt/team/hasan/get_jnose.sh) -> rule ii and G2 consensus off")
         if cfg.system == "s3" and cfg.detector != "tsdetect":
             raise SystemExit(f"--detector {cfg.detector} needs JNose; run get_jnose.sh or pass --detector tsdetect")
-    verifier = Verifier(maven, tsd, pit, run_tests=not a.skip_verify, jnose=jnose if jnose.available() else None)
+    verifier = Verifier(maven, tsd, pit, run_tests=not a.skip_verify, killset_enforce=a.killset_gate == "on",
+                        jnose=jnose if jnose.available() else None)
     kb = KnowledgeBase(paths.get("utrefactor", "data/utrefactor"))
     if cfg.system == "s3":
         from .agents import Supervisor
@@ -137,7 +141,7 @@ def main(argv: list[str] | None = None) -> None:
     else:
         pipe = Pipeline(llm, verifier, kb, cfg, run_dir)
     (run_dir / "config.json").write_text(json.dumps({"config": asdict(cfg), "model": llm.model, "eval": a.eval,
-                                                     "skip_verify": a.skip_verify, "pit": a.pit, "split": a.split,
+                                                     "skip_verify": a.skip_verify, "pit": a.pit, "killset_gate": a.killset_gate, "split": a.split,
                                                      "frozen": a.frozen, "git_commit": commit, "git_dirty": dirty},
                                                     indent=2))
 
@@ -153,16 +157,20 @@ def main(argv: list[str] | None = None) -> None:
     if a.project:
         rows = [r for r in rows if r["project"] == a.project]
     rows = rows[:a.limit] if a.limit else rows
-    done = pipe.done_ids()
+    done, restore = pipe.done_ids(), RestoreCheck()
     for i, r in enumerate(rows, 1):
         test = TestRef(r["project"], r["module_dir"], r["file"], r["class_name"], r["method"])
         if test.id in done:
             continue
+        if not a.skip_verify:
+            restore.check(test.module_dir)       # snapshot before the first test of each module
         st = pipe.process(test, DebtFinding(test, r["smells"], detector="tsdetect[1]", all_smells=r["smells"]),
                           replay=r.get("utr_refactored"))
         from .team.hasan.failures import classify
         from .trace import final
         final(run_dir, test.id, st.decision, None if st.decision == "accepted" else classify(asdict(st))[0])
+        if not a.skip_verify:
+            restore.check(test.module_dir)
         print(f"[{i}/{len(rows)}] {test.id}: {st.decision} ({len(st.proposals)} attempt(s), "
               f"{sum(p.tokens for p in st.proposals) + st.plan_tokens} tok) {st.reason[:120]}")
     rep = write_report(run_dir)

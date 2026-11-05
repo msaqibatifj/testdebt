@@ -57,6 +57,8 @@ def summarize(recs: list[dict]) -> dict:
         targeted, removed = targeted + len(t), removed + gone
         if r["decision"] == "accepted":
             acc_targeted, acc_removed = acc_targeted + len(t), acc_removed + gone
+    strict = [(set(r["finding"]["smells"]), _after_strict(f)) for r, f in zip(recs, final)
+              if f.get("sane") and f.get("smells_after_jnose") is not None]
     ks = [f for r, f in zip(recs, final) if r["decision"] == "accepted" and f.get("killset_preserved") is not None]
     lost = sum(1 for f in ks if f["killset_preserved"] is False)
     tokens = sum(r["tokens"] for r in recs)

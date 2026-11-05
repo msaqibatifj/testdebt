@@ -1,0 +1,5 @@
+{"experiment": "E5", "question": "How much does each gap component contribute? (one switched off at a time)",
+ "runs": [{"name": "s3-G1", "args": ["--system", "s3", "--pit", "--killset-gate", "off"], "split": "test", "seeds": [1, 2, 3]},
+          {"name": "s3-G2", "args": ["--system", "s3", "--pit", "--detector", "tsdetect"], "split": "test", "seeds": [1, 2, 3]},
+          {"name": "s3-G6", "args": ["--system", "s3", "--pit", "--policy", "fixed"], "split": "test", "seeds": [1, 2, 3]},
+          {"name": "s3-memory", "args": ["--system", "s3", "--pit", "--memory", "off"], "split": "test", "seeds": [1, 2, 3]}]}

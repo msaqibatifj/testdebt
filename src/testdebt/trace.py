@@ -16,6 +16,8 @@ import sys
 import time
 from pathlib import Path
 
+from .team.gulsher.robustness import redact
+
 IN_MAX, OUT_MAX = 2048, 4096
 
 
@@ -34,7 +36,7 @@ class Trace:
         self.step, self.t0 = 0, time.monotonic()
 
     def _text(self, value, limit: int) -> str:
-        s = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, default=str)
+        s = redact(value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, default=str))
         if len(s) <= limit:
             return s
         sha = hashlib.sha256(s.encode()).hexdigest()
