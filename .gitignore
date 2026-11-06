@@ -13,3 +13,4 @@ data/tools/*.jar
 pom.pit.xml
 .claude
 data/tools/jnose/
+.agent-memory/
