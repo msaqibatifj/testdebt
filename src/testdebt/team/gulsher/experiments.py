@@ -41,11 +41,11 @@ def run_ids(exp: str, dev: bool = False) -> dict[str, list[str]]:
             for r in cfg["runs"]}
 
 
-def run(exp: str, dev: bool, frozen: bool, limit: int, only: str) -> None:
+def run(exp: str, dev: bool, frozen: bool, limit: int, only: str, seeds: list[int] | None = None) -> None:
     for r in load(exp)["runs"]:
         if only and r["name"] != only:
             continue
-        for seed in ([1] if dev else r["seeds"]):
+        for seed in ([1] if dev else [s for s in r["seeds"] if not seeds or s in seeds]):
             split = "dev" if dev else r["split"]
             rid = f"{'dev_' if dev else ''}{exp}_{r['name']}_s{seed}"
             cmd = [sys.executable, "-m", "testdebt.cli", "--run-id", rid, "--split", split, "--seed", str(seed), *r["args"]]
@@ -347,12 +347,13 @@ def main() -> None:
     r.add_argument("--frozen", action="store_true")
     r.add_argument("--limit", type=int, default=0)
     r.add_argument("--only", default="", help="one config name, e.g. b1")
+    r.add_argument("--seeds", default="", help="only these of the config's seeds, e.g. 1 or 2,3 (run by priority)")
     s = sub.add_parser("summarize")
     s.add_argument("exp", choices=["E1", "E2", "E3", "E4", "E5", "E6", "ES"])
     s.add_argument("--dev", action="store_true")
     a = ap.parse_args()
     if a.cmd == "run":
-        run(a.exp, a.dev, a.frozen, a.limit, a.only)
+        run(a.exp, a.dev, a.frozen, a.limit, a.only, [int(s) for s in a.seeds.split(",") if s])
     elif a.exp == "E4":
         summarize_e4()
     elif a.exp == "E6":

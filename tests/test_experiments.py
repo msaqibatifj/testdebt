@@ -70,3 +70,13 @@ def test_paper_tables_from_saved_runs(tmp_path, monkeypatch):
     assert (tmp_path / "logs/E3_s3_s1/state.jsonl").exists() and (tmp_path / "logs/E3_s3_s1/trajectories.tar.gz").exists()
     ex.summarize_e6()
     assert "Recovery" in (tmp_path / "results/E6/table.tex").read_text()
+
+
+def test_run_builds_commands_by_seed_and_limit(monkeypatch):
+    cmds = []
+    monkeypatch.setattr(ex.subprocess, "run", lambda c: cmds.append(c) or type("P", (), {"returncode": 0})())
+    ex.run("E3", dev=False, frozen=True, limit=0, only="s3", seeds=[2])
+    assert len(cmds) == 1 and cmds[0][cmds[0].index("--run-id") + 1] == "E3_s3_s2" and "--frozen" in cmds[0]
+    cmds.clear()
+    ex.run("ES", dev=False, frozen=True, limit=0, only="s3-retries0")
+    assert "--limit" in cmds[0] and cmds[0][cmds[0].index("--limit") + 1] == "20"
