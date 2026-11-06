@@ -1,3 +1,2 @@
-{"experiment": "E1", "question": "How far does a non-agentic pipeline get with our tools?",
- "runs": [{"name": "single", "args": ["--system", "single", "--pit"], "split": "test", "seeds": [1, 2, 3]},
-          {"name": "b1", "args": ["--system", "b1", "--pit"], "split": "test", "seeds": [1, 2, 3]}]}
+{"experiment": "E1", "question": "What does UTRefactor's published output score under our verifier (no LLM, deterministic)?",
+ "runs": [{"name": "b0replay", "args": ["--system", "b0replay", "--pit"], "split": "all", "seeds": [1]}]}

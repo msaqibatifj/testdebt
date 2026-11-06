@@ -1,11 +1,9 @@
-% BACKUP of Gulsher's "Experimental Setup" (w6). Written by Saqib from the repo; replace with Gulsher's version if it arrives.
-% \input{} this file inside main.tex. Every \textbf{[TODO ...]} must be filled from results/ or removed before submission.
 \section{Experimental Setup}\label{sec:setup}
 
 \textbf{Benchmark.} We use the test methods of the UTRefactor replication package~\cite{utrefactor}
 (Apache Commons-cli, Gson, Jsoup). The package has reports for 492 test methods; 484 match the project commits we pinned
-verbatim and form our evaluation set (Commons-cli 78, Gson 243, Jsoup 171 in the original count; per-project match rate 97.9--98.8\%).
-Projects are built at the pinned commit with JDK~17 and Maven~3.9.9; Gson is evaluated against its own test dependencies at that commit.
+verbatim and form our evaluation set (Commons-cli 77, Gson 238, Jsoup 169; the pinned commits contain 97.9--98.8\% of the published inputs verbatim).
+Projects are built at the pinned commit with Maven~3.9.9 (each project with its pinned JDK~17 where its build needs it; JNose and the tool chain run on JDK~21); Gson is evaluated against its own test dependencies at that commit.
 
 \textbf{Splits.} The 484 tests are split once, stratified by project and single/multi-smell, with a fixed seed (commit \texttt{0e1f7da},
 \texttt{data/splits/}): \emph{dev} 80 tests (13/39/28 across Commons-cli/Gson/Jsoup), \emph{test} 150 (24/74/52) and \emph{rest} 254 (40/125/89).
@@ -21,10 +19,10 @@ per-test token cap and test set. E3 is \textsf{s3} with all three gap components
 E2 numbers are labelled \emph{reproduced} when we ran the system and \emph{paper-reported} when they are copied from~\cite{utrefactor}.
 
 \textbf{Model and parameters.} All LLM calls go to Cerebras \texttt{gpt-oss-120b} (free tier, 5 requests/min, 950k tokens/day) at temperature 0.7, at most
-8000 output tokens per call and 60\,000 tokens per test. Runs use seeds 1, 2 and 3 on the test split; the LLM response cache is keyed by prompt and seed.
+8000 output tokens per call and 60\,000 tokens per test. Because one test-split run of the full system takes hours (PIT), we use a reduced grid: seeds 1, 2 and 3 for the full system (E3) and for \textsf{-G1} (E5), and seed 1 for the baselines and the other ablations (see \texttt{experiments/E*.json}); mean $\pm$ sd is therefore reported only where 3 seeds were run; the LLM response cache is keyed by prompt and seed.
 Every run records the model ID, temperature, system-prompt hash, seed and git commit in \texttt{config.json} and in the trajectory metadata.
 
 \textbf{Tooling.} tsDetect (v3 jar from the replication package) and JNose (jnose-core 0.9.0, the last release built for Java~21) detect smells at method level;
 PIT 1.17.4 computes the full mutation matrix; the fast runner compiles once per Maven module and runs each test class through the JUnit launcher.
-Python 3.12.3, Intel Core i5-1035G1 (4 cores/8 threads shown as 6 vCPUs in WSL2), 6~GB RAM, WSL2 on Linux 6.18 (JDK~21, Maven~3.9.9).
+Python 3.12.3, Intel Core i5-1035G1 (4 cores/8 threads shown as 6 vCPUs in WSL2), 6~GB RAM, WSL2 on Linux 6.18 (JDK~21 for the tool chain, Maven~3.9.9).
 The pipeline restores every touched file after each test, and a post-test \texttt{git status} check stops the run if a checkout was left modified.

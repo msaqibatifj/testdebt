@@ -4,7 +4,6 @@
 \title{VeriRefactor: Verified, Agentic Test-Smell Refactoring with Kill-Set Gating and Detector Consensus}
 \author{\IEEEauthorblockN{M Saqib Atif, Gulsher Khan, Hasan Altaf}
 \IEEEauthorblockA{Group G2-10, AI4015, FAST-NUCES Islamabad\\
-% TODO confirm the email format with the group
 i230769@isb.nu.edu.pk, i230066@isb.nu.edu.pk, i230698@isb.nu.edu.pk\\
 IDs: 23I-0769, 23I-0066, 23I-0698}}
 \maketitle
@@ -32,7 +31,7 @@ UTRefactor~\cite{utrefactor} refactors smells with an LLM and a knowledge base b
 
 \section{Problem Formulation}
 Input: a Java/JUnit project $P$ and a test suite $T=\{t_1,\dots,t_n\}$ (test methods). Smell set $S$ (the tsDetect smells in~\cite{utrefactor}).
-Tool set $\mathcal{K}=\{\textsf{detect},\textsf{compile\_and\_run},\textsf{pit},\textsf{submit}\}$.
+Tool set $\mathcal{K}$: for the single-agent baseline \textsf{b2}, $\{\textsf{detect},\textsf{compile\_and\_run},\textsf{pit},\textsf{submit}\}$; \textsf{s3} calls the same tools through its Verifier as one verification step.
 For a test $t$, $D(t)\subseteq S$ is its detected smells. A state is $(t, t', D(t'), a)$: original, current candidate,
 its smells, and the attempt count $a\le a_{\max}$ (with a per-test token cap). The output is a decision
 $d(t)\in\{\text{accept},\text{reject},\text{escalate}\}$ and, if accepted, $t'$.
@@ -44,6 +43,14 @@ Figure~\ref{fig:arch} shows the system. A Supervisor drives four agents: Detecti
 Planner (LLM-written JSON plan with a rule fallback), Refactor (LLM) and Verifier (patch, compile, run, smells, PIT kill-set gate, G1).
 The Supervisor accepts, retries, switches strategy, narrows targets, reverts to the best attempt or escalates (G6);
 memory holds failed proposals within a test and failed approaches across tests. Every step is logged as a trajectory event.
+\begin{table}[t]\centering\caption{Agents, tools and where each gap plugs in.}\label{tab:agents}\footnotesize
+\begin{tabular}{@{}lll@{}}\toprule Agent & Tools & Gap\\\midrule
+Detection & tsDetect, JNose & G2 (consensus targets)\\
+Planner & LLM (JSON plan), KB rule & --\\
+Refactor & LLM & --\\
+Verifier & javac/JUnit, tsDetect, JNose, PIT & G1 (kill-set gate)\\
+Supervisor & memory & G6 (adaptive policy)\\\bottomrule\end{tabular}\end{table}
+\textbf{Memory.} Within a test, the Supervisor stores hashes of failed proposals (never re-verified) and the (strategy, gate) pairs that failed; across tests it stores, per project and smell, the planned approaches that failed, and shows them to the Planner.
 \begin{figure}[t]\centering\includegraphics[width=\columnwidth]{architecture.png}
 \caption{Architecture and where each gap plugs in.}\label{fig:arch}\end{figure}
 

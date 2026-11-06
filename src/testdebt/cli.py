@@ -62,6 +62,31 @@ def git_state() -> tuple[str, bool]:
     return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no"))
 
 
+def prompt_hash() -> str:
+    """SHA-256 (12 hex) of every prompt template the systems use, so a prompt edit changes the recorded hash."""
+    import hashlib
+
+    from . import prompts
+    from .agents import b2, planner
+    texts = [prompts.SYSTEM, prompts.UTR_TEMPLATE, prompts.PLAIN_TEMPLATE, prompts.RETRY_TEMPLATE,
+             planner.PLAN_TEMPLATE, b2.TOOLS]
+    return hashlib.sha256("\n".join(texts).encode()).hexdigest()[:12]
+
+
+def apply_gaps(a, gaps: set) -> None:
+    """gap1 = PIT kill-set gate (off: PIT still measures but never rejects), gap2 = tsDetect+JNose consensus,
+    gap6 = adaptive supervision + memory. Only s3 has gap2 and gap6. Single source for run_system() and --gaps."""
+    unknown = gaps - {"gap1", "gap2", "gap6"}
+    if unknown:
+        raise SystemExit(f"unknown gap(s) {sorted(unknown)}; choose from gap1, gap2, gap6")
+    a.pit = True
+    a.killset_gate = "on" if "gap1" in gaps else "off"
+    if a.system == "s3":
+        a.detector = "consensus" if "gap2" in gaps else "tsdetect"
+        if "gap6" not in gaps:
+            a.policy, a.memory = "fixed", "off"
+
+
 def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/default.json")
@@ -84,7 +109,11 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--policy", choices=["adaptive", "fixed"], help="s3: fixed = B1's retry script (-G6 ablation)")
     ap.add_argument("--memory", choices=["on", "off"], help="s3: off = no memory of failed approaches (ablation)")
     ap.add_argument("--report", default="", help="only (re)compute metrics for an existing run dir")
+    ap.add_argument("--gaps", default=None, metavar="gap1,gap2,gap6",
+                    help="gaps ON (none = all off); sets --pit/--killset-gate, --detector and --policy/--memory below")
     a = ap.parse_args(argv)
+    if a.gaps is not None:
+        apply_gaps(a, {g for g in a.gaps.split(",") if g and g != "none"})
 
     if a.report:
         print(json.dumps(write_report(Path(a.report))["overall"], indent=2))
@@ -142,7 +171,8 @@ def main(argv: list[str] | None = None) -> None:
         pipe = Pipeline(llm, verifier, kb, cfg, run_dir)
     (run_dir / "config.json").write_text(json.dumps({"config": asdict(cfg), "model": llm.model, "eval": a.eval,
                                                      "skip_verify": a.skip_verify, "pit": a.pit, "killset_gate": a.killset_gate, "split": a.split,
-                                                     "frozen": a.frozen, "git_commit": commit, "git_dirty": dirty},
+                                                     "frozen": a.frozen, "git_commit": commit, "git_dirty": dirty,
+                                                     "prompt_hash": prompt_hash()},
                                                     indent=2))
 
     rows = [json.loads(l) for l in Path(a.eval).read_text().splitlines() if l.strip()]

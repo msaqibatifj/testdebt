@@ -15,7 +15,7 @@ memory), `trace.py`, `cli.py`, `data/splits.py`.
 | `robustness.py` | `RestoreCheck` (project checkout must be unchanged after every test, else the run stops); `redact` (no API key in any trace file) | robustness, secrets check |
 | `experiments.py` | one entry point for E1-E6: `run` (fixed run ids, resumable, `--dev` dry runs) and `summarize` (results/E*/runs.csv, summary.json, table.tex; E4 paired tests; E6 cost/latency/reliability) | experiment runner, E1, E2, E4-G1, E6 |
 | `experiments/E1.json` … `E5.json` | which systems, flags, split and seeds each experiment runs | experiment YAMLs (JSON: no YAML library needed) |
-| `run_all.sh` | E1-E6 in order on the frozen commit, then failures and figures | `run_all.sh` |
+| `../../../../experiments/run_all.sh` | E1-E6, failures, figures, gap table (calls this runner) | `experiments/run_all.sh` |
 | `Dockerfile` | clean-machine check: JDK 17, Maven 3.9.9, Python, JNose | Dockerfile |
 | `../../../../.github/workflows/ci.yml` | pytest on every push (has to live in `.github/`) | CI |
 
@@ -67,5 +67,5 @@ python3 -m testdebt.team.hasan.check_refs paper/refs.bib paper/*.tex
 python3 -m testdebt.team.gulsher.experiments run E3 --dev --limit 5  # try the pipeline on dev
 python3 -m testdebt.team.gulsher.experiments run E3 --frozen       # reported runs (clean tree)
 python3 -m testdebt.team.gulsher.experiments summarize E3
-bash src/testdebt/team/gulsher/run_all.sh                          # everything, resumable
+bash experiments/run_all.sh                                       # everything, resumable (same runner)
 ```

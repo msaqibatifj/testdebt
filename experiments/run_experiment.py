@@ -9,11 +9,10 @@ trace_dir: runs/<run_id>; its name is the run id, so trajectories land in <trace
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 
-from testdebt import cli, prompts
+from testdebt import cli
 
 
 def _argv(cfg: dict, gaps: set, seed: int, run_id: str) -> list[str]:
@@ -27,12 +26,7 @@ def _argv(cfg: dict, gaps: set, seed: int, run_id: str) -> list[str]:
         a.append("--frozen")
     if cfg.get("skip_verify"):
         a.append("--skip-verify")
-    if "gap1" in gaps:
-        a.append("--pit")
-    if cfg["system"] == "s3":  # G2 and G6 only exist in S3
-        a += ["--detector", "consensus" if "gap2" in gaps else "tsdetect"]
-        if "gap6" not in gaps:
-            a += ["--policy", "fixed", "--memory", "off"]
+    a += ["--gaps", ",".join(sorted(gaps)) or "none"]
     return a
 
 
@@ -53,7 +47,7 @@ def run_system(cfg: dict, gaps: set, seed: int, trace_dir: str | Path) -> dict:
             "latency_s_per_test": round(rep["wall_time_s"] / max(rep["tests"], 1), 1),
             "cost_usd": 0.0,  # Cerebras free tier; prompt/completion split is not logged, only totals
             "model": meta["model"], "temperature": meta["config"]["temperature"],
-            "prompt_hash": hashlib.sha256((prompts.UTR_TEMPLATE + prompts.RETRY_TEMPLATE).encode()).hexdigest()[:12],
+            "prompt_hash": meta.get("prompt_hash"),
             "git_commit": meta["git_commit"], "git_dirty": meta["git_dirty"]}
 
 
