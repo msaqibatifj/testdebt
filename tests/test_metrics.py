@@ -23,3 +23,13 @@ def test_rule_i_vs_rule_ii_strict_and_safe():
 def test_wilson_interval():
     lo, hi = wilson(5, 10)
     assert (lo, hi) == (23.7, 76.3) and wilson(0, 0) is None
+
+
+def test_per_smell_and_retried_counts():
+    from testdebt.eval.metrics import per_smell
+    recs = [rec("accepted", ["A", "B"], ["B"], retries=1), rec("rejected", ["A"], ["A"])]
+    ps = per_smell(recs)
+    assert ps["A"] == {"targeted": 2, "removed": 1, "removed_pct": 50.0} and ps["B"]["removed_pct"] == 0.0
+    s = summarize(recs)
+    assert s["retried"] == 1 and s["multi_smell_tests"] == 1 and s["smells_targeted"] == 3 and s["smells_removed"] == 1
+    assert s["smell_reduction_accepted"] == 50.0       # accepted test: 1 of its 2 smells gone

@@ -25,15 +25,15 @@ def test_summaries_from_saved_runs(tmp_path, monkeypatch):
     good, lost, rej = ("accepted", True, []), ("accepted", False, []), ("rejected", None, ["A"])
     for s in (1, 2, 3):
         _write_run(f"E3_s3_s{s}", [good] * 8 + [rej] * 2)
-        _write_run(f"E1_b1_s{s}", [good] * 4 + [rej] * 6)
+        _write_run(f"E2_b1_s{s}", [good] * 4 + [rej] * 6)
         _write_run(f"E2_b0_s{s}", [lost] * 5 + [good] * 5)
     summ = ex.summarize("E3", dev=False)
     assert summ["s3"]["accepted_rate"] == (80.0, 0.0) and (tmp_path / "results/E3/table.tex").exists()
     assert (tmp_path / "results/E3/runs/E3_s3_s1/report.json").exists()
     e4 = ex.summarize_e4()
     g6 = e4["paired_tests"]["G6: s3 vs b1 (accepted and safe)"]
-    assert g6["pairs"] == 30 and g6["mcnemar"]["only_a"] == 12 and "p_holm" in g6
-    assert {r["system"]: r["lost"] for r in e4["g1_killset_loss"]}["E2/b0"] == 15
+    assert g6["pairs"] == 10 and g6["mcnemar"]["only_a"] == 4 and "p_holm" in g6
+    assert {r["system"]: r["lost"] for r in e4["g1_killset_loss"]}["E2/b0"] == 5
     e6 = ex.summarize_e6()
     assert e6["E3/s3"]["llm_calls_per_test"] == (0.1, 0.0) and e6["E3/s3"]["pit_s_per_test"] == (2.0, 0.0)
 

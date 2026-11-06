@@ -10,6 +10,7 @@ dependencies = ["requests>=2.31"]
 
 [project.scripts]
 testdebt = "testdebt.cli:entry"
+veriref = "testdebt.cli:entry"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "matplotlib>=3.7"]

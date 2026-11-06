@@ -1,15 +1,14 @@
-% BACKUP of Gulsher's "Limitations & Validity" and "Conclusion" (w8). Conclusion numbers must come from results/.
 \section{Limitations and Threats to Validity}\label{sec:threats}
 
 \textbf{Internal.} LLM output is non-deterministic even at fixed seeds on a hosted model, and results depend on the prompt and on the retry and token caps, which we tuned on the dev split only;
-three seeds bound but do not remove this variance. Test-split runs were rate-limited to 5 requests per minute and a daily token cap, so runs were resumed across days; a resumed test is rerun from scratch, but the model backend may have changed between days.
-PIT results depend on the mutator set and on timeouts: a mutant killed only through a timeout counts as killed.
+three seeds bound but do not remove this variance. The free tier limits us to 5 requests per minute and a daily token cap; if a run is resumed on a later day, the hosted model may have changed in between. The reduced seed grid (one seed for most baselines and ablations) leaves those rows without a variance estimate.
+PIT results depend on the mutator set and on timeouts: PIT's default behaviour counts a mutant that makes the test time out as killed.
 
-\textbf{External.} Three Java/JUnit~4 projects and 150 held-out tests, with smells restricted to the tsDetect set, do not support claims about other languages, test frameworks or larger suites.
+\textbf{External.} Three Java projects (Commons-cli on JUnit~5, Gson and Jsoup on JUnit~4) and 150 held-out tests, with smells restricted to the tsDetect set, do not support claims about other languages, test frameworks or larger suites.
 Only one model family (\texttt{gpt-oss-120b}) was used, so the comparison between systems does not show how the gaps behave with a weaker or stronger model.
 
 \textbf{Construct.} The PIT kill-set is a proxy for test strength: the same mutants can be killed by a weaker assertion, and mutants outside the sampled mutators are invisible. tsDetect and JNose disagree sharply on some smells
-(ExceptionHandling, IgnoredTest), so ``smell removed'' depends on the detector rule; we report all three rules and a manual sample. Empty baseline kill-sets are reported as unknown rather than safe.
+(ExceptionHandling, IgnoredTest), so ``smell removed'' depends on the detector rule; we report rules~i and~ii, and rule~iii only if the manual sample was completed. Empty baseline kill-sets are reported as unknown rather than safe. JaCoCo coverage, listed as a Phase~1 tool, is not used, so test strength is measured by the kill-set only.
 Our evaluation set is 484 tests, not the 593 of~\cite{utrefactor}, because only those match the pinned project commits verbatim.
 
 \section{Conclusion}\label{sec:conclusion}

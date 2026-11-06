@@ -53,7 +53,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 80 tests (3 optional ones skip without Java), no network needed
+python3 -m pytest -q                        # 93 pass, 2 skip without Java, no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash src/testdebt/team/hasan/get_jnose.sh   # JNose jars (second detector, G2); needs Java 21 to run
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
@@ -120,10 +120,14 @@ With `--skip-verify` nothing is compiled or run. The report then shows `accepted
 ### Reproduce E1-E6 (one command)
 
 ```bash
-bash experiments/run_all.sh                          # test split, 3 seeds, frozen -> results/E1..E6, gap table into this README
-SPLIT=dev LIMIT=3 SEEDS="1" bash experiments/run_all.sh   # smoke run
+bash experiments/run_all.sh                          # test split, frozen -> results/E1..E6, failures, figures, gap table into this README
+SPLIT=dev LIMIT=2 bash experiments/run_all.sh        # smoke run on dev -> results/dev/
+# the runner is src/testdebt/team/gulsher/experiments.py; seeds per config are in team/gulsher/experiments/E*.json
+# reduced grid (a full test-split run of s3 with PIT takes hours): E3 and E5 -G1 use seeds 1-3, the rest seed 1
 # one system, one seed, gaps chosen by name (gap1 kill-set gate, gap2 consensus detector, gap6 adaptive supervisor):
 python -m experiments.run_experiment --system s3 --split dev --limit 5 --gaps gap1,gap2,gap6 --seed 1
+testdebt --system s3 --split dev --limit 5 --gaps gap2,gap6      # same switches on the CLI; gap1 off = PIT measures, never rejects
+python -m veriref --help                                          # alias of testdebt (dataset-based: no --input FooTest.java mode)
 ```
 
 `run_system(cfg, gaps, seed, trace_dir)` in `experiments/run_experiment.py` returns one flat metrics dict per seed: report
@@ -172,6 +176,7 @@ _Supervisor comments are not in the repo; each member must paste theirs here (`c
 - 2026-10-25: JNose is jnose-core 0.9.0, the last release built for Java 21 (0.9.3 fixes an IgnoredTest false positive
   but needs Java 25). S3 targets the smells both detectors confirm (`--detector consensus`); `--detector tsdetect` is the
   -G2 ablation and matches [1].
+- 2026-11-06: one experiment runner (`team/gulsher/experiments.py`, called by `experiments/run_all.sh`); `--gaps` on the CLI; gap1 off now means PIT measures but never rejects; ablation adds `minus_all`; `veriref` alias; `prompt_hash` in `config.json`; reduced seed grid.
 - 2026-11-06: `requirements.txt` pinned to versions used; `data/splits/README.md` and `SHA256SUMS` added; `docs/devlog.md` created.
 - Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
 
@@ -230,8 +235,9 @@ scripts/phase1_pilots.sh  PIT pilot + LLM pilots, copies reports to results/phas
 
 ## Known limitations / to verify
 
-- PIT has not run on a real project yet: `bash scripts/phase1_pilots.sh pit` runs it on 5 Commons-cli tests and fails loudly if no kill-sets come back. Check the plugin version in `tools/pit.py` and confirm that
-  `fullMutationMatrix` fills `killingTests` in the pilot (proposal section 9.12).
+- A full test-split run is hours (PIT dominates); results are only as complete as the seeds actually run (see `E*.json`).
+- The CLI works on the 484-test dataset, not on an arbitrary Java file (`veriref` is an alias of `testdebt`).
+- JaCoCo coverage is not used (kill-set only). Token counts are totals, not split into prompt and completion.
 - The pinned Gson build requires JDK 11 to 17, and old Jsoup needs JDK 19 or lower (`-source 1.7`). `data/pins.json`
   points all three projects at JDK 17.
 - The B0-replay reduction differs strongly from the paper on Gson and Jsoup (see `docs/results_phase1.md`).

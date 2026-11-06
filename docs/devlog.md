@@ -13,4 +13,5 @@ Date, failure seen, change, measured effect. Effects marked TODO must be measure
 | 2026-10-27 | Rule i counts smells only by tsDetect | `ed68e68` rule ii strict reduction (tsDetect AND JNose) | see `results/E3` once run |
 | 2026-10-28 | No statistics, failure categories or figures tooling | `b486f33` stats, failures, manual sample, figures, gap table | n/a (tooling) |
 | 2026-10-29 | Detector agreement unknown | `cbafe35` E4 agreement on all 484 tests | kappa 0.68-1.0 on most smells; ExceptionHandling 0.02, DuplicateAssert 0.42 |
+| 2026-11-06 | `gap1` off dropped PIT, so the E5 -G1 run could not show lost mutants; two experiment runners disagreed on E1/E5 | `--gaps` on the CLI (`apply_gaps`), gap1 off = `--pit --killset-gate off`; one runner (`team/gulsher/experiments.py`); E1 = b0replay, E5 adds `minus_all`; `prompt_hash` in `config.json` | n/a (wiring); unit tests in `tests/test_run_experiment.py` |
 | 2026-11-05 | No single entry point for E1-E6 | `a41462f` `run_system()` + `run_all.sh`, final trajectory event | smoke runs only (1 test each in `runs/E*`) |

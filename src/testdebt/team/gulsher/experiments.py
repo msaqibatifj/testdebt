@@ -129,7 +129,8 @@ def _paired(a_rids: list[str], b_rids: list[str], flag: str) -> dict:
 
 def summarize_e4() -> dict:
     ids = {**{f"E1/{k}": v for k, v in run_ids("E1").items()}, **{f"E2/{k}": v for k, v in run_ids("E2").items()},
-           **{f"E3/{k}": v for k, v in run_ids("E3").items()}}
+           **{f"E3/{k}": v for k, v in run_ids("E3").items()},
+           **{f"E5/{k}": v for k, v in run_ids("E5").items()}}
     out = Path("results/E4")
     out.mkdir(parents=True, exist_ok=True)
     # G1: how often an ACCEPTED refactoring loses a mutant, per system (pooled over seeds, Wilson 95% CI)
@@ -142,10 +143,13 @@ def summarize_e4() -> dict:
             g1.append({"system": name, "accepted": o["accepted"], "killset_checked": o["killset_checked"],
                        "lost": o["accepted_losing_mutants"], "lost_pct": o["accepted_losing_mutants_rate"],
                        "ci95": o["accepted_losing_mutants_ci95"], "unknown": o["killset_unknown"]})
-    s3, b1, b0 = ids.get("E3/s3", []), ids.get("E1/b1", []), ids.get("E2/b0", [])
-    tests = {"G1: s3 vs b0 (accepted and losing a mutant)": _paired(s3, b0, "lost"),
+    s3, b1, b0 = ids.get("E3/s3", []), ids.get("E2/b1", []), ids.get("E2/b0", [])
+    b2, g1off = ids.get("E2/b2", []), ids.get("E5/s3-G1", [])
+    tests = {"G1: s3 vs s3-G1 (accepted and losing a mutant)": _paired(s3, g1off, "lost"),
+             "G1: s3 vs b0 (accepted and losing a mutant)": _paired(s3, b0, "lost"),
              "G2: s3 vs b0 (all targeted smells gone, rule ii)": _paired(s3, b0, "all_gone_strict"),
-             "G6: s3 vs b1 (accepted and safe)": _paired(s3, b1, "safe")}
+             "G6: s3 vs b1 (accepted and safe)": _paired(s3, b1, "safe"),
+             "G6: s3 vs b2 (accepted and safe)": _paired(s3, b2, "safe")}
     have = [k for k, v in tests.items() if v]
     for k, p in zip(have, holm([tests[k]["mcnemar"]["p"] for k in have])):
         tests[k]["p_holm"] = p
