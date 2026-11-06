@@ -50,17 +50,42 @@ def run(exp: str, dev: bool, frozen: bool, limit: int, only: str) -> None:
             rid = f"{'dev_' if dev else ''}{exp}_{r['name']}_s{seed}"
             cmd = [sys.executable, "-m", "testdebt.cli", "--run-id", rid, "--split", split, "--seed", str(seed), *r["args"]]
             cmd += ["--frozen"] if frozen else []
-            cmd += ["--limit", str(limit)] if limit else []
+            lim = limit or r.get("limit", 0)
+            cmd += ["--limit", str(lim)] if lim else []
             print("$", " ".join(cmd[1:]), flush=True)
             if subprocess.run(cmd).returncode:
                 raise SystemExit(f"{rid} failed; fix and re-run the same command (it resumes)")
 
 
 def _copy(rid: str, out: Path) -> None:
+    """report/config -> results/<E>/runs/<rid>/; state + compressed trajectories -> logs/<rid>/ (runs/ is not committed)."""
     for f in ("report.json", "config.json"):
         if Path("runs", rid, f).exists():
             (out / "runs" / rid).mkdir(parents=True, exist_ok=True)
             shutil.copy(Path("runs", rid, f), out / "runs" / rid / f)
+    src, log = Path("runs", rid), Path("logs", rid)
+    if (src / "state.jsonl").exists():
+        log.mkdir(parents=True, exist_ok=True)
+        for f in ("config.json", "report.json", "state.jsonl"):
+            if (src / f).exists():
+                shutil.copy(src / f, log / f)
+        if (src / "trajectories").is_dir():
+            shutil.make_archive(str(log / "trajectories"), "gztar", src, "trajectories")
+
+
+def _tex(path: Path, header: list[str], rows: list[list], caption_note: str = "") -> None:
+    """booktabs tabular; cells: None -> --, (mean, sd) -> 'm $\\pm$ sd' (sd omitted when 0), numbers as %g."""
+    def cell(v):
+        if v is None or (isinstance(v, (tuple, list)) and v[0] is None):
+            return "--"
+        if isinstance(v, (tuple, list)):
+            return f"{v[0]:g} $\\pm$ {v[1]:g}" if v[1] else f"{v[0]:g}"
+        return f"{v:g}" if isinstance(v, (int, float)) else str(v).replace("_", "\\_").replace("%", "\\%")
+    lines = ["\\begin{tabular}{l" + "r" * (len(header) - 1) + "}", "\\toprule",
+             " & ".join(h.replace("%", "\\%") for h in header) + " \\\\", "\\midrule"]
+    lines += [" & ".join(cell(c) for c in r) + " \\\\" for r in rows]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines + ["\\bottomrule", "\\end{tabular}"]) + "\n")
 
 
 def summarize(exp: str, dev: bool) -> dict:
@@ -93,8 +118,50 @@ def summarize(exp: str, dev: bool) -> dict:
            "System & " + " & ".join(h.replace("%", "\\%") for _, h in TABLE) + " \\\\", "\\midrule"]
     tex += [f"{n} & " + " & ".join(cell(s[k]) for k, _ in TABLE) + " \\\\" for n, s in summary.items()]
     (out / "table.tex").write_text("\n".join(tex + ["\\bottomrule", "\\end{tabular}"]) + "\n")
+    if exp == "E5" and not dev:
+        _e5_delta(summary, out)
+    if exp == "E2" and not dev:
+        _e2_vs_paper(out)
     print(json.dumps(summary, indent=1))
     return summary
+
+
+def _e5_delta(summary: dict, out: Path) -> None:
+    """Change of each ablation from the full system (E3), mean over seeds; positive = higher without the component."""
+    f = Path("results/E3/summary.json")
+    if not f.exists():
+        return
+    full = json.loads(f.read_text()).get("s3", {})
+    rows, js = [["full (E3)", *[full.get(k) for k, _ in TABLE]]], {}
+    for name, s in summary.items():
+        d = {k: (round(s[k][0] - full[k][0], 2) if s.get(k) and full.get(k) and s[k][0] is not None
+                 and full[k][0] is not None else None) for k, _ in TABLE}
+        js[name] = d
+        rows.append([f"$\\Delta$ {name}", *[d[k] for k, _ in TABLE]])
+    (out / "delta.json").write_text(json.dumps(js, indent=1))
+    _tex(out / "delta.tex", ["Config", *[h for _, h in TABLE]], rows)
+
+
+def _e2_vs_paper(out: Path) -> None:
+    """Per-project rule-i smell reduction: paper-reported [1] vs reproduced (b0replay = published outputs through our
+    verifier, E1; b0 = [1]'s method with our model, E2). Every row carries its source label."""
+    def by_proj(rids):
+        vals = defaultdict(list)
+        for rid in rids:
+            f = Path("runs", rid, "report.json")
+            if f.exists():
+                for p, s in json.loads(f.read_text())["by_project"].items():
+                    vals[p].append(s.get("smell_reduction_tsdetect"))
+        return {p: mean_sd(v) for p, v in vals.items()}
+    replay = by_proj(run_ids("E1").get("b0replay", []))
+    b0 = by_proj(run_ids("E2").get("b0", []))
+    rows, js = [], []
+    for p, paper in metrics.PAPER_REDUCTION.items():
+        r = {"project": p, "paper_reported": paper, "b0replay_reproduced": replay.get(p), "b0_reproduced": b0.get(p)}
+        js.append(r)
+        rows.append([p, paper, replay.get(p), b0.get(p)])
+    (out / "vs_paper.json").write_text(json.dumps({"metric": "smell_reduction_tsdetect (rule i, %)", "rows": js}, indent=1))
+    _tex(out / "vs_paper.tex", ["Project", "[1] paper-reported", "b0replay (reproduced)", "b0 (reproduced)"], rows)
 
 
 # ---- per-test flags (same definitions as eval/metrics.py) ----
@@ -154,7 +221,7 @@ def summarize_e4() -> dict:
     for k, p in zip(have, holm([tests[k]["mcnemar"]["p"] for k in have])):
         tests[k]["p_holm"] = p
     agreement = Path("results/E4/g2_agreement.json")
-    res = {"g1_killset_loss": g1, "paired_tests": tests,
+    res = {"g1_killset_loss": g1, "paired_tests": tests, "subsets": _e4_subsets(ids),
            "g2_detector_agreement": json.loads(agreement.read_text())["overall"] if agreement.exists() else None}
     for name, rows in (("g1.csv", g1),):
         if rows:
@@ -165,6 +232,54 @@ def summarize_e4() -> dict:
     (out / "summary.json").write_text(json.dumps(res, indent=1))
     print(json.dumps(res, indent=1))
     return res
+
+
+def _states(rids: list[str]) -> list[list[dict]]:
+    return [[r for r in metrics.load(Path("runs", rid, "state.jsonl")) if r["decision"] != "skipped"]
+            for rid in rids if Path("runs", rid, "state.jsonl").exists()]
+
+
+def _e4_subsets(ids: dict) -> dict:
+    """Hypothesis subsets. H1: tests with a non-empty baseline kill-set (s3 vs s3-G1).
+    H2: per smell, rule i vs rule ii removal for s3 (largest gap expected where the detectors disagree).
+    H3: multi-smell tests, and 'hard' tests = rejected by the one-pass reproduction b0 (seed 1); s3 vs b1 vs b2."""
+    def rate(seeds, keep, flag):
+        vals = []
+        for recs in seeds:
+            sel = [r for r in recs if keep(r)]
+            if sel:
+                vals.append(100 * sum(_flags(r)[flag] for r in sel) / len(sel))
+        n = len([r for r in seeds[0] if keep(r)]) if seeds else 0
+        return {"n": n, "pct": mean_sd(vals)}
+    s3, g1off = _states(ids.get("E3/s3", [])), _states(ids.get("E5/s3-G1", []))
+    known = lambda r: any((p.get("mutants_killed_before") or 0) > 0 or p.get("killset_preserved") is not None
+                          for p in r["reports"])   # some attempt reached PIT with a non-empty baseline kill-set
+    h1 = {"s3": rate(s3, known, "lost"), "s3-G1": rate(g1off, known, "lost"),
+          "s3_accepted": rate(s3, known, "accepted"), "s3-G1_accepted": rate(g1off, known, "accepted")}
+    h2 = {}
+    for recs in s3[:1]:
+        for r in recs:
+            f = r["reports"][-1] if r["reports"] else {}
+            if not f.get("sane") or f.get("smells_after_jnose") is None:
+                continue
+            for sm in r["finding"]["smells"]:
+                d = h2.setdefault(sm, {"targeted": 0, "gone_i": 0, "gone_ii": 0})
+                d["targeted"] += 1
+                d["gone_i"] += sm not in set(f.get("smells_after", []))
+                d["gone_ii"] += sm not in metrics._after_strict(f)
+    for d in h2.values():
+        d["rule_i_pct"], d["rule_ii_pct"] = (round(100 * d["gone_i"] / d["targeted"], 1),
+                                             round(100 * d["gone_ii"] / d["targeted"], 1))
+    b0 = _states(ids.get("E2/b0", [])[:1])
+    hard_ids = {r["test_id"] for r in b0[0] if r["decision"] != "accepted"} if b0 else set()
+    multi = lambda r: len(r["finding"]["smells"]) > 1
+    hard = lambda r: r["test_id"] in hard_ids
+    h3 = {}
+    for name, key in (("s3", "E3/s3"), ("b1", "E2/b1"), ("b2", "E2/b2")):
+        st = _states(ids.get(key, []))
+        h3[name] = {"multi_smell": rate(st, multi, "safe"), "hard": rate(st, hard, "safe"),
+                    "tokens_per_test": mean_sd([sum(r["tokens"] for r in recs) / max(len(recs), 1) for recs in st])}
+    return {"H1_nonempty_killset": h1, "H2_per_smell_rule_i_vs_ii": h2, "H3_subsets_accepted_safe": h3}
 
 
 def summarize_e6() -> dict:
@@ -179,12 +294,14 @@ def summarize_e6() -> dict:
                     continue
                 recs = [r for r in metrics.load(d / "state.jsonl") if r["decision"] != "skipped"]
                 n = len(recs) or 1
-                calls, tools, llm_s = 0, defaultdict(int), 0.0
+                calls, tools, llm_s, ptok, ctok = 0, defaultdict(int), 0.0, 0, 0
                 for t in (d / "trajectories").glob("*.jsonl"):
                     for e in map(json.loads, t.read_text().splitlines()):
                         if e["event"] == "llm_call":
                             calls += 1
                             llm_s += e.get("latency_s") or 0
+                            ptok += e.get("prompt_tokens") or 0
+                            ctok += e.get("completion_tokens") or 0
                         elif e["event"] == "tool_call":
                             tools[e.get("tool", "?")] += 1
                 tim = defaultdict(float)
@@ -193,7 +310,9 @@ def summarize_e6() -> dict:
                         for k, v in (rep.get("timings") or {}).items():
                             tim[k] += v
                 acc = sum(r["decision"] == "accepted" for r in recs)
+                retried = [r for r in recs if len(r["proposals"]) > 1]
                 per_seed.append({"tokens_per_test": sum(r["tokens"] for r in recs) / n,
+                                 "prompt_tokens_per_test": ptok / n, "completion_tokens_per_test": ctok / n,
                                  "tokens_per_accepted": sum(r["tokens"] for r in recs) / acc if acc else None,
                                  "llm_calls_per_test": calls / n, "tool_calls_per_test": sum(tools.values()) / n,
                                  "wall_s_per_test": sum(r["wall_time_s"] for r in recs) / n,
@@ -201,12 +320,20 @@ def summarize_e6() -> dict:
                                  "pit_s_per_test": tim["pit"] / n,
                                  "error_pct": 100 * sum(r["decision"] == "error" for r in recs) / n,
                                  "escalated_pct": 100 * sum(r["decision"] == "escalated" for r in recs) / n,
-                                 "retried_pct": 100 * sum(len(r["proposals"]) > 1 for r in recs) / n})
+                                 "retried_pct": 100 * len(retried) / n,
+                                 "recovery_pct": (100 * sum(r["decision"] == "accepted" for r in retried) / len(retried)
+                                                  if retried else None),
+                                 "cost_usd": 0.0})   # Cerebras free tier; token counts above are the cost proxy
             if per_seed:
                 res[f"{exp}/{name}"] = {"seeds": len(per_seed),
                                         **{k: mean_sd([s[k] for s in per_seed]) for k in per_seed[0]}}
     out.mkdir(parents=True, exist_ok=True)
     (out / "summary.json").write_text(json.dumps(res, indent=1))
+    cols = [("tokens_per_test", "Tok/test"), ("prompt_tokens_per_test", "Prompt"), ("completion_tokens_per_test", "Compl."),
+            ("llm_calls_per_test", "LLM calls"), ("tool_calls_per_test", "Tool calls"), ("wall_s_per_test", "s/test"),
+            ("pit_s_per_test", "PIT s"), ("retried_pct", "Retried %"), ("recovery_pct", "Recovery %"), ("cost_usd", "Cost \\$")]
+    if res:
+        _tex(out / "table.tex", ["Config", *[h for _, h in cols]], [[n, *[s.get(k) for k, _ in cols]] for n, s in res.items()])
     print(json.dumps(res, indent=1))
     return res
 
@@ -215,13 +342,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run")
-    r.add_argument("exp", choices=["E1", "E2", "E3", "E5"])
+    r.add_argument("exp", choices=["E1", "E2", "E3", "E5", "ES"])
     r.add_argument("--dev", action="store_true", help="dev split, seed 1 (for trying the pipeline, not results)")
     r.add_argument("--frozen", action="store_true")
     r.add_argument("--limit", type=int, default=0)
     r.add_argument("--only", default="", help="one config name, e.g. b1")
     s = sub.add_parser("summarize")
-    s.add_argument("exp", choices=["E1", "E2", "E3", "E4", "E5", "E6"])
+    s.add_argument("exp", choices=["E1", "E2", "E3", "E4", "E5", "E6", "ES"])
     s.add_argument("--dev", action="store_true")
     a = ap.parse_args()
     if a.cmd == "run":

@@ -73,6 +73,19 @@ def prompt_hash() -> str:
     return hashlib.sha256("\n".join(texts).encode()).hexdigest()[:12]
 
 
+def check_resume(run_dir: Path, system: str, split, pit: bool, gate: str, frozen: bool) -> None:
+    """Resuming appends to state.jsonl, so a run id reused with other settings would mix results: refuse instead."""
+    f = run_dir / "config.json"
+    if not f.exists() or not (run_dir / "state.jsonl").exists():
+        return
+    old = json.loads(f.read_text())
+    was = (old.get("config", {}).get("system"), old.get("split"), old.get("pit"), old.get("killset_gate", gate), old.get("frozen"))
+    now = (system, split, pit, gate, frozen)
+    if was != now:
+        raise SystemExit(f"{run_dir} was made with (system, split, pit, killset_gate, frozen) = {was}, not {now}: "
+                         "use a new --run-id or move the old run away")
+
+
 def apply_gaps(a, gaps: set) -> None:
     """gap1 = PIT kill-set gate (off: PIT still measures but never rejects), gap2 = tsDetect+JNose consensus,
     gap6 = adaptive supervision + memory. Only s3 has gap2 and gap6. Single source for run_system() and --gaps."""
@@ -108,6 +121,7 @@ def main(argv: list[str] | None = None) -> None:
                     help="with --pit: off = kill-set only measured, never rejects (-G1 ablation)")
     ap.add_argument("--policy", choices=["adaptive", "fixed"], help="s3: fixed = B1's retry script (-G6 ablation)")
     ap.add_argument("--memory", choices=["on", "off"], help="s3: off = no memory of failed approaches (ablation)")
+    ap.add_argument("--max-retries", type=int, help="b1/s3: retries after the first attempt (sensitivity runs, ES)")
     ap.add_argument("--report", default="", help="only (re)compute metrics for an existing run dir")
     ap.add_argument("--gaps", default=None, metavar="gap1,gap2,gap6",
                     help="gaps ON (none = all off); sets --pit/--killset-gate, --detector and --policy/--memory below")
@@ -137,6 +151,8 @@ def main(argv: list[str] | None = None) -> None:
         cfg.policy = a.policy
     if a.memory:
         cfg.memory = a.memory == "on"
+    if a.max_retries is not None:
+        cfg.max_retries = a.max_retries
     paths = c.get("paths", {})
     run_id = a.run_id or f"{cfg.system}_s{cfg.seed}_{time.strftime('%Y%m%d_%H%M%S')}"
     run_dir = Path("runs", run_id)
@@ -169,6 +185,7 @@ def main(argv: list[str] | None = None) -> None:
         pipe = B2Agent(llm, verifier, kb, cfg, run_dir)
     else:
         pipe = Pipeline(llm, verifier, kb, cfg, run_dir)
+    check_resume(run_dir, cfg.system, a.split, a.pit, a.killset_gate, a.frozen)
     (run_dir / "config.json").write_text(json.dumps({"config": asdict(cfg), "model": llm.model, "eval": a.eval,
                                                      "skip_verify": a.skip_verify, "pit": a.pit, "killset_gate": a.killset_gate, "split": a.split,
                                                      "frozen": a.frozen, "git_commit": commit, "git_dirty": dirty,

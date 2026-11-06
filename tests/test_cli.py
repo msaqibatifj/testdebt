@@ -28,3 +28,14 @@ def test_run_b0replay_without_subcommand_writes_a_report(demo, tmp_path, monkeyp
     cli.entry(["--system", "b0replay", "--eval", "eval.jsonl", "--skip-verify", "--run-id", "r1"])
     rep = json.loads((tmp_path / "runs/r1/report.json").read_text())
     assert rep["overall"]["tests"] == 1
+
+
+def test_resume_with_other_settings_is_refused(tmp_path):
+    d = tmp_path / "r"
+    d.mkdir()
+    (d / "state.jsonl").write_text("{}\n")
+    (d / "config.json").write_text(json.dumps({"config": {"system": "s3"}, "split": "dev", "pit": False,
+                                               "killset_gate": "on", "frozen": False}))
+    cli.check_resume(d, "s3", "dev", False, "on", False)                 # same settings: resume is fine
+    with pytest.raises(SystemExit, match="new --run-id"):
+        cli.check_resume(d, "s3", "test", True, "on", True)

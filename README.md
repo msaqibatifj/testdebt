@@ -53,7 +53,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 93 pass, 2 skip without Java, no network needed
+python3 -m pytest -q                        # 96 pass, 2 skip without Java, no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash src/testdebt/team/hasan/get_jnose.sh   # JNose jars (second detector, G2); needs Java 21 to run
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
@@ -176,6 +176,7 @@ _Supervisor comments are not in the repo; each member must paste theirs here (`c
 - 2026-10-25: JNose is jnose-core 0.9.0, the last release built for Java 21 (0.9.3 fixes an IgnoredTest false positive
   but needs Java 25). S3 targets the smells both detectors confirm (`--detector consensus`); `--detector tsdetect` is the
   -G2 ablation and matches [1].
+- 2026-11-06: PIT on Gson and Jsoup (JUnit 4) failed for every test because the JUnit 5 PIT plugin was always added; it is now added only to JUnit 5 projects (Commons-cli). Reusing a run id with other settings is refused (it would mix results); old smoke runs were renamed `runs/smoke_*`. `logs/` holds reported runs; `run_all.sh` writes the paper tables; ES sensitivity run (retry cap) on dev; E6 logs prompt and completion tokens.
 - 2026-11-06: one experiment runner (`team/gulsher/experiments.py`, called by `experiments/run_all.sh`); `--gaps` on the CLI; gap1 off now means PIT measures but never rejects; ablation adds `minus_all`; `veriref` alias; `prompt_hash` in `config.json`; reduced seed grid.
 - 2026-11-06: `requirements.txt` pinned to versions used; `data/splits/README.md` and `SHA256SUMS` added; `docs/devlog.md` created.
 - Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
@@ -216,6 +217,8 @@ src/testdebt/
   data/build_eval_set.py  eval_set.jsonl + stratified seeded subset
   data/splits.py      fixed dev/test/rest splits
   eval/metrics.py     rates, smell reduction (rule i tsDetect, rule ii tsDetect AND JNose), kill-set loss with 95% CI, paper delta
+  team/gulsher/       G1 and experiments: killset_gate.py, robustness.py, experiments.py (the E1-E6 + ES runner;
+                      configs in experiments/E*.json), Dockerfile
   team/hasan/         G2 and evaluation: jnose.py (+ jnose/JNoseMain.java, get_jnose.sh), consensus.py, agreement.py,
                       stats.py, failures.py, manual.py (+ labelling_guide.md), figures.py, gap_table.py, check_refs.py
   trace.py            trajectory writer (runs/<run>/trajectories/) and timeline viewer
@@ -230,6 +233,10 @@ docs/architecture.png methodology diagram (python3 scripts/make_diagram.py)
 docs/results_phase1.md
 results/phase1/       committed reports of the runs quoted in the docs
 results/E4/           G2 detector agreement on all 484 originals (tsDetect vs JNose, kappa per smell)
+results/E*/           per experiment: summary.json (mean, sd), runs.csv, table.tex, copies of each run's report/config
+logs/                 reported runs: config, state, report and compressed trajectories (see logs/README.md)
+experiments/          run_all.sh (one command: E1-E6, ES, failures, figures, gap table, paper tables), run_experiment.py (run_system)
+paper/tables, figures filled by run_all.sh from results/; the paper \input's them
 scripts/phase1_pilots.sh  PIT pilot + LLM pilots, copies reports to results/phase1/
 ```
 

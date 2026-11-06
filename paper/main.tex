@@ -1,5 +1,8 @@
 \documentclass[conference]{IEEEtran}
-\usepackage{graphicx,booktabs,amsmath,cite}
+\usepackage{graphicx,booktabs,amsmath,cite,url}
+% results are \input from files that experiments/run_all.sh copies from results/; until then a visible placeholder prints
+\newcommand{\resultinput}[1]{\IfFileExists{#1}{\input{#1}}{\textbf{[pending: #1, run experiments/run\_all.sh]}}}
+\newcommand{\resultfig}[1]{\IfFileExists{#1}{\includegraphics[width=\columnwidth]{#1}}{\fbox{\parbox{0.9\columnwidth}{\centering pending: \texttt{#1}}}}}
 \begin{document}
 \title{VeriRefactor: Verified, Agentic Test-Smell Refactoring with Kill-Set Gating and Detector Consensus}
 \author{\IEEEauthorblockN{M Saqib Atif, Gulsher Khan, Hasan Altaf}
@@ -9,7 +12,15 @@ IDs: 23I-0769, 23I-0066, 23I-0698}}
 \maketitle
 
 \begin{abstract}
-TODO (write last, 150--250 words: problem, approach, 2--3 headline numbers from results/E3, contributions).
+Large language models can refactor smelly unit tests, but an accepted refactoring may compile and pass while silently checking less.
+UTRefactor, the state of the art, accepts any output that compiles and passes and trusts a single smell detector.
+We present VeriRefactor, a multi-agent system in which tools, not the model, decide acceptance.
+A Supervisor coordinates Detection, Planner, Refactor and Verifier agents and adapts its next action (retry, switch strategy, narrow targets, revert to the best attempt or escalate) to the Verifier's evidence, with memory of failed approaches within and across tests.
+Three components address three gaps: a mutation-testing kill-set gate rejects any refactoring that loses a mutant the original test killed (G1);
+smells are targeted and counted as removed only when tsDetect and JNose agree (G2); and adaptive supervision replaces a fixed retry script (G6).
+On 150 held-out tests from Commons-cli, Gson and Jsoup, the full system accepts \textbf{[R: results/E3 accepted\_rate]}\% of refactorings with \textbf{[R: accepted\_safe\_rate]}\% accepted and safe,
+while switching the gate off lets \textbf{[R: results/E4 H1 s3-G1 pct]}\% of accepted outputs lose mutants. The two detectors disagree sharply on some smells ($\kappa=0.02$ for ExceptionHandling over all 484 tests),
+so single-detector reduction rates overstate removal. We release the system, trajectories and scripts that reproduce every table.
 \end{abstract}
 
 \section{Introduction}

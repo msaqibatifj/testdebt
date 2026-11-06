@@ -1,0 +1,87 @@
+{
+  "overall": {
+    "tests": 3,
+    "verified": true,
+    "errors": 0,
+    "accepted": 3,
+    "accepted_rate": 100.0,
+    "accepted_unverified": null,
+    "static_ok_rate": 100.0,
+    "compile_rate": 100.0,
+    "pass_rate": 100.0,
+    "smell_reduction_tsdetect": 100.0,
+    "smells_targeted": 3,
+    "smells_removed": 3,
+    "smell_reduction_accepted": 100.0,
+    "smell_reduction_strict": 100.0,
+    "smell_reduction_strict_tests": 3,
+    "smell_reduction_manual": null,
+    "killset_checked": 3,
+    "killset_unknown": 0,
+    "accepted_losing_mutants": 0,
+    "accepted_losing_mutants_rate": 0.0,
+    "accepted_losing_mutants_ci95": [
+      0.0,
+      56.2
+    ],
+    "accepted_safe": 3,
+    "accepted_safe_rate": 100.0,
+    "retried": 0,
+    "tokens_total": 9276,
+    "tokens_per_test": 3092,
+    "tokens_per_accepted": 3092,
+    "wall_time_s": 362.7,
+    "multi_smell_tests": 0
+  },
+  "by_project": {
+    "commons-cli": {
+      "tests": 3,
+      "verified": true,
+      "errors": 0,
+      "accepted": 3,
+      "accepted_rate": 100.0,
+      "accepted_unverified": null,
+      "static_ok_rate": 100.0,
+      "compile_rate": 100.0,
+      "pass_rate": 100.0,
+      "smell_reduction_tsdetect": 100.0,
+      "smells_targeted": 3,
+      "smells_removed": 3,
+      "smell_reduction_accepted": 100.0,
+      "smell_reduction_strict": 100.0,
+      "smell_reduction_strict_tests": 3,
+      "smell_reduction_manual": null,
+      "killset_checked": 3,
+      "killset_unknown": 0,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": 0.0,
+      "accepted_losing_mutants_ci95": [
+        0.0,
+        56.2
+      ],
+      "accepted_safe": 3,
+      "accepted_safe_rate": 100.0,
+      "retried": 0,
+      "tokens_total": 9276,
+      "tokens_per_test": 3092,
+      "tokens_per_accepted": 3092,
+      "wall_time_s": 362.7,
+      "multi_smell_tests": 0,
+      "paper_reduction": 86.0,
+      "delta_vs_paper": 14.0,
+      "within_5_points": false
+    }
+  },
+  "by_smell": {
+    "SensitiveEquality": {
+      "targeted": 2,
+      "removed": 2,
+      "removed_pct": 100.0
+    },
+    "AssertionRoulette": {
+      "targeted": 1,
+      "removed": 1,
+      "removed_pct": 100.0
+    }
+  }
+}

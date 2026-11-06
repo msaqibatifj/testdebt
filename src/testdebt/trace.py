@@ -62,7 +62,9 @@ class Trace:
         """One LLM call: prompt, reply, the model's reasoning field when the provider returns one, cost."""
         return self.event(agent, "llm_call", input=prompt, output=r.get("text", ""),
                           reasoning=(r.get("response_raw_message") or {}).get("reasoning"),
-                          tokens=(r.get("usage") or {}).get("total_tokens"), latency_s=r.get("latency_s"),
+                          tokens=(r.get("usage") or {}).get("total_tokens"),
+                          prompt_tokens=(r.get("usage") or {}).get("prompt_tokens"),
+                          completion_tokens=(r.get("usage") or {}).get("completion_tokens"), latency_s=r.get("latency_s"),
                           cached=r.get("cached"))
 
 

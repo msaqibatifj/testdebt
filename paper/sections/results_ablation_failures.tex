@@ -1,40 +1,57 @@
-% BACKUP of Hasan's Results / Ablation / Failure Analysis (w7). SKELETON: the structure, hypotheses and definitions are real,
-% every number is a placeholder \textbf{[R: results/...]} that must be copied from the named file after the test-split runs. Do NOT submit placeholders.
-% Tables: python3 -m testdebt.team.gulsher.experiments summarize E3  (writes results/E*/table.tex);  python3 -m testdebt.team.hasan.gap_table --readme README.md
-% Figures: python3 -m testdebt.team.hasan.figures  -> copy to paper/figures/ and \includegraphics.
+% Tables and figures are \input from paper/tables and paper/figures, which experiments/run_all.sh copies from results/.
+% Hand-written numbers in the prose are marked \textbf{[R: file]} and must be copied from that file before submission.
 \section{Results}\label{sec:results}
 
-All numbers are means $\pm$ sd over seeds 1--3 on the 150-test split, same tests for every system. E2 rows are labelled \emph{reproduced} or \emph{paper-reported}.
+Unless stated otherwise, numbers are means $\pm$ sd over the seeds listed in Section~\ref{sec:setup} on the 150-test split, with the same tests for every system.
+Table~\ref{tab:systems} compares all systems; every base-paper number is labelled \emph{reproduced} or \emph{paper-reported} (Table~\ref{tab:vspaper}).
+
+\begin{table*}[t]\centering\caption{All systems on the test split (E1--E3). Red.\ i: tsDetect only, as in~\cite{utrefactor}; Red.\ ii: both detectors; Lose mut.: accepted outputs that lose a mutant; Acc.+safe: accepted, kill-set preserved, no targeted smell left.}\label{tab:systems}
+\resultinput{tables/E3.tex}\par\smallskip\resultinput{tables/E2.tex}\end{table*}
+
+\begin{table}[t]\centering\caption{Base-paper comparison: rule-i smell reduction (\%) per project, paper-reported~\cite{utrefactor} vs reproduced by us.}\label{tab:vspaper}
+\footnotesize\resultinput{tables/E2_vs_paper.tex}\end{table}
 
 \subsection{RQ1 (G1): does the kill-set gate stop weakened tests?}
 \textbf{H1:} on tests with a non-empty baseline kill-set, switching the gate off increases the share of accepted refactorings that lose mutants, without a large change in acceptance.
-Subset: tests with $K(t)\neq\emptyset$ (\textbf{[R: n = results/E3 killset\_checked]}). Full system: accepted-losing-mutants \textbf{[R: results/E3 accepted\_losing\_mutants\_rate]}\%;
-\textsf{-G1}: \textbf{[R: results/E5 s3-G1]}\%. Acceptance changes from \textbf{[R]} to \textbf{[R]}\%. Paired test (exact McNemar, Holm): $p=$ \textbf{[R: stats]}.
+On this subset (\textbf{[R: results/E4/summary.json subsets.H1 n]} tests), accepted outputs losing a mutant are \textbf{[R: H1 s3 pct]}\% with the gate and \textbf{[R: H1 s3-G1 pct]}\% without it,
+and acceptance moves from \textbf{[R: s3\_accepted]}\% to \textbf{[R: s3-G1\_accepted]}\%. Paired test (exact McNemar, Holm-corrected): \textbf{[R: paired\_tests ``G1: s3 vs s3-G1'' p\_holm]}.
 
 \subsection{RQ2 (G2): does detector consensus make smell removal more trustworthy?}
-\textbf{H2:} the gap between tsDetect-only and strict (both detectors) smell reduction is largest for the smells where the detectors disagree.
-Subset: ExceptionHandling and IgnoredTest. On all 484 originals, JNose confirms 76.2\% of the smells labelled in~\cite{utrefactor} (\texttt{results/E4/g2\_agreement.json});
-tsDetect reports ExceptionHandling 224 times and JNose 10, and IgnoredTest 0 versus 102. Smell reduction (rule~i / rule~ii): \textbf{[R: results/E3, E5 s3-G2]}.
-Manual sample: $\kappa$ labeller--labeller \textbf{[R: results/E4/manual]}, detector--human \textbf{[R]}.
+\textbf{H2:} the gap between tsDetect-only (rule~i) and strict (rule~ii) smell reduction is largest for the smells where the detectors disagree.
+On all 484 originals, JNose confirms 76.2\% of the smells labelled in~\cite{utrefactor} (\texttt{results/E4/g2\_agreement.json}); the detectors agree closely on most smells ($\kappa$ 0.68--1.0)
+but not on ExceptionHandling (tsDetect 224, JNose 10, $\kappa=0.02$) or DuplicateAssert ($\kappa=0.42$).
+Per smell, rule~i vs rule~ii removal for \textsf{s3} is in \texttt{results/E4/summary.json} (\texttt{H2\_per\_smell\_rule\_i\_vs\_ii}): \textbf{[R: largest gap smell and both percentages]}.
 
 \subsection{RQ3 (G6): does adaptive supervision beat fixed retries and a single agent?}
-\textbf{H3:} on multi-smell tests and tests that need retries, \textsf{s3} has a higher accepted-and-safe rate than \textsf{b1} and \textsf{b2} at equal or lower tokens per test.
-Subset: multi-smell tests (\textbf{[R: multi\_smell\_tests]}) and retried tests. Table~\ref{tab:systems}: \textbf{[R: paste results/E2/table.tex, results/E3]}.
+\textbf{H3:} on multi-smell tests and on hard tests (rejected by the one-pass reproduction \textsf{b0}), \textsf{s3} has a higher accepted-and-safe rate than \textsf{b1} and \textsf{b2} at equal or lower tokens per test.
+Accepted-and-safe on multi-smell tests: \textsf{s3} \textbf{[R]}\%, \textsf{b1} \textbf{[R]}\%, \textsf{b2} \textbf{[R]}\%; on hard tests: \textbf{[R]} / \textbf{[R]} / \textbf{[R]}\% (\texttt{H3\_subsets\_accepted\_safe}).
+Paired tests \textsf{s3} vs \textsf{b1} and vs \textsf{b2}: \textbf{[R: paired\_tests G6 p\_holm]}.
 
 \subsection{Gap-resolution table}
-\textbf{[R: paste results/gap\_table.tex; the same table as in the README]} -- generated by \texttt{gap\_table.py} from \texttt{results/gap\_verdicts.json}, which is hand-written: set each verdict only after reading the numbers above.
+Table~\ref{tab:gaps} summarises the three gaps; it is generated by \texttt{gap\_table.py} from \texttt{results/} and is identical to the table in the repository README.
+\begin{table*}[t]\centering\caption{Gap-resolution table (same as the README).}\label{tab:gaps}\footnotesize\resultinput{tables/gap_table.tex}\end{table*}
 
 \section{Ablation and Comparative Analysis}\label{sec:ablation}
-Table~\ref{tab:ablation} switches one component off at a time (E5: \textsf{-G1} kill-set measured only, \textsf{-G2} tsDetect targets, \textsf{-G6} fixed retry policy, \textsf{memory} off, and \textsf{minus\_all} with all three off) and reports the change from the full system.
-Check first that the full row equals E3. Contribution per component: \textbf{[R: E5 minus E3 for accepted-and-safe, smell reduction (strict), tokens per test]}.
-Efficiency and reliability (E6) against the baselines: tokens per test \textbf{[R]}, latency per test \textbf{[R]}\,s, tool calls \textbf{[R]}, retries \textbf{[R]}, recovery rate \textbf{[R]}\%; cost \$0 on the free tier.
-Figure~\ref{fig:ablation}: \textbf{[R: paper/figures/ablation.pdf from figures.py]}.
+Table~\ref{tab:ablation} switches components off (E5: \textsf{-G1} kill-set measured only, \textsf{-G2} tsDetect targets, \textsf{-G6} fixed retry policy, \textsf{memory} off, and \textsf{minus\_all} with all three off)
+and reports each variant's change from the full system (E3); PIT measures in every variant, so kill-set loss is comparable. Figure~\ref{fig:ablation} plots accepted-and-safe per variant.
+\textbf{Sensitivity.} Table~\ref{tab:sensitivity} varies the retry cap (0, 1, 2, 4) for \textsf{s3} on 20 dev tests without PIT (dev only, so it does not touch the test split).
+\textbf{Efficiency.} Table~\ref{tab:e6} reports tokens (prompt and completion), LLM and tool calls, wall-clock and PIT time per test, retry and recovery rates for every configuration; cost is \$0 on the Cerebras free tier, and Figure~\ref{fig:cost} relates tokens to accepted-and-safe.
+
+\begin{table*}[t]\centering\caption{Ablation (E5): change from the full system.}\label{tab:ablation}\footnotesize\resultinput{tables/E5_delta.tex}\end{table*}
+\begin{table}[t]\centering\caption{Sensitivity to the retry cap (ES, dev split).}\label{tab:sensitivity}\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/ES.tex}}\end{table}
+\begin{table*}[t]\centering\caption{Efficiency and reliability per configuration (E6), means over seeds.}\label{tab:e6}\footnotesize\resultinput{tables/E6.tex}\end{table*}
+\begin{figure}[t]\centering\resultfig{figures/fig_ablation.pdf}\caption{Accepted-and-safe rate of the full system and each ablation.}\label{fig:ablation}\end{figure}
+\begin{figure}[t]\centering\resultfig{figures/fig_cost.pdf}\caption{Tokens per test vs accepted-and-safe rate, one point per configuration.}\label{fig:cost}\end{figure}
 
 \section{Failure Analysis}\label{sec:failures}
-Each non-accepted test gets one category, assigned automatically from the final report and then checked by hand (\texttt{failures.py}; the first matching rule wins):
+Each non-accepted test gets exactly one category, assigned from its final verification report by \texttt{failures.py} (the first matching rule wins):
 infrastructure error; budget exhausted; malformed reply; assertion dropped or empty test; compile: API not in the project; compile: missing symbol or import; compile: other;
 fixture clobbered by extracted setup; semantic change: test now fails; weakened test: kill-set loss; smell not removed or new smell.
-Table~\ref{tab:failures} gives counts and percentages on the test split for \textsf{s3} (\textbf{[R: results/failures/E3\_categories.csv]}); the largest category is \textbf{[R]} (\textbf{[R]}\%).
+Table~\ref{tab:failures} and Figure~\ref{fig:failures} give counts over the three \textsf{s3} seeds (each (test, seed) pair counted once), as a share of failures and of all evaluated pairs.
+The largest category is \textbf{[R: results/failures/E3\_counts.json]}.
+\begin{table}[t]\centering\caption{Failure modes of the full system (E3, all seeds).}\label{tab:failures}\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/failures.tex}}\end{table}
+\begin{figure}[t]\centering\resultfig{figures/fig_failures.pdf}\caption{Failure-mode distribution of the full system.}\label{fig:failures}\end{figure}
 
-\textbf{Trajectories.} We walk through two successes and two failures from the E3 runs (agent $\to$ tool $\to$ result $\to$ decision), selected as the first accepted test with a retry and the first rejected test per the two largest failure categories:
+\textbf{Trajectories.} We walk through two successes and two failures from \texttt{logs/E3\_s3\_s1} (agent $\to$ tool $\to$ result $\to$ decision): the first accepted test that needed a retry, the first clean accept,
+and the first rejected test in each of the two largest failure categories (exported with \texttt{failures.py --case}).
 \textbf{[R: write from cases/success1.md, success2.md, failure1.md, failure2.md; for each failure give the root cause and the fix]}.

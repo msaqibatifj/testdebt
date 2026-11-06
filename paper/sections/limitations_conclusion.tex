@@ -14,7 +14,8 @@ Our evaluation set is 484 tests, not the 593 of~\cite{utrefactor}, because only 
 \section{Conclusion}\label{sec:conclusion}
 
 We built a verified, agentic pipeline that accepts a test-smell refactoring only when it compiles, passes, removes the targeted smells and keeps every mutant the original test killed.
-\textbf{G1:} \textbf{[TODO one sentence with the E3 vs E5-G1 number from results/E5]}. \textbf{G2:} \textbf{[TODO detector-consensus finding from results/E4 and E5-G2]}.
-\textbf{G6:} \textbf{[TODO s3 vs b1 and b2 from results/E2, E3]}. Architectural lessons: tools, not the model, should decide acceptance; the baseline kill matrix must be computed before the patch is written
+\textbf{G1:} with the kill-set gate, \textbf{[R: H1 s3 pct]}\% of accepted outputs lose a mutant, against \textbf{[R: H1 s3-G1 pct]}\% without it (Table~\ref{tab:ablation}).
+\textbf{G2:} tsDetect and JNose agree on most smells but not on ExceptionHandling ($\kappa=0.02$), and rule~ii reduction is \textbf{[R: results/E3 smell\_reduction\_strict]}\% against \textbf{[R: smell\_reduction\_tsdetect]}\% under rule~i, so a single detector overstates removal.
+\textbf{G6:} on multi-smell and hard tests, \textsf{s3} reaches \textbf{[R: H3]}\% accepted-and-safe against \textbf{[R]}\% (\textsf{b1}) and \textbf{[R]}\% (\textsf{b2}). Architectural lessons: tools, not the model, should decide acceptance; the baseline kill matrix must be computed before the patch is written
 (a Phase~1 bug measured the refactored code instead); and failures must be captured per test so one error does not stop a run.
 Future work: more projects and models, JaCoCo-style coverage next to the kill-set, parallel workers per project, and a learned planner trained on the cross-test memory.

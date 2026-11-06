@@ -36,3 +36,10 @@ def test_add_plugin_goes_to_build_plugins_not_management():
     assert out.find("</pluginManagement>") < i < out.find("<plugin>real")
     assert add_pit_plugin(out) == out
     assert "pitest-maven" in add_pit_plugin("<project></project>")
+
+
+def test_junit5_plugin_only_for_junit5_projects():
+    j4 = add_pit_plugin("<project><dependencies><artifactId>junit</artifactId></dependencies></project>")
+    j5 = add_pit_plugin("<project><dependencies><artifactId>junit-jupiter-api</artifactId></dependencies></project>")
+    assert "pitest-maven" in j4 and "pitest-junit5-plugin" not in j4     # Gson, Jsoup: PIT's built-in JUnit 4 support
+    assert "pitest-junit5-plugin" in j5                                    # Commons-cli
