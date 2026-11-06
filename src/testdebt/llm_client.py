@@ -178,6 +178,8 @@ class LLMClient:
             break  # 4xx other than 429: do not retry
 
         self._log({"ts": time.time(), "tag": tag, "key": key, "error": last_err})
+        if last_err.startswith("HTTP 429"):   # quota gone: stop and resume later instead of failing every test
+            raise BudgetExhausted(f"provider still rate-limiting after {self.max_retries} tries: {last_err}")
         raise RuntimeError(f"LLM call failed after retries: {last_err}")
 
 

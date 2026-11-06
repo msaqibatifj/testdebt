@@ -32,3 +32,12 @@ def test_restore_check_stops_on_a_modified_checkout(tmp_path):
     (tmp_path / "A.java").write_text("b")
     with pytest.raises(SystemExit, match="left modified"):
         rc.check(str(tmp_path))
+
+
+def test_dirty_lists_checkouts_with_tracked_changes(tmp_path):
+    git = lambda *a: subprocess.run(["git", "-C", str(tmp_path), *a], capture_output=True, check=True)
+    git("init", "-q"); (tmp_path / "A.java").write_text("a")
+    git("add", "."); git("-c", "user.email=t@t", "-c", "user.name=t", "commit", "-qm", "x")
+    assert RestoreCheck.dirty([str(tmp_path)]) == []
+    (tmp_path / "A.java").write_text("patched by a killed run")
+    assert RestoreCheck.dirty([str(tmp_path), str(tmp_path)]) == [str(tmp_path)]

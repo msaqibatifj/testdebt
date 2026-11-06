@@ -32,6 +32,12 @@ class RestoreCheck:
         return subprocess.run(["git", "-C", directory, "status", "--porcelain", "--untracked-files=no"],
                               capture_output=True, text=True).stdout
 
+    @classmethod
+    def dirty(cls, dirs) -> list[str]:
+        """Checkouts with tracked changes. A hard kill (kill -9, power loss) skips the Verifier's restore, and the
+        next run would read the patched test as the original, so frozen runs refuse to start on any of these."""
+        return sorted(d for d in set(dirs) if cls._status(d))
+
     def check(self, module_dir: str) -> None:
         now = self._status(module_dir)
         before = self.first.setdefault(module_dir, now)

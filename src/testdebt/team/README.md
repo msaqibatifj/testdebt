@@ -16,7 +16,6 @@ memory), `trace.py`, `cli.py`, `data/splits.py`.
 | `experiments.py` | one entry point for E1-E6: `run` (fixed run ids, resumable, `--dev` dry runs) and `summarize` (results/E*/runs.csv, summary.json, table.tex; E4 paired tests; E6 cost/latency/reliability) | experiment runner, E1, E2, E4-G1, E6 |
 | `experiments/E1.json` … `E5.json` | which systems, flags, split and seeds each experiment runs | experiment YAMLs (JSON: no YAML library needed) |
 | `../../../../experiments/run_all.sh` | E1-E6, failures, figures, gap table (calls this runner) | `experiments/run_all.sh` |
-| `Dockerfile` | clean-machine check: JDK 17, Maven 3.9.9, Python, JNose | Dockerfile |
 | `../../../../.github/workflows/ci.yml` | pytest on every push (has to live in `.github/`) | CI |
 
 Not built (say so if asked): parallel workers per project. The LLM rate limit (5 requests/min) is the bottleneck;
