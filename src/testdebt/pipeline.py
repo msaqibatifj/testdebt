@@ -30,7 +30,7 @@ SYSTEMS = ("single", "b0replay", "b0", "b1", "b2", "s3")
 @dataclass
 class Config:
     system: str = "b1"
-    max_retries: int = 2             # b1 only
+    max_retries: int = 2             # b1 and s3 (s3: 1 + max_retries attempts)
     max_tokens_per_call: int = 8000
     token_cap_per_test: int = 60000
     temperature: float = 0.7

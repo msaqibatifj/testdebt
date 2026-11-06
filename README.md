@@ -124,6 +124,7 @@ bash experiments/run_all.sh                          # test split, frozen -> res
 SPLIT=dev LIMIT=2 bash experiments/run_all.sh        # smoke run on dev -> results/dev/
 # the runner is src/testdebt/team/gulsher/experiments.py; seeds per config are in team/gulsher/experiments/E*.json
 # reduced grid (a full test-split run of s3 with PIT takes hours): E3 and E5 -G1 use seeds 1-3, the rest seed 1
+# PIT_THREADS=8 bash experiments/run_all.sh   # more PIT threads on a many-core machine (default 2)
 # one system, one seed, gaps chosen by name (gap1 kill-set gate, gap2 consensus detector, gap6 adaptive supervisor):
 python -m experiments.run_experiment --system s3 --split dev --limit 5 --gaps gap1,gap2,gap6 --seed 1
 testdebt --system s3 --split dev --limit 5 --gaps gap2,gap6      # same switches on the CLI; gap1 off = PIT measures, never rejects
@@ -218,7 +219,7 @@ src/testdebt/
   data/splits.py      fixed dev/test/rest splits
   eval/metrics.py     rates, smell reduction (rule i tsDetect, rule ii tsDetect AND JNose), kill-set loss with 95% CI, paper delta
   team/gulsher/       G1 and experiments: killset_gate.py, robustness.py, experiments.py (the E1-E6 + ES runner;
-                      configs in experiments/E*.json), Dockerfile
+                      configs in experiments/E*.json)
   team/hasan/         G2 and evaluation: jnose.py (+ jnose/JNoseMain.java, get_jnose.sh), consensus.py, agreement.py,
                       stats.py, failures.py, manual.py (+ labelling_guide.md), figures.py, gap_table.py, check_refs.py
   trace.py            trajectory writer (runs/<run>/trajectories/) and timeline viewer

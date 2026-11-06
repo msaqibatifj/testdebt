@@ -7,6 +7,7 @@ Kill-set preserved  <=>  K(T) is a subset of the union of K(t) over the refactor
 """
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import xml.etree.ElementTree as ET
@@ -99,7 +100,7 @@ def compare(before: set[Mutant], after: set[Mutant]) -> dict:
 
 
 class PitRunner:
-    def __init__(self, mvn: str = "mvn", timeout: int = 3600, threads: int = 2, env=None):
+    def __init__(self, mvn: str = "mvn", timeout: int = 3600, threads: int = int(os.environ.get("PIT_THREADS", 2)), env=None):
         self.mvn, self.timeout, self.threads = mvn, timeout, threads
         self.env = env or (lambda project: None)     # MavenRunner.env, to reuse per-project JAVA_HOME
 

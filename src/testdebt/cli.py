@@ -204,6 +204,8 @@ def main(argv: list[str] | None = None) -> None:
     if a.project:
         rows = [r for r in rows if r["project"] == a.project]
     rows = rows[:a.limit] if a.limit else rows
+    if a.frozen and not a.skip_verify and (bad := RestoreCheck.dirty(r["module_dir"] for r in rows)):
+        raise SystemExit(f"--frozen needs clean project checkouts; modified: {bad} (git -C <dir> checkout -- .)")
     done, restore = pipe.done_ids(), RestoreCheck()
     for i, r in enumerate(rows, 1):
         test = TestRef(r["project"], r["module_dir"], r["file"], r["class_name"], r["method"])

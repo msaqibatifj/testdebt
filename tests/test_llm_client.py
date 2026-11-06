@@ -61,3 +61,9 @@ def test_budget_stop_is_not_recorded_as_error_so_resume_retries_the_test(demo, t
     with pytest.raises(BudgetExhausted):
         p.process(t, DebtFinding(t, ["AssertionRoulette"]))
     assert t.id not in p.done_ids()
+
+
+def test_persistent_429_stops_the_run_instead_of_failing_the_test(tmp_path, monkeypatch):
+    c, _ = client(tmp_path, monkeypatch, [Resp(429)] * 6)
+    with pytest.raises(BudgetExhausted):
+        c.chat([{"role": "user", "content": "hi"}])
