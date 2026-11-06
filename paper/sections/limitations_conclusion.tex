@@ -1,0 +1,21 @@
+% BACKUP of Gulsher's "Limitations & Validity" and "Conclusion" (w8). Conclusion numbers must come from results/.
+\section{Limitations and Threats to Validity}\label{sec:threats}
+
+\textbf{Internal.} LLM output is non-deterministic even at fixed seeds on a hosted model, and results depend on the prompt and on the retry and token caps, which we tuned on the dev split only;
+three seeds bound but do not remove this variance. Test-split runs were rate-limited to 5 requests per minute and a daily token cap, so runs were resumed across days; a resumed test is rerun from scratch, but the model backend may have changed between days.
+PIT results depend on the mutator set and on timeouts: a mutant killed only through a timeout counts as killed.
+
+\textbf{External.} Three Java/JUnit~4 projects and 150 held-out tests, with smells restricted to the tsDetect set, do not support claims about other languages, test frameworks or larger suites.
+Only one model family (\texttt{gpt-oss-120b}) was used, so the comparison between systems does not show how the gaps behave with a weaker or stronger model.
+
+\textbf{Construct.} The PIT kill-set is a proxy for test strength: the same mutants can be killed by a weaker assertion, and mutants outside the sampled mutators are invisible. tsDetect and JNose disagree sharply on some smells
+(ExceptionHandling, IgnoredTest), so ``smell removed'' depends on the detector rule; we report all three rules and a manual sample. Empty baseline kill-sets are reported as unknown rather than safe.
+Our evaluation set is 484 tests, not the 593 of~\cite{utrefactor}, because only those match the pinned project commits verbatim.
+
+\section{Conclusion}\label{sec:conclusion}
+
+We built a verified, agentic pipeline that accepts a test-smell refactoring only when it compiles, passes, removes the targeted smells and keeps every mutant the original test killed.
+\textbf{G1:} \textbf{[TODO one sentence with the E3 vs E5-G1 number from results/E5]}. \textbf{G2:} \textbf{[TODO detector-consensus finding from results/E4 and E5-G2]}.
+\textbf{G6:} \textbf{[TODO s3 vs b1 and b2 from results/E2, E3]}. Architectural lessons: tools, not the model, should decide acceptance; the baseline kill matrix must be computed before the patch is written
+(a Phase~1 bug measured the refactored code instead); and failures must be captured per test so one error does not stop a run.
+Future work: more projects and models, JaCoCo-style coverage next to the kill-set, parallel workers per project, and a learned planner trained on the cross-test memory.

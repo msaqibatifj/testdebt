@@ -24,7 +24,11 @@ Contributions: (i) a verifier that accepts a refactoring only if it compiles, pa
 (iv) a controlled comparison of six systems on 150 held-out tests with 3 seeds.
 
 \section{Related Work}
-TODO (UTRefactor, tsDetect, JNose, PIT/mutation testing, LLM agents for refactoring; 25--30 references with DOIs in refs.bib).
+\emph{Test smells.} Test smells~\cite{garousi2018,tufano2016} are design problems in test code whose harm is debated~\cite{bavota2015}; tsDetect~\cite{peruma2020} and JNose~\cite{virginio2020} detect them, and their agreement is measured with Cohen's $\kappa$~\cite{cohen1960,landis1977}.
+UTRefactor~\cite{utrefactor} refactors smells with an LLM and a knowledge base but accepts any output that compiles and passes.
+\emph{Mutation testing and oracles.} Mutants are a reasonable proxy for real faults~\cite{just2014}; PIT~\cite{coles2016} computes kill matrices~\cite{jia2011,papadakis2019}, and the oracle problem~\cite{barr2015} motivates preserving the kill-set rather than trusting passing tests. Generated tests~\cite{fraser2011,schafer2024} face the same weakness.
+\emph{LLM agents.} Reasoning and acting~\cite{yao2023}, self-feedback~\cite{madaan2023}, verbal memory~\cite{shinn2023}, chain-of-thought~\cite{wei2022}, tool use~\cite{schick2023} and repository agents~\cite{jimenez2024,yang2024} on code models~\cite{chen2021} motivate our Supervisor, but none gates acceptance on mutation evidence.
+\emph{Statistics.} We use exact McNemar~\cite{mcnemar1947}, Wilcoxon~\cite{wilcoxon1945} and Wilson intervals~\cite{wilson1927}.
 
 \section{Problem Formulation}
 Input: a Java/JUnit project $P$ and a test suite $T=\{t_1,\dots,t_n\}$ (test methods). Smell set $S$ (the tsDetect smells in~\cite{utrefactor}).
@@ -43,8 +47,10 @@ memory holds failed proposals within a test and failed approaches across tests. 
 \begin{figure}[t]\centering\includegraphics[width=\columnwidth]{architecture.png}
 \caption{Architecture and where each gap plugs in.}\label{fig:arch}\end{figure}
 
-\section{Experimental Setup}\section{Results}\section{Discussion and Threats to Validity}\section{Conclusion}
-TODO
+\input{sections/setup}
+\input{sections/methodology}
+\input{sections/results_ablation_failures}
+\input{sections/limitations_conclusion}
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}

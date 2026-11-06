@@ -20,7 +20,7 @@ confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervi
 | `b0` | UTRefactor reproduction: KB prompt (smell definition, DSL rule, checkpoints), 1 pass, accepted if it compiles and passes | working |
 | `b1` | Fixed pipeline: KB prompt, then verify. One fixed retry prompt carries the error text, up to 2 retries, then reject | working |
 | `single` | Plain prompt with no KB (the "direct LLM" reference in [1]) | working |
-| `s3` | Multi-agent system: Detection, Planner (LLM-written JSON plan, KB rule fallback), Refactor and Verifier agents under an adaptive Supervisor (accept, retry, switch strategy, narrow targets, revert to the best attempt, escalate; memory of failed proposals within a test and of failed approaches across tests). `--policy fixed` and `--memory off` switch G6 parts off for the ablation | working (G6); G1 gate (`--killset-gate`) and G2 consensus (`--detector`) are built and being merged by their owners |
+| `s3` | Multi-agent system: Detection, Planner (LLM-written JSON plan, KB rule fallback), Refactor and Verifier agents under an adaptive Supervisor (accept, retry, switch strategy, narrow targets, revert to the best attempt, escalate; memory of failed proposals within a test and of failed approaches across tests). `--policy fixed` and `--memory off` switch G6 parts off for the ablation | working (G6); G1 gate (`--killset-gate`) and G2 consensus (`--detector`) merged |
 | `b2` | Single tool-using agent: one LLM loop that picks its own tool each reply (`detect`, `compile_and_run`, `pit`, `submit`), same KB prompt, verifier and token cap as S3, no Supervisor policy. Isolates G6 | working |
 
 ## Status
@@ -42,7 +42,7 @@ confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervi
 | Trajectories (one JSON event per step), per-test error capture, daily token cap, `testdebt` CLI | working |
 | G2: JNose second detector, consensus targets (`--detector`), rule ii strict reduction; detector agreement (`results/E4/`) | merged (Hasan, `team/hasan/`) |
 | Statistics, failure categories and case export, manual-sample labelling, figures, gap table, reference check | merged (Hasan, `team/hasan/`) |
-| G1 kill-set gate, experiment runner E1-E6, CI | being merged by Gulsher |
+| G1 kill-set gate, experiment runner E1-E6, CI | merged (Gulsher, `team/gulsher/`) |
 | JaCoCo coverage | not implemented: the PIT kill-set is the test-strength measure |
 
 ## Quick start (WSL / Ubuntu)
@@ -153,7 +153,10 @@ _Filled after the E2-E4 test-split runs._
 
 ## Phase 1 feedback addressed
 
-_One line per member: supervisor comment -> what we changed. To be filled by Saqib, Gulsher and Hasan before the final tag._
+_Supervisor comments are not in the repo; each member must paste theirs here (`comment -> change -> commit`) before the tag._
+
+- Candidate fixes from history: PIT baseline measured refactored code (`5cf24e3`); splits frozen (`0e1f7da`); per-test error capture (`888b2eb`).
+- Base paper (UTRefactor) and gaps G1, G2, G6 are unchanged since Phase 1 (to be confirmed by Saqib; any change needs Meemon Khan's written approval).
 
 ## Changes since Phase 1
 
@@ -169,6 +172,7 @@ _One line per member: supervisor comment -> what we changed. To be filled by Saq
 - 2026-10-25: JNose is jnose-core 0.9.0, the last release built for Java 21 (0.9.3 fixes an IgnoredTest false positive
   but needs Java 25). S3 targets the smells both detectors confirm (`--detector consensus`); `--detector tsdetect` is the
   -G2 ablation and matches [1].
+- 2026-11-06: `requirements.txt` pinned to versions used; `data/splits/README.md` and `SHA256SUMS` added; `docs/devlog.md` created.
 - Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
 
 ## Initial results (Phase 1)

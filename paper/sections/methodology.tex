@@ -1,0 +1,24 @@
+% BACKUP of Gulsher's "Evaluation Methodology" (w6). Definitions follow src/testdebt/eval/metrics.py; check names against it.
+\section{Evaluation Methodology}\label{sec:method}
+
+Let $T$ be the evaluated tests, $A\subseteq T$ the accepted ones, and for $t\in T$ let $D(t)$ be its targeted smells (the smells labelled in~\cite{utrefactor}
+that the detector in use confirms) and $D'(t)$ the smells still reported in its refactored methods. Rates are percentages with Wilson 95\% intervals.
+
+\textbf{Accepted rate} $=|A|/|T|$. A test is accepted only if the refactoring is statically sane (no dropped or empty test), compiles, passes, and removes the targeted smells;
+with G1 on it must also preserve the kill-set. \textbf{Compile rate} and \textbf{pass rate} are the share of tests whose \emph{last} verification report compiled, respectively passed.
+
+\textbf{Smell reduction} has three definitions. Rule~i (tsDetect, as in~\cite{utrefactor}): $\sum_t|D(t)\setminus D'_{ts}(t)|\,/\,\sum_t|D(t)|$ over all tests; we also report it over accepted tests only.
+Rule~ii (strict): a smell counts as removed only if both tsDetect and JNose no longer report it. Rule~iii (manual): two labellers judge a 100-test sample independently
+(\texttt{labelling\_guide.md}); we report Cohen's $\kappa$ between labellers and between detector and humans.
+
+\textbf{Behaviour preservation.} For test $t$ let $K(t)$ be the set of PIT mutants killed by $t$, from the full mutation matrix. The original's $K(t)$ is computed on the unmodified class
+before the patch is written. A refactoring that yields tests $t'_1..t'_m$ preserves behaviour if $K(t)\subseteq\bigcup_i K(t'_i)$.
+\textbf{Accepted-losing-mutants rate} is the share of accepted tests violating this; \textbf{accepted-and-safe rate} is the share of $T$ that is accepted and preserves $K$.
+Tests with an empty baseline $K(t)$ are counted as \emph{unknown}, not as preserved.
+
+\textbf{Efficiency and reliability.} Tokens per test (prompt plus completion), tokens per accepted test, wall-clock latency per test, tool calls and retries per test, and
+\textbf{recovery rate} $=$ accepted tests among those that needed at least one retry. Cost is \$0 on the free tier; we report tokens instead.
+
+\textbf{Comparison protocol.} Every system runs the same test-split tests with seeds 1--3; we report mean $\pm$ sd over seeds. Paired comparisons between systems on the same tests use the exact McNemar test (binary outcomes) and the Wilcoxon
+signed-rank test (continuous), with Holm correction across the comparisons in a table and bootstrap confidence intervals for differences.
+\textbf{Metric-definition differences from~\cite{utrefactor}:} \textbf{[TODO list from docs/results\_phase1.md, e.g. 484 vs 593 tests, our verifier requires a passing run and (G1) the kill-set, Gson is built with its own dependencies; b0replay differs strongly from the paper on Gson and Jsoup, so check their counting before claiming a reproduction].}
