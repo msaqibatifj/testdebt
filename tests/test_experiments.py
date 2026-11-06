@@ -45,3 +45,28 @@ def test_figures_from_summaries(tmp_path):
         (tmp_path / e).mkdir()
         (tmp_path / e / "summary.json").write_text(json.dumps({n: s for n in names}))
     assert make_all(tmp_path) == ["fig_systems.pdf", "fig_ablation.pdf", "fig_cost.pdf"]   # no failures file yet
+
+
+def test_paper_tables_from_saved_runs(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    good, lost, rej = ("accepted", True, []), ("accepted", False, []), ("rejected", None, ["A"])
+    for s in (1, 2, 3):
+        _write_run(f"E3_s3_s{s}", [good] * 8 + [rej] * 2)
+        _write_run(f"E5_s3-G1_s{s}", [lost] * 4 + [good] * 6)
+    _write_run("E1_b0replay_s1", [good] * 5 + [rej] * 5)
+    _write_run("E2_b0_s1", [rej] * 10)
+    ex.summarize("E3", dev=False)
+    ex.summarize("E1", dev=False)
+    ex.summarize("E2", dev=False)
+    ex.summarize("E5", dev=False)
+    delta = json.loads((tmp_path / "results/E5/delta.json").read_text())
+    assert delta["s3-G1"]["accepted_rate"] == 20.0 and (tmp_path / "results/E5/delta.tex").exists()
+    vs = json.loads((tmp_path / "results/E2/vs_paper.json").read_text())["rows"]
+    assert {r["project"] for r in vs} >= {"gson"} and "paper-reported" in (tmp_path / "results/E2/vs_paper.tex").read_text()
+    e4 = ex.summarize_e4()
+    h1 = e4["subsets"]["H1_nonempty_killset"]
+    assert h1["s3-G1"]["pct"] == (40.0, 0.0) and h1["s3"]["pct"] == (0.0, 0.0)
+    assert e4["subsets"]["H3_subsets_accepted_safe"]["s3"]["hard"]["n"] == 10      # b0 rejected every test
+    assert (tmp_path / "logs/E3_s3_s1/state.jsonl").exists() and (tmp_path / "logs/E3_s3_s1/trajectories.tar.gz").exists()
+    ex.summarize_e6()
+    assert "Recovery" in (tmp_path / "results/E6/table.tex").read_text()

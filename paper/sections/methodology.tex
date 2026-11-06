@@ -14,7 +14,7 @@ before the patch is written. A refactoring that yields tests $t'_1..t'_m$ preser
 \textbf{Accepted-losing-mutants rate} is the share of accepted tests violating this; \textbf{accepted-and-safe rate} is the share of $T$ that is accepted and preserves $K$.
 Tests with an empty baseline $K(t)$ are counted as \emph{unknown}, not as preserved.
 
-\textbf{Efficiency and reliability.} Total tokens per test (prompt plus completion; the split is not logged), tokens per accepted test, wall-clock latency per test (includes rate-limit waits), tool calls and retries (reported as totals and per-test means), and
+\textbf{Efficiency and reliability.} Tokens per test (total, and split into prompt and completion from the provider's usage field), tokens per accepted test, wall-clock latency per test (includes rate-limit waits), tool calls and retries (reported as totals and per-test means), and
 \textbf{recovery rate} $=$ accepted tests among those that needed at least one retry. Cost is \$0 on the free tier; we report tokens instead.
 
 \textbf{Comparison protocol.} Every system runs the same test-split tests with seeds 1--3; we report mean $\pm$ sd over seeds. Paired comparisons between systems on the same tests use the exact McNemar test (binary outcomes) and the Wilcoxon

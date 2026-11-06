@@ -18,20 +18,27 @@ PIT_VERSION = "1.17.4"            # check https://pitest.org for the latest 1.x 
 JUNIT5_PLUGIN_VERSION = "1.2.1"
 PIT_FILE = "pom.pit.xml"
 
-PLUGIN_XML = f"""
-      <plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <version>{PIT_VERSION}</version>
+JUNIT5_DEP = f"""
         <dependencies>
           <dependency>
             <groupId>org.pitest</groupId>
             <artifactId>pitest-junit5-plugin</artifactId>
             <version>{JUNIT5_PLUGIN_VERSION}</version>
           </dependency>
-        </dependencies>
+        </dependencies>"""
+
+
+def plugin_xml(junit5: bool) -> str:
+    """JUnit 5 projects need pitest-junit5-plugin; on JUnit 4 projects (Gson, Jsoup) it must NOT be added: it replaces
+    PIT's built-in JUnit 4 support and the minion fails with 'Cannot create Launcher without at least one TestEngine'."""
+    return f"""
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>{PIT_VERSION}</version>{JUNIT5_DEP if junit5 else ""}
       </plugin>
 """
+
 
 Mutant = tuple[str, str, str, str, str]   # class, method, line, mutator, index
 
@@ -44,17 +51,18 @@ def add_pit_plugin(pom_xml: str) -> str:
     """Insert the PIT plugin into the project's top-level <build><plugins> (not pluginManagement/profiles/reporting)."""
     if "pitest-maven" in pom_xml:
         return pom_xml
+    plugin = plugin_xml("junit-jupiter" in pom_xml)
     excluded = _span(pom_xml, "pluginManagement") + _span(pom_xml, "profiles") + _span(pom_xml, "reporting")
     build = next(((s, e) for s, e in _span(pom_xml, "build") if not any(a <= s <= b for a, b in excluded)), None)
     if build is None:   # no top-level <build>: add one before </project>
         i = pom_xml.rfind("</project>")
-        return pom_xml[:i] + f"  <build>\n    <plugins>{PLUGIN_XML}    </plugins>\n  </build>\n" + pom_xml[i:]
+        return pom_xml[:i] + f"  <build>\n    <plugins>{plugin}    </plugins>\n  </build>\n" + pom_xml[i:]
     for s, _ in _span(pom_xml, "plugins"):
         if build[0] < s < build[1] and not any(a <= s <= b for a, b in excluded):
             j = s + len("<plugins>")
-            return pom_xml[:j] + PLUGIN_XML + pom_xml[j:]
+            return pom_xml[:j] + plugin + pom_xml[j:]
     i = pom_xml.find("</build>", build[0])
-    return pom_xml[:i] + f"  <plugins>{PLUGIN_XML}    </plugins>\n  " + pom_xml[i:]
+    return pom_xml[:i] + f"  <plugins>{plugin}    </plugins>\n  " + pom_xml[i:]
 
 
 def test_method_name(killing: str) -> str:

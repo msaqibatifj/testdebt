@@ -98,8 +98,19 @@ def main() -> None:
         w.writeheader()
         w.writerows(rows)
     counts = Counter(r["category"] for r in rows)
-    summary = {"failures": len(rows), "counts": {c: counts[c] for c in CATEGORIES if counts[c]}}
+    tested = sum(1 for run in a.runs for r in metrics.load(Path(run, "state.jsonl")) if r["decision"] != "skipped")
+    summary = {"failures": len(rows), "tests_x_seeds": tested, "runs": len(a.runs),
+               "counts": {c: counts[c] for c in CATEGORIES if counts[c]},
+               # denominators: share of all failures, and share of all (test, seed) pairs evaluated
+               "pct_of_failures": {c: round(100 * counts[c] / len(rows), 1) for c in CATEGORIES if counts[c]},
+               "pct_of_tests": {c: round(100 * counts[c] / tested, 1) for c in CATEGORIES if counts[c] and tested}}
     Path(a.out, f"{a.name}_counts.json").write_text(json.dumps(summary, indent=1))
+    tex = ["\\begin{tabular}{lrrr}", "\\toprule", "Failure mode & Count & \\% of failures & \\% of tests \\\\", "\\midrule"]
+    tex += [f"{c.replace('&', 'and')} & {counts[c]} & {summary['pct_of_failures'][c]:g} & "
+            f"{summary['pct_of_tests'].get(c, 0):g} \\\\" for c in CATEGORIES if counts[c]]
+    tex += ["\\midrule", f"Total & {len(rows)} & 100 & {round(100 * len(rows) / tested, 1) if tested else 0:g} \\\\",
+            "\\bottomrule", "\\end{tabular}"]
+    Path(a.out, f"{a.name}_table.tex").write_text("\n".join(tex) + "\n")
     print(json.dumps(summary, indent=1))
 
 

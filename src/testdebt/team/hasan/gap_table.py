@@ -39,13 +39,13 @@ def _cell(summary: dict, config: str, key: str) -> str | None:
 
 def rows(results: str | Path = "results") -> list[list[str]]:
     results = Path(results)
-    e2, e3 = _load(results, "E2"), _load(results, "E3")
+    e1, e2, e3 = _load(results, "E1"), _load(results, "E2"), _load(results, "E3")
     verdicts_f = results / "gap_verdicts.json"
     verdicts = json.loads(verdicts_f.read_text()) if verdicts_f.exists() else {}
     out = []
     for gap, comp, label, key in GAPS:
         base = [f"{c} ({src})" for c, src in ((_cell(e2, "b0", key), "b0, reproduced"),
-                                               (_cell(e2, "b0replay", key), "b0replay, reproduced")) if c]
+                                               (_cell(e1, "b0replay", key), "b0replay, reproduced")) if c]
         if gap == "G2":   # [1] reports rule i only; quoted so the reader sees it is not our measurement
             base.append("rule i: " + " / ".join(f"{v:g}" for v in PAPER_REDUCTION.values()) + " (reported in [1])")
         out.append([gap, comp, label, "; ".join(base) or "pending", _cell(e3, "s3", key) or "pending",
