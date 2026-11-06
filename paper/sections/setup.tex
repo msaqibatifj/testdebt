@@ -26,5 +26,5 @@ Every run records the model ID, temperature, system-prompt hash, seed and git co
 
 \textbf{Tooling.} tsDetect (v3 jar from the replication package) and JNose (jnose-core 0.9.0, the last release built for Java~21) detect smells at method level;
 PIT 1.17.4 computes the full mutation matrix; the fast runner compiles once per Maven module and runs each test class through the JUnit launcher.
-Python 3.12.3, \textbf{[TODO hardware: CPU, RAM, OS (WSL2 on Linux 6.x per \texttt{uname}); fill in from the machine that ran the test split]}.
+Python 3.12.3, Intel Core i5-1035G1 (4 cores/8 threads shown as 6 vCPUs in WSL2), 6~GB RAM, WSL2 on Linux 6.18 (JDK~21, Maven~3.9.9).
 The pipeline restores every touched file after each test, and a post-test \texttt{git status} check stops the run if a checkout was left modified.
