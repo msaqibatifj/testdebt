@@ -33,7 +33,7 @@ confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervi
 | tsDetect wrapper, method-level | working; reproduces 100% of the paper's labels |
 | Maven runner (compile and run one class, per-project `JAVA_HOME`) | working in WSL |
 | Fast runner (Maven once per module, then javac + JUnit launcher per test) | working in WSL (about 4 s per test) |
-| PIT kill-set (full mutation matrix; union over split tests) | written and unit-tested; not yet run on a real project (Phase 2) |
+| PIT kill-set (full mutation matrix; union over split tests) | working on all three projects; used in every reported run |
 | Verifier: patch, checks, smells, compile, run, kill-set, always restore | done, tested with real `javac` |
 | Pipelines `b0replay`, `b0`, `b1`, `single`; resumable runs; metrics and decision report | done |
 | First results | `docs/results_phase1.md`: b0replay on Commons-cli, b0 LLM pilot, Gson error analysis |
@@ -53,7 +53,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 96 pass, 2 skip without Java, no network needed
+python3 -m pytest -q                        # 99 passed, 2 skipped (with Java); no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash src/testdebt/team/hasan/get_jnose.sh   # JNose jars (second detector, G2); needs Java 21 to run
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
@@ -153,8 +153,44 @@ E6 efficiency and reliability (from the E3 runs; cost is $0 on the Cerebras free
 Generated from `results/` (`python3 -m testdebt.team.hasan.gap_table --readme README.md`); never typed by hand.
 
 <!-- gap-table -->
-_Filled after the E2-E4 test-split runs._
+| Gap | Method / component | Metric | Base paper result | Our result (S3) | Addressed? |
+|---|---|---|---|---|---|
+| G1 | Kill-set gate (`killset_gate.py`) | Accepted outputs losing a mutant (%) | 1.2 (b0, reproduced); 3.4 (b0replay, reproduced) | 0 | Fully |
+| G2 | Consensus detector, tsDetect + JNose (`consensus.py`) | Smell reduction, rule ii (%) | 61.7 (b0, reproduced); 54.6 (b0replay, reproduced); rule i: 86 / 89 / 91 (reported in [1]) | 52.47 ± 1.7 | Partially |
+| G6 | Adaptive Supervisor + memory (`agents/supervisor.py`) | Accepted and safe (%) | 26.7 (b0, reproduced); 11.8 (b0replay, reproduced) | 25.8 ± 1.56 | Not |
 <!-- /gap-table -->
+
+## Phase 2 results (test split, 150 tests)
+
+Numbers from `results/` (mean ± sd over three seeds for `s3` and `s3-G1`, one seed otherwise). Full tables: `paper/tables/`.
+
+| System | Accepted % | Accepted and safe % | Accepted outputs losing a mutant % | Tokens/test |
+|---|---|---|---|---|
+| `b0replay` (UTRefactor's published outputs, 484 tests) | 18.4 | 11.8 | 3.4 | 0 |
+| `b0` (UTRefactor's prompt, our model) | 54.7 | 26.7 | 1.2 | 3,183 |
+| `single` (plain prompt) | 82.0 | - | - | 1,799 |
+| `b1` (fixed retry script) | 41.3 | 35.3 | 0 | 8,495 |
+| `b2` (single tool-using agent) | 26.7 | 24.0 | 0 | 4,121 |
+| `s3` (full system) | 52.4 ± 1.0 | 25.8 ± 1.6 | 0 | 9,182 ± 146 |
+| `s3`, kill-set gate off (`-G1`) | 55.1 ± 1.4 | 27.1 ± 1.0 | 8.0 ± 0.5 | 9,000 ± 140 |
+| `s3`, tsDetect targets (`-G2`) | 44.7 | 39.3 | 0 | 11,228 |
+| `s3`, fixed policy (`-G6`) | 51.3 | 26.0 | 0 | 6,659 |
+
+- **G1** works: the gate keeps every accepted output at full mutant strength (paired McNemar over 450 pairs, p < 0.001).
+- **G2** is partial: the detectors disagree on some smells (kappa 0.02 on ExceptionHandling), but targeting only consensus smells lowers accepted-and-safe by 15 points.
+- **G6** is not supported: the adaptive Supervisor is below the fixed-retry baseline `b1` (24.0 vs 35.3 %, p = 0.003) and level with its own fixed policy.
+
+Rebuild every table and figure from the run folders (unpack `hasan_runs.tgz` and `hasan_e1.tgz` into the repository root, so they land in `runs/`; no LLM calls):
+
+```bash
+X="python3 -m testdebt.team.gulsher.experiments"
+for e in E1 E2 E3 E5 ES E4 E6; do $X summarize $e; done
+python3 -m testdebt.team.hasan.failures runs/E3_s3_s1 runs/E3_s3_s2 runs/E3_s3_s3 --name E3
+python3 -m testdebt.team.hasan.figures
+python3 -m testdebt.team.hasan.gap_table --readme README.md
+python3 scripts/paired_extra.py
+```
+Then copy the tables and figures into `paper/` as the last lines of `experiments/run_all.sh` do.
 
 ## Phase 1 feedback addressed
 
@@ -180,7 +216,9 @@ _Supervisor comments are not in the repo; each member must paste theirs here (`c
 - 2026-11-06: PIT on Gson and Jsoup (JUnit 4) failed for every test because the JUnit 5 PIT plugin was always added; it is now added only to JUnit 5 projects (Commons-cli). Reusing a run id with other settings is refused (it would mix results); old smoke runs were renamed `runs/smoke_*`. `logs/` holds reported runs; `run_all.sh` writes the paper tables; ES sensitivity run (retry cap) on dev; E6 logs prompt and completion tokens.
 - 2026-11-06: one experiment runner (`team/gulsher/experiments.py`, called by `experiments/run_all.sh`); `--gaps` on the CLI; gap1 off now means PIT measures but never rejects; ablation adds `minus_all`; `veriref` alias; `prompt_hash` in `config.json`; reduced seed grid.
 - 2026-11-06: `requirements.txt` pinned to versions used; `data/splits/README.md` and `SHA256SUMS` added; `docs/devlog.md` created.
-- Any change made during Phase 2 (JNose version, PIT target classes, attempt caps) is appended here with its date.
+- 2026-11-07: all reported runs (E1, E2, E3, E5, ES) done from commit `3b992f2` with `--frozen`. To fit the free tier they ran in parallel, each configuration in its own copy of the repository with its own API key (never two runs on one key or in one folder); a run that hit a key's limit was resumed with another key. The helper scripts that did this are in `scripts/run_helpers/` (they only start, resume and package runs; they change no tracked file). Raw run folders are packaged outside git; `logs/` and `results/` hold the copies used by the paper.
+- 2026-11-07: `scripts/paired_extra.py` adds the matched-target comparisons used in the paper (`results/E4/paired_extra.json`), because `s3 vs b1` mixes the effects of G2 and G6.
+- 2026-11-07: gap verdicts written in `results/gap_verdicts.json` (G1 Fully, G2 Partially, G6 Not); the reasons are in the paper, Section VII.
 
 ## Initial results (Phase 1)
 
@@ -243,9 +281,10 @@ scripts/phase1_pilots.sh  PIT pilot + LLM pilots, copies reports to results/phas
 
 ## Known limitations / to verify
 
-- A full test-split run is hours (PIT dominates); results are only as complete as the seeds actually run (see `E*.json`).
+- A full test-split run takes hours (PIT is about 70% of the time per test). Seeds 1-3 were run for `s3` and `s3-G1`; all other configurations have seed 1 only.
 - The CLI works on the 484-test dataset, not on an arbitrary Java file (`veriref` is an alias of `testdebt`).
-- JaCoCo coverage is not used (kill-set only). Token counts are totals, not split into prompt and completion.
+- JaCoCo coverage is not used (kill-set only). Rule iii (manual labelling of a 100-test sample) was not completed.
+- 4-16 tests per run end in a tool error that recurs on every rerun (PIT on Jsoup's network tests and on a few Gson classes; one JNose parse error in E1). They are reported as errors, not dropped.
 - The pinned Gson build requires JDK 11 to 17, and old Jsoup needs JDK 19 or lower (`-source 1.7`). `data/pins.json`
   points all three projects at JDK 17.
 - The B0-replay reduction differs strongly from the paper on Gson and Jsoup (see `docs/results_phase1.md`).
