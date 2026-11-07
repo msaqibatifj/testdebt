@@ -24,5 +24,10 @@ Every run records the model ID, temperature, system-prompt hash, seed and git co
 
 \textbf{Tooling.} tsDetect (v3 jar from the replication package) and JNose (jnose-core 0.9.0, the last release built for Java~21) detect smells at method level;
 PIT 1.17.4 computes the full mutation matrix; the fast runner compiles once per Maven module and runs each test class through the JUnit launcher.
-Python 3.12.3, Intel Core i5-1035G1 (4 cores/8 threads shown as 6 vCPUs in WSL2), 6~GB RAM, WSL2 on Linux 6.18 (JDK~21 for the tool chain, Maven~3.9.9).
+The reported runs used an HP Omen~16 laptop with Ubuntu 24.04 under WSL2 (32 logical CPUs and 15~GB of memory visible to Linux), Python~3.12, OpenJDK~17 for the project builds, JDK~21 for JNose and Maven~3.9.9.
 The pipeline restores every touched file after each test, and a post-test \texttt{git status} check stops the run if a checkout was left modified.
+
+\textbf{Execution of the reported runs.} All 19 test-split and dev runs were made from commit \texttt{3b992f2} with the \texttt{--frozen} guard, which refuses to start when a tracked file differs from the commit and records the commit in each run's \texttt{config.json}.
+To fit the free tier, configurations ran in parallel, each in its own copy of the repository with its own API key, so no two runs ever shared a key or a working directory. A run that hit a key's daily limit was resumed with another key; resumption skips the tests whose results are already saved and redoes only the test in progress.
+With up to eight runs on one machine, PIT used 4 to 8 threads per run. This affects wall-clock times (Table~\ref{tab:e6}); outcomes could change only through PIT's timeout rule, since a slower run can turn a surviving mutant into a timed-out, and therefore killed, one.
+

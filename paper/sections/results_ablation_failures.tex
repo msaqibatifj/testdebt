@@ -1,57 +1,86 @@
 % Tables and figures are \input from paper/tables and paper/figures, which experiments/run_all.sh copies from results/.
-% Hand-written numbers in the prose are marked \textbf{[R: file]} and must be copied from that file before submission.
+% Numbers in the prose come from results/E*/summary.json, results/E4/summary.json, results/E4/paired_extra.json
+% (scripts/paired_extra.py) and results/failures/E3_counts.json.
 \section{Results}\label{sec:results}
 
-Unless stated otherwise, numbers are means $\pm$ sd over the seeds listed in Section~\ref{sec:setup} on the 150-test split, with the same tests for every system.
-Table~\ref{tab:systems} compares all systems; every base-paper number is labelled \emph{reproduced} or \emph{paper-reported} (Table~\ref{tab:vspaper}).
+All numbers in this section refer to the 150-test split, with the same tests for every system. Where three seeds were run (\textsf{s3} and \textsf{s3-G1}) we give mean $\pm$ standard deviation; every other row is a single seed.
+Table~\ref{tab:systems} lists all systems. Table~\ref{tab:vspaper} sets our numbers next to the ones printed in~\cite{utrefactor}, and each base-paper figure is marked as \emph{reproduced} (we ran it) or \emph{paper-reported} (copied from~\cite{utrefactor}).
 
-\begin{table*}[t]\centering\caption{All systems on the test split (E1--E3). Red.\ i: tsDetect only, as in~\cite{utrefactor}; Red.\ ii: both detectors; Lose mut.: accepted outputs that lose a mutant; Acc.+safe: accepted, kill-set preserved, no targeted smell left.}\label{tab:systems}
+\begin{table*}[t]\centering\caption{All systems on the test split (E1--E3). Red.\ i: smell reduction counted by tsDetect alone, as in~\cite{utrefactor}; Red.\ ii: a smell counts as removed only when both detectors stop reporting it; Lose mut.: share of accepted outputs that lose at least one mutant; Acc.+safe: accepted, kill set preserved, and none of the labelled smells left under rule~ii. Top row: mean $\pm$ sd over three seeds.}\label{tab:systems}
 \resultinput{tables/E3.tex}\par\smallskip\resultinput{tables/E2.tex}\end{table*}
 
-\begin{table}[t]\centering\caption{Base-paper comparison: rule-i smell reduction (\%) per project, paper-reported~\cite{utrefactor} vs reproduced by us.}\label{tab:vspaper}
-\footnotesize\resultinput{tables/E2_vs_paper.tex}\end{table}
+\begin{table}[t]\centering\caption{Rule-i smell reduction (\%) per project: paper-reported~\cite{utrefactor} against our reproductions. \textsf{b0replay} feeds the published refactorings through our verifier; \textsf{b0} runs UTRefactor's prompt with our model.}\label{tab:vspaper}
+\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/E2_vs_paper.tex}}\end{table}
+
+\textbf{Base-paper comparison (E1, E2).} On Commons-cli our replay of the published outputs reaches 86.4\% rule-i reduction against the 86\% reported in~\cite{utrefactor}, so the counting matches where the build matches.
+On Gson (57.9\% against 89\%) and Jsoup (46.0\% against 91\%) it does not. Most of the Gson gap comes from outputs that never compile against the project's own test dependencies: 131 of the 238 published Gson refactorings call \texttt{assertDoesNotThrow}, which JUnit~4 does not have, and about 61 pass a message argument to a Truth assertion.
+Across all three projects only 28.4\% of the published outputs compile in our setup and 18.4\% pass, so \textsf{b0replay} ends at 18.4\% accepted and 11.8\% accepted-and-safe.
+Running UTRefactor's prompt with our model (\textsf{b0}) gives 54.7\% accepted at 3{,}183 tokens per test; the plain prompt without the knowledge base (\textsf{single}) is accepted more often (82.0\%) because it is judged by compiling and passing only, but it removes fewer smells (53.8\% under rule~i, 49.1\% under rule~ii).
+We read these numbers as a statement about our build, not as evidence that~\cite{utrefactor} miscounted: the package does not document the dependencies it compiled against.
 
 \subsection{RQ1 (G1): does the kill-set gate stop weakened tests?}
-\textbf{H1:} on tests with a non-empty baseline kill-set, switching the gate off increases the share of accepted refactorings that lose mutants, without a large change in acceptance.
-On this subset (\textbf{[R: results/E4/summary.json subsets.H1 n]} tests), accepted outputs losing a mutant are \textbf{[R: H1 s3 pct]}\% with the gate and \textbf{[R: H1 s3-G1 pct]}\% without it,
-and acceptance moves from \textbf{[R: s3\_accepted]}\% to \textbf{[R: s3-G1\_accepted]}\%. Paired test (exact McNemar, Holm-corrected): \textbf{[R: paired\_tests ``G1: s3 vs s3-G1'' p\_holm]}.
+\textbf{H1:} with the gate off, more accepted refactorings lose a mutant, while acceptance changes little.
+The answer is yes. With the gate, no accepted output of \textsf{s3} lost a mutant in any of the three seeds. With PIT still measuring but the gate unable to reject (\textsf{s3-G1}), 8.0 $\pm$ 0.5\% of accepted outputs lost at least one mutant, and acceptance rose by only 2.7 points (55.1 $\pm$ 1.4\% against 52.4 $\pm$ 1.0\%).
+On the tests with a non-empty baseline kill set (129 to 134 tests per seed), the loss rate is 0\% against 4.8 $\pm$ 0.6\%.
+Pooled over 450 (test, seed) pairs, 19 pairs were accepted-and-weakened without the gate and none with it (exact McNemar, Holm-corrected $p<0.001$; 95\% bootstrap interval for the difference $-6.2$ to $-2.4$ points). Token use did not differ (Wilcoxon $p=0.37$).
+The baselines also lose mutants: 3 of the 88 checked published outputs (3.4\%, Wilson interval 1.2--9.5\%) and 1 of 81 \textsf{b0} outputs (1.2\%). These are outputs that~\cite{utrefactor}'s acceptance rule would count as successful refactorings.
 
 \subsection{RQ2 (G2): does detector consensus make smell removal more trustworthy?}
-\textbf{H2:} the gap between tsDetect-only (rule~i) and strict (rule~ii) smell reduction is largest for the smells where the detectors disagree.
-On all 484 originals, JNose confirms 76.2\% of the smells labelled in~\cite{utrefactor} (\texttt{results/E4/g2\_agreement.json}); the detectors agree closely on most smells ($\kappa$ 0.68--1.0)
-but not on ExceptionHandling (tsDetect 224, JNose 10, $\kappa=0.02$) or DuplicateAssert ($\kappa=0.42$).
-Per smell, rule~i vs rule~ii removal for \textsf{s3} is in \texttt{results/E4/summary.json} (\texttt{H2\_per\_smell\_rule\_i\_vs\_ii}): \textbf{[R: largest gap smell and both percentages]}.
+\textbf{H2:} the gap between rule~i and rule~ii is largest for the smells on which the detectors disagree.
+On all 484 originals, JNose confirms 76.2\% of the 1{,}086 smell labels of~\cite{utrefactor}. The two tools agree well on most smell types ($\kappa$ between 0.68 and 1.0) and badly on ExceptionHandling (tsDetect 224 tests, JNose 10, $\kappa=0.02$) and DuplicateAssert (45 against 130, $\kappa=0.42$); JNose flags only \texttt{try} blocks, while tsDetect also flags \texttt{throws} clauses.
+In the \textsf{s3} outputs the two rules differ for two smell types: AssertionRoulette (71.2\% removed under rule~i, 63.0\% under rule~ii, 73 targeted) and MagicNumberTest (60.0\% against 53.3\%, 15 targeted). For every other type the rules agree, so H2 holds only weakly.
+The consensus component itself did not help. Targeting only the smells both tools confirm made \textsf{s3} accept more tests than \textsf{s3-G2}, which targets every tsDetect smell (51.3\% against 44.7\%, $p=0.09$, not significant after correction), but it lowered accepted-and-safe from 39.3\% to 24.0\% (Holm $p<0.001$).
+The reason is in the metric: accepted-and-safe requires every labelled smell to be gone under rule~ii, and smells that only tsDetect reports are never targeted under consensus, so they stay in the output. Against \textsf{b0}, the share of tests with all labelled smells gone under rule~ii is 27.3\% for \textsf{s3} and 42.0\% for \textsf{b0} (Holm $p=0.002$).
 
 \subsection{RQ3 (G6): does adaptive supervision beat fixed retries and a single agent?}
-\textbf{H3:} on multi-smell tests and on hard tests (rejected by the one-pass reproduction \textsf{b0}), \textsf{s3} has a higher accepted-and-safe rate than \textsf{b1} and \textsf{b2} at equal or lower tokens per test.
-Accepted-and-safe on multi-smell tests: \textsf{s3} \textbf{[R]}\%, \textsf{b1} \textbf{[R]}\%, \textsf{b2} \textbf{[R]}\%; on hard tests: \textbf{[R]} / \textbf{[R]} / \textbf{[R]}\% (\texttt{H3\_subsets\_accepted\_safe}).
-Paired tests \textsf{s3} vs \textsf{b1} and vs \textsf{b2}: \textbf{[R: paired\_tests G6 p\_holm]}.
+\textbf{H3:} on multi-smell tests and on hard tests (those \textsf{b0} rejects), \textsf{s3} reaches a higher accepted-and-safe rate than \textsf{b1} and \textsf{b2} at equal or lower token cost.
+H3 is not supported. On the 117 multi-smell tests \textsf{s3} reaches 14.0 $\pm$ 0.5\% accepted-and-safe, against 28.2\% for \textsf{b1} and 17.1\% for \textsf{b2}; on the 68 hard tests the figures are 6.4 $\pm$ 3.1\%, 8.8\% and 0.0\%.
+Over all 150 tests, \textsf{s3} is below the fixed-retry pipeline (24.0\% against 35.3\%, Holm $p=0.003$) and level with the single tool-using agent (24.0\% each, $p=1.0$), while using more tokens than either (9{,}182 per test against 8{,}495 and 4{,}121).
+These head-to-head comparisons mix G2 and G6, because \textsf{s3} targets consensus smells and both baselines target every tsDetect smell. With matched targets (\textsf{s3-G2}), the adaptive system reaches 39.3\%: clearly above \textsf{b2} (24.0\%, Holm $p<0.001$) and 4 points above \textsf{b1}, a difference that is not significant ($p=0.24$; interval $-1.3$ to $9.3$). Inside \textsf{s3}, replacing the adaptive policy by \textsf{b1}'s fixed script changes accepted-and-safe from 24.0\% to 26.0\% ($p=0.55$) and cuts tokens per test by 27\%.
 
 \subsection{Gap-resolution table}
-Table~\ref{tab:gaps} summarises the three gaps; it is generated by \texttt{gap\_table.py} from \texttt{results/} and is identical to the table in the repository README.
-\begin{table*}[t]\centering\caption{Gap-resolution table (same as the README).}\label{tab:gaps}\footnotesize\resultinput{tables/gap_table.tex}\end{table*}
+Table~\ref{tab:gaps} is produced by \texttt{gap\_table.py} from \texttt{results/} and is the same table as in the repository README. The ``Addressed?'' column is our judgement from the paired tests above.
+\begin{table*}[t]\centering\caption{Gap-resolution table (identical to the README). Base-paper cells state whether the number was reproduced by us or reported in~\cite{utrefactor}.}\label{tab:gaps}\footnotesize{\let\oldtt\texttt\renewcommand{\texttt}[1]{{\scriptsize\oldtt{#1}}}\resultinput{tables/gap_table.tex}}\end{table*}
 
 \section{Ablation and Comparative Analysis}\label{sec:ablation}
-Table~\ref{tab:ablation} switches components off (E5: \textsf{-G1} kill-set measured only, \textsf{-G2} tsDetect targets, \textsf{-G6} fixed retry policy (memory is off with it), \textsf{memory} off, and \textsf{minus\_all} with all three off)
-and reports each variant's change from the full system (E3); PIT measures in every variant, so kill-set loss is comparable. Figure~\ref{fig:ablation} plots accepted-and-safe per variant.
-\textbf{Sensitivity.} Table~\ref{tab:sensitivity} varies the retry cap (0, 1, 2, 4) for \textsf{s3} on 20 dev tests without PIT (dev only, so it does not touch the test split).
-\textbf{Efficiency.} Table~\ref{tab:e6} reports tokens (prompt and completion), LLM and tool calls, wall-clock and PIT time per test, retry and recovery rates for every configuration; cost is \$0 on the Cerebras free tier, and Figure~\ref{fig:cost} relates tokens to accepted-and-safe.
+Table~\ref{tab:ablation} switches the components off one at a time (E5): \textsf{-G1} keeps PIT but never rejects on it, \textsf{-G2} targets every tsDetect smell, \textsf{-G6} replaces the adaptive policy with \textsf{b1}'s fixed retry script (memory is off with it), \textsf{memory} turns off only the memory, and \textsf{minus\_all} does all of this at once. PIT measures in every variant, so kill-set loss is comparable across rows. Figure~\ref{fig:ablation} plots accepted-and-safe per variant.
 
-\begin{table*}[t]\centering\caption{Ablation (E5): change from the full system.}\label{tab:ablation}\footnotesize\resultinput{tables/E5_delta.tex}\end{table*}
-\begin{table}[t]\centering\caption{Sensitivity to the retry cap (ES, dev split).}\label{tab:sensitivity}\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/ES.tex}}\end{table}
-\begin{table*}[t]\centering\caption{Efficiency and reliability per configuration (E6), means over seeds.}\label{tab:e6}\footnotesize\resultinput{tables/E6.tex}\end{table*}
+The kill-set gate is the only component whose removal makes outputs less safe: without it the loss rate goes from 0 to 8.0\%, and \textsf{minus\_all} loses mutants in 3.3\% of its accepted outputs.
+Removing consensus (\textsf{-G2}) lowers acceptance by 7.7 points and raises rule-i reduction by 13.1 points and accepted-and-safe by 13.5 points, at 2{,}046 more tokens per test. Of all the components, consensus moves the headline metric the most, and it moves it in the wrong direction for the reason given in RQ2.
+The fixed policy (\textsf{-G6}) passes more tests (84.7\% against 74.9\%) but accepts slightly fewer, and it needs 2.0 LLM calls per test instead of 3.0. Memory has almost no effect on acceptance ($-0.4$ points) and costs 4.7 points of rule-ii reduction when it is off.
+Within-test memory still matters in the trajectories: it rejects a proposal identical to an earlier failed one before it is verified, which shows up as the ``malformed reply'' category below.
+
+\textbf{Sensitivity.} Table~\ref{tab:sensitivity} varies the retry cap of \textsf{s3} on 20 dev tests without PIT, so the test split is not touched. Acceptance rises from 75\% with no retries to 90\% with one and 95\% with four, and tokens per test grow from 4{,}317 to 6{,}698. Most of the gain comes from the first retry; the cap of 2 used in all reported runs sits on the flat part of the curve.
+
+\textbf{Efficiency and reliability.} Table~\ref{tab:e6} reports tokens split into prompt and completion, LLM and tool calls, wall-clock and PIT time per test, and retry and recovery rates. Cost is \$0 on the Cerebras free tier, so tokens stand in for cost; Figure~\ref{fig:cost} plots tokens against accepted-and-safe.
+\textsf{s3} makes 3.0 LLM calls and 2.8 tool calls per test and spends 104 $\pm$ 14\,s per test, 71\,s of it in PIT. It retries 60\% of the tests and recovers 28.6 $\pm$ 5.9\% of those, more than \textsf{b1} (18.5\%) and less than \textsf{b2} (34.0\%).
+Wall-clock times are only indicative: during the reported runs several configurations ran in parallel on one machine and shared its CPU (Section~\ref{sec:setup}).
+
+\begin{table*}[t]\centering\caption{Ablation (E5): each variant's change from the full system (E3). Positive values are higher without the component.}\label{tab:ablation}\footnotesize\resultinput{tables/E5_delta.tex}\end{table*}
+\begin{table}[t]\centering\caption{Sensitivity to the retry cap (ES, 20 dev tests, no PIT).}\label{tab:sensitivity}\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/ES.tex}}\end{table}
+\begin{table*}[t]\centering\caption{Efficiency and reliability per configuration (E6), means over seeds. Retried: share of tests with at least one retry; Recovery: accepted among the retried.}\label{tab:e6}\footnotesize\resizebox{\textwidth}{!}{\resultinput{tables/E6.tex}}\end{table*}
 \begin{figure}[t]\centering\resultfig{figures/fig_ablation.pdf}\caption{Accepted-and-safe rate of the full system and each ablation.}\label{fig:ablation}\end{figure}
-\begin{figure}[t]\centering\resultfig{figures/fig_cost.pdf}\caption{Tokens per test vs accepted-and-safe rate, one point per configuration.}\label{fig:cost}\end{figure}
+\begin{figure}[t]\centering\resultfig{figures/fig_cost.pdf}\caption{Tokens per test against accepted-and-safe rate, one point per configuration.}\label{fig:cost}\end{figure}
 
 \section{Failure Analysis}\label{sec:failures}
-Each non-accepted test gets exactly one category, assigned from its final verification report by \texttt{failures.py} (the first matching rule wins):
-infrastructure error; budget exhausted; malformed reply; assertion dropped or empty test; compile: API not in the project; compile: missing symbol or import; compile: other;
-fixture clobbered by extracted setup; semantic change: test now fails; weakened test: kill-set loss; smell not removed or new smell.
-Table~\ref{tab:failures} and Figure~\ref{fig:failures} give counts over the three \textsf{s3} seeds (each (test, seed) pair counted once), as a share of failures and of all evaluated pairs.
-The largest category is \textbf{[R: results/failures/E3\_counts.json]}.
-\begin{table}[t]\centering\caption{Failure modes of the full system (E3, all seeds).}\label{tab:failures}\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/failures.tex}}\end{table}
+Each test that \textsf{s3} did not accept gets exactly one category, assigned from its final verification report by \texttt{failures.py}; the first matching rule wins:
+infrastructure error, budget exhausted, malformed reply, assertion dropped or empty test, API not in the project, missing symbol or import, other compile error, fixture clobbered by an extracted setup, semantic change (the test now fails), kill-set loss, and smell not removed or new smell.
+Table~\ref{tab:failures} and Figure~\ref{fig:failures} count them over the three \textsf{s3} seeds, each (test, seed) pair once.
+
+Of 450 pairs, 214 were not accepted. A targeted smell that survived every attempt is the largest category (73 pairs, 34.1\% of failures), followed by malformed replies (49, 22.9\%), infrastructure errors (35, 16.4\%) and kill-set loss (21, 9.8\%).
+Compile failures add up to 31 pairs (14.5\%), and only 5 failures (2.3\%) are tests that compile but no longer pass.
+Almost all malformed replies (46 of 49) are repeats: at temperature 0.7 the model often returns a refactoring identical to one the verifier already rejected, and memory refuses to verify it again. All 35 infrastructure errors are PIT runs that produced no report (21 on Gson, 14 on Jsoup), and the same classes fail in every system: Jsoup's \texttt{ConnectTest} needs network access that PIT cannot provide, and some Gson classes fail PIT's own compilation step. We report them as errors instead of dropping the tests.
+\begin{table}[t]\centering\caption{Failure modes of the full system (E3, three seeds, 450 test--seed pairs).}\label{tab:failures}\footnotesize\resizebox{\columnwidth}{!}{\resultinput{tables/failures.tex}}\end{table}
 \begin{figure}[t]\centering\resultfig{figures/fig_failures.pdf}\caption{Failure-mode distribution of the full system.}\label{fig:failures}\end{figure}
 
-\textbf{Trajectories.} We walk through two successes and two failures from \texttt{logs/E3\_s3\_s1} (agent $\to$ tool $\to$ result $\to$ decision): the first accepted test that needed a retry, the first clean accept,
-and the first rejected test in each of the two largest failure categories (exported with \texttt{failures.py --case}).
-\textbf{[R: write from cases/success1.md, success2.md, failure1.md, failure2.md; for each failure give the root cause and the fix]}.
+\textbf{Trajectories.} We walk through two accepted and two rejected tests from \texttt{logs/E3\_s3\_s1} (exported with \texttt{failures.py --case}).
+
+\emph{Success 1, clean accept} (\texttt{commons-cli: OptionGroupTest\#\allowbreak testTwoOptionsFromDifferentGroup}). tsDetect reports ExceptionHandling for the \texttt{throws Exception} clause and JNose reports nothing, so the Detection agent falls back to the tsDetect label. The Planner proposes removing the clause and wrapping the body; the Refactor agent wraps the six assertions in JUnit~5's \texttt{assertDoesNotThrow}. The Verifier finds that the class compiles and passes, the smell is gone, and all 63 mutants killed by the original are still killed; the Supervisor accepts after one attempt (65\,s, 12\,s of it in PIT).
+
+\emph{Success 2, accepted after a retry} (\texttt{gson: GsonTest\#\allowbreak testNewJsonReader\_Default}). The first attempt makes the same mistake as the published UTRefactor outputs for Gson: it imports \texttt{org.junit.jupiter.api}, which does not exist in this JUnit~4 project, and compilation fails. The Supervisor retries with the compiler message. The second reply defines a private \texttt{assertDoesNotThrow} helper on top of JUnit~4's \texttt{fail}, compiles, passes, keeps all 18 mutants and removes the smell. This is the kind of case a one-pass method cannot recover from.
+
+\emph{Failure 1, smell not removed} (\texttt{gson: JsonPrimitiveTest\#\allowbreak testByteEqualsInteger}). Both detectors label AssertionRoulette and EagerTest. The first attempt splits the test into an equality test and a hash-code test with a shared helper; it compiles, passes and keeps all 6 mutants, but tsDetect still reports EagerTest while JNose reports nothing. The Supervisor narrows the target to EagerTest, then switches from the LLM plan to the knowledge-base rule; both attempts keep the same two-test split, and the test is escalated.
+Root cause: the remaining failure is a disagreement between the detectors about a refactoring that is already reasonable, not a defect the model can repair. A fix is a stop rule: when one detector is clean and the output is unchanged after a structural retry, escalate at once and report the disagreement, instead of spending two more LLM calls.
+
+\emph{Failure 2, kill-set loss} (\texttt{gson: JsonWriterTest\#\allowbreak testDoubles}). The original writes many doubles into one array and checks the whole string with a single assertion. Attempt 1 splits it into several tests with nine assertions in total; it compiles and passes but kills 21 of the original 24 mutants, so the gate rejects it with the list of lost mutants. Attempt 2 restores all 24 but leaves EagerTest. Narrowed to EagerTest, attempt 3 removes the smell and loses the same three mutants again, and the test is escalated.
+Root cause: in this test the smell and the mutants pull in opposite directions; the single whole-array assertion is what kills the three mutants, and splitting it away is what removes EagerTest. Without the gate, attempt 1 would have been accepted as a successful refactoring. A fix is to keep one whole-array assertion in a separate test next to the split ones, which the Planner could propose when the gate's report names the lost mutants.
