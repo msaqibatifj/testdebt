@@ -1,0 +1,201 @@
+{
+  "overall": {
+    "tests": 150,
+    "verified": true,
+    "errors": 11,
+    "accepted": 77,
+    "accepted_rate": 51.3,
+    "accepted_unverified": null,
+    "static_ok_rate": 81.3,
+    "compile_rate": 74.0,
+    "pass_rate": 72.7,
+    "smell_reduction_tsdetect": 44.4,
+    "smells_targeted": 338,
+    "smells_removed": 150,
+    "smell_reduction_accepted": 72.8,
+    "smell_reduction_strict": 53.4,
+    "smell_reduction_strict_tests": 122,
+    "smell_reduction_manual": null,
+    "killset_checked": 73,
+    "killset_unknown": 4,
+    "accepted_losing_mutants": 0,
+    "accepted_losing_mutants_rate": 0.0,
+    "accepted_losing_mutants_ci95": [
+      -0.0,
+      5.0
+    ],
+    "accepted_safe": 36,
+    "accepted_safe_rate": 24.0,
+    "retried": 82,
+    "tokens_total": 1356458,
+    "tokens_per_test": 9043,
+    "tokens_per_accepted": 17616,
+    "wall_time_s": 14613.2,
+    "multi_smell_tests": 117
+  },
+  "by_project": {
+    "commons-cli": {
+      "tests": 24,
+      "verified": true,
+      "errors": 0,
+      "accepted": 22,
+      "accepted_rate": 91.7,
+      "accepted_unverified": null,
+      "static_ok_rate": 100.0,
+      "compile_rate": 100.0,
+      "pass_rate": 95.8,
+      "smell_reduction_tsdetect": 77.5,
+      "smells_targeted": 40,
+      "smells_removed": 31,
+      "smell_reduction_accepted": 82.4,
+      "smell_reduction_strict": 75.0,
+      "smell_reduction_strict_tests": 24,
+      "smell_reduction_manual": null,
+      "killset_checked": 21,
+      "killset_unknown": 1,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": 0.0,
+      "accepted_losing_mutants_ci95": [
+        0.0,
+        15.5
+      ],
+      "accepted_safe": 15,
+      "accepted_safe_rate": 62.5,
+      "retried": 6,
+      "tokens_total": 137164,
+      "tokens_per_test": 5715,
+      "tokens_per_accepted": 6235,
+      "wall_time_s": 1466.1,
+      "multi_smell_tests": 11,
+      "paper_reduction": 86.0,
+      "delta_vs_paper": -8.5,
+      "within_5_points": false
+    },
+    "gson": {
+      "tests": 74,
+      "verified": true,
+      "errors": 6,
+      "accepted": 35,
+      "accepted_rate": 47.3,
+      "accepted_unverified": null,
+      "static_ok_rate": 73.0,
+      "compile_rate": 64.9,
+      "pass_rate": 64.9,
+      "smell_reduction_tsdetect": 38.4,
+      "smells_targeted": 177,
+      "smells_removed": 68,
+      "smell_reduction_accepted": 61.0,
+      "smell_reduction_strict": 49.2,
+      "smell_reduction_strict_tests": 54,
+      "smell_reduction_manual": null,
+      "killset_checked": 32,
+      "killset_unknown": 3,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": 0.0,
+      "accepted_losing_mutants_ci95": [
+        0.0,
+        10.7
+      ],
+      "accepted_safe": 6,
+      "accepted_safe_rate": 8.1,
+      "retried": 42,
+      "tokens_total": 683786,
+      "tokens_per_test": 9240,
+      "tokens_per_accepted": 19537,
+      "wall_time_s": 7596.4,
+      "multi_smell_tests": 62,
+      "paper_reduction": 89.0,
+      "delta_vs_paper": -50.6,
+      "within_5_points": false
+    },
+    "jsoup": {
+      "tests": 52,
+      "verified": true,
+      "errors": 5,
+      "accepted": 20,
+      "accepted_rate": 38.5,
+      "accepted_unverified": null,
+      "static_ok_rate": 84.6,
+      "compile_rate": 75.0,
+      "pass_rate": 73.1,
+      "smell_reduction_tsdetect": 42.1,
+      "smells_targeted": 121,
+      "smells_removed": 51,
+      "smell_reduction_accepted": 88.1,
+      "smell_reduction_strict": 50.0,
+      "smell_reduction_strict_tests": 44,
+      "smell_reduction_manual": null,
+      "killset_checked": 20,
+      "killset_unknown": 0,
+      "accepted_losing_mutants": 0,
+      "accepted_losing_mutants_rate": 0.0,
+      "accepted_losing_mutants_ci95": [
+        -0.0,
+        16.1
+      ],
+      "accepted_safe": 15,
+      "accepted_safe_rate": 28.8,
+      "retried": 34,
+      "tokens_total": 535508,
+      "tokens_per_test": 10298,
+      "tokens_per_accepted": 26775,
+      "wall_time_s": 5550.7,
+      "multi_smell_tests": 44,
+      "paper_reduction": 91.0,
+      "delta_vs_paper": -48.9,
+      "within_5_points": false
+    }
+  },
+  "by_smell": {
+    "EagerTest": {
+      "targeted": 89,
+      "removed": 47,
+      "removed_pct": 52.8
+    },
+    "AssertionRoulette": {
+      "targeted": 73,
+      "removed": 52,
+      "removed_pct": 71.2
+    },
+    "ExceptionHandling": {
+      "targeted": 55,
+      "removed": 12,
+      "removed_pct": 21.8
+    },
+    "SensitiveEquality": {
+      "targeted": 19,
+      "removed": 17,
+      "removed_pct": 89.5
+    },
+    "MagicNumberTest": {
+      "targeted": 15,
+      "removed": 9,
+      "removed_pct": 60.0
+    },
+    "DuplicateAssert": {
+      "targeted": 6,
+      "removed": 6,
+      "removed_pct": 100.0
+    },
+    "ConditionalTestLogic": {
+      "targeted": 5,
+      "removed": 5,
+      "removed_pct": 100.0
+    },
+    "RedundantAssertion": {
+      "targeted": 2,
+      "removed": 2,
+      "removed_pct": 100.0
+    },
+    "MysteryGuest": {
+      "targeted": 2,
+      "removed": 0,
+      "removed_pct": 0.0
+    },
+    "ResourceOptimism": {
+      "targeted": 2,
+      "removed": 0,
+      "removed_pct": 0.0
+    }
+  }
+}

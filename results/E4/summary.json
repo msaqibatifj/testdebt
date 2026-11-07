@@ -1,0 +1,409 @@
+{
+ "g1_killset_loss": [
+  {
+   "system": "E1/b0replay",
+   "accepted": 89,
+   "killset_checked": 88,
+   "lost": 3,
+   "lost_pct": 3.4,
+   "ci95": [
+    1.2,
+    9.5
+   ],
+   "unknown": 1
+  },
+  {
+   "system": "E2/b0",
+   "accepted": 82,
+   "killset_checked": 81,
+   "lost": 1,
+   "lost_pct": 1.2,
+   "ci95": [
+    0.2,
+    6.7
+   ],
+   "unknown": 1
+  },
+  {
+   "system": "E2/single",
+   "accepted": 123,
+   "killset_checked": 0,
+   "lost": 0,
+   "lost_pct": null,
+   "ci95": null,
+   "unknown": 0
+  },
+  {
+   "system": "E2/b1",
+   "accepted": 62,
+   "killset_checked": 59,
+   "lost": 0,
+   "lost_pct": 0.0,
+   "ci95": [
+    0.0,
+    6.1
+   ],
+   "unknown": 3
+  },
+  {
+   "system": "E2/b2",
+   "accepted": 40,
+   "killset_checked": 39,
+   "lost": 0,
+   "lost_pct": 0.0,
+   "ci95": [
+    0.0,
+    9.0
+   ],
+   "unknown": 1
+  },
+  {
+   "system": "E3/s3",
+   "accepted": 236,
+   "killset_checked": 224,
+   "lost": 0,
+   "lost_pct": 0.0,
+   "ci95": [
+    0.0,
+    1.7
+   ],
+   "unknown": 12
+  },
+  {
+   "system": "E5/s3-G1",
+   "accepted": 248,
+   "killset_checked": 237,
+   "lost": 19,
+   "lost_pct": 8.0,
+   "ci95": [
+    5.2,
+    12.2
+   ],
+   "unknown": 11
+  },
+  {
+   "system": "E5/s3-G2",
+   "accepted": 67,
+   "killset_checked": 65,
+   "lost": 0,
+   "lost_pct": 0.0,
+   "ci95": [
+    0.0,
+    5.6
+   ],
+   "unknown": 2
+  },
+  {
+   "system": "E5/s3-G6",
+   "accepted": 77,
+   "killset_checked": 73,
+   "lost": 0,
+   "lost_pct": 0.0,
+   "ci95": [
+    -0.0,
+    5.0
+   ],
+   "unknown": 4
+  },
+  {
+   "system": "E5/s3-memory",
+   "accepted": 78,
+   "killset_checked": 75,
+   "lost": 0,
+   "lost_pct": 0.0,
+   "ci95": [
+    0.0,
+    4.9
+   ],
+   "unknown": 3
+  },
+  {
+   "system": "E5/minus_all",
+   "accepted": 63,
+   "killset_checked": 60,
+   "lost": 2,
+   "lost_pct": 3.3,
+   "ci95": [
+    0.9,
+    11.4
+   ],
+   "unknown": 3
+  }
+ ],
+ "paired_tests": {
+  "G1: s3 vs s3-G1 (accepted and losing a mutant)": {
+   "pairs": 450,
+   "lost_a_pct": 0.0,
+   "lost_b_pct": 4.2,
+   "mcnemar": {
+    "only_a": 0,
+    "only_b": 19,
+    "p": 0.0
+   },
+   "diff_ci95_pct": [
+    -6.2,
+    -2.4
+   ],
+   "tokens_wilcoxon": {
+    "n": 351,
+    "w_plus": 32597.0,
+    "p": 0.36914
+   },
+   "p_holm": 0.0
+  },
+  "G1: s3 vs b0 (accepted and losing a mutant)": {
+   "pairs": 150,
+   "lost_a_pct": 0.0,
+   "lost_b_pct": 0.7,
+   "mcnemar": {
+    "only_a": 0,
+    "only_b": 1,
+    "p": 1.0
+   },
+   "diff_ci95_pct": [
+    -2.0,
+    0.0
+   ],
+   "tokens_wilcoxon": {
+    "n": 150,
+    "w_plus": 11322.0,
+    "p": 0.0
+   },
+   "p_holm": 1.0
+  },
+  "G2: s3 vs b0 (all targeted smells gone, rule ii)": {
+   "pairs": 150,
+   "all_gone_strict_a_pct": 27.3,
+   "all_gone_strict_b_pct": 42.0,
+   "mcnemar": {
+    "only_a": 8,
+    "only_b": 30,
+    "p": 0.00047
+   },
+   "diff_ci95_pct": [
+    -22.7,
+    -7.3
+   ],
+   "tokens_wilcoxon": {
+    "n": 150,
+    "w_plus": 11322.0,
+    "p": 0.0
+   },
+   "p_holm": 0.00188
+  },
+  "G6: s3 vs b1 (accepted and safe)": {
+   "pairs": 150,
+   "safe_a_pct": 24.0,
+   "safe_b_pct": 35.3,
+   "mcnemar": {
+    "only_a": 4,
+    "only_b": 21,
+    "p": 0.00091
+   },
+   "diff_ci95_pct": [
+    -17.3,
+    -5.3
+   ],
+   "tokens_wilcoxon": {
+    "n": 150,
+    "w_plus": 6927.0,
+    "p": 0.01771
+   },
+   "p_holm": 0.00273
+  },
+  "G6: s3 vs b2 (accepted and safe)": {
+   "pairs": 150,
+   "safe_a_pct": 24.0,
+   "safe_b_pct": 24.0,
+   "mcnemar": {
+    "only_a": 12,
+    "only_b": 12,
+    "p": 1.0
+   },
+   "diff_ci95_pct": [
+    -6.7,
+    6.7
+   ],
+   "tokens_wilcoxon": {
+    "n": 150,
+    "w_plus": 10638.0,
+    "p": 0.0
+   },
+   "p_holm": 1.0
+  }
+ },
+ "subsets": {
+  "H1_nonempty_killset": {
+   "s3": {
+    "n": 129,
+    "pct": [
+     0.0,
+     0.0
+    ]
+   },
+   "s3-G1": {
+    "n": 134,
+    "pct": [
+     4.83,
+     0.59
+    ]
+   },
+   "s3_accepted": {
+    "n": 129,
+    "pct": [
+     57.29,
+     1.02
+    ]
+   },
+   "s3-G1_accepted": {
+    "n": 134,
+    "pct": [
+     60.21,
+     3.1
+    ]
+   }
+  },
+  "H2_per_smell_rule_i_vs_ii": {
+   "ExceptionHandling": {
+    "targeted": 55,
+    "gone_i": 12,
+    "gone_ii": 12,
+    "rule_i_pct": 21.8,
+    "rule_ii_pct": 21.8
+   },
+   "RedundantAssertion": {
+    "targeted": 2,
+    "gone_i": 2,
+    "gone_ii": 2,
+    "rule_i_pct": 100.0,
+    "rule_ii_pct": 100.0
+   },
+   "AssertionRoulette": {
+    "targeted": 73,
+    "gone_i": 52,
+    "gone_ii": 46,
+    "rule_i_pct": 71.2,
+    "rule_ii_pct": 63.0
+   },
+   "SensitiveEquality": {
+    "targeted": 19,
+    "gone_i": 17,
+    "gone_ii": 17,
+    "rule_i_pct": 89.5,
+    "rule_ii_pct": 89.5
+   },
+   "EagerTest": {
+    "targeted": 89,
+    "gone_i": 47,
+    "gone_ii": 47,
+    "rule_i_pct": 52.8,
+    "rule_ii_pct": 52.8
+   },
+   "MysteryGuest": {
+    "targeted": 2,
+    "gone_i": 0,
+    "gone_ii": 0,
+    "rule_i_pct": 0.0,
+    "rule_ii_pct": 0.0
+   },
+   "ResourceOptimism": {
+    "targeted": 2,
+    "gone_i": 0,
+    "gone_ii": 0,
+    "rule_i_pct": 0.0,
+    "rule_ii_pct": 0.0
+   },
+   "MagicNumberTest": {
+    "targeted": 15,
+    "gone_i": 9,
+    "gone_ii": 8,
+    "rule_i_pct": 60.0,
+    "rule_ii_pct": 53.3
+   },
+   "DuplicateAssert": {
+    "targeted": 6,
+    "gone_i": 6,
+    "gone_ii": 6,
+    "rule_i_pct": 100.0,
+    "rule_ii_pct": 100.0
+   },
+   "ConditionalTestLogic": {
+    "targeted": 5,
+    "gone_i": 5,
+    "gone_ii": 5,
+    "rule_i_pct": 100.0,
+    "rule_ii_pct": 100.0
+   }
+  },
+  "H3_subsets_accepted_safe": {
+   "s3": {
+    "multi_smell": {
+     "n": 117,
+     "pct": [
+      13.96,
+      0.49
+     ]
+    },
+    "hard": {
+     "n": 68,
+     "pct": [
+      6.37,
+      3.06
+     ]
+    },
+    "tokens_per_test": [
+     9182.34,
+     146.06
+    ]
+   },
+   "b1": {
+    "multi_smell": {
+     "n": 117,
+     "pct": [
+      28.21,
+      0.0
+     ]
+    },
+    "hard": {
+     "n": 68,
+     "pct": [
+      8.82,
+      0.0
+     ]
+    },
+    "tokens_per_test": [
+     8494.95,
+     0.0
+    ]
+   },
+   "b2": {
+    "multi_smell": {
+     "n": 117,
+     "pct": [
+      17.09,
+      0.0
+     ]
+    },
+    "hard": {
+     "n": 68,
+     "pct": [
+      0.0,
+      0.0
+     ]
+    },
+    "tokens_per_test": [
+     4121.37,
+     0.0
+    ]
+   }
+  }
+ },
+ "g2_detector_agreement": {
+  "split": "all",
+  "tests": 484,
+  "labelled_smells": 1086,
+  "labels_confirmed_tsdetect_pct": 100.0,
+  "labels_confirmed_jnose_pct": 76.2,
+  "labels_confirmed_both_pct": 76.2
+ }
+}

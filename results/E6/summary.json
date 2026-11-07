@@ -1,0 +1,695 @@
+{
+ "E1/b0replay": {
+  "seeds": 1,
+  "tokens_per_test": [
+   0.0,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   0.0,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   0.0,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   0.0,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   0.0,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   0.96,
+   0.0
+  ],
+  "wall_s_per_test": [
+   9.26,
+   0.0
+  ],
+  "llm_s_per_test": [
+   0.0,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   1.01,
+   0.0
+  ],
+  "pit_s_per_test": [
+   5.58,
+   0.0
+  ],
+  "error_pct": [
+   3.93,
+   0.0
+  ],
+  "escalated_pct": [
+   0.0,
+   0.0
+  ],
+  "retried_pct": [
+   0.0,
+   0.0
+  ],
+  "recovery_pct": [
+   null,
+   null
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E2/b0": {
+  "seeds": 1,
+  "tokens_per_test": [
+   3182.67,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   1959.59,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   1223.08,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   5821.96,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   1.0,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   0.97,
+   0.0
+  ],
+  "wall_s_per_test": [
+   3.54,
+   0.0
+  ],
+  "llm_s_per_test": [
+   2.43,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   1.92,
+   0.0
+  ],
+  "pit_s_per_test": [
+   0.0,
+   0.0
+  ],
+  "error_pct": [
+   2.67,
+   0.0
+  ],
+  "escalated_pct": [
+   0.0,
+   0.0
+  ],
+  "retried_pct": [
+   0.0,
+   0.0
+  ],
+  "recovery_pct": [
+   null,
+   null
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E2/single": {
+  "seeds": 1,
+  "tokens_per_test": [
+   1799.35,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   802.45,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   996.89,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   2194.33,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   1.0,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   1.0,
+   0.0
+  ],
+  "wall_s_per_test": [
+   15.84,
+   0.0
+  ],
+  "llm_s_per_test": [
+   2.12,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   2.83,
+   0.0
+  ],
+  "pit_s_per_test": [
+   0.0,
+   0.0
+  ],
+  "error_pct": [
+   0.0,
+   0.0
+  ],
+  "escalated_pct": [
+   0.0,
+   0.0
+  ],
+  "retried_pct": [
+   0.0,
+   0.0
+  ],
+  "recovery_pct": [
+   null,
+   null
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E2/b1": {
+  "seeds": 1,
+  "tokens_per_test": [
+   8494.95,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   5323.39,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   3171.55,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   20552.29,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   2.25,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   2.18,
+   0.0
+  ],
+  "wall_s_per_test": [
+   88.96,
+   0.0
+  ],
+  "llm_s_per_test": [
+   6.78,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   6.71,
+   0.0
+  ],
+  "pit_s_per_test": [
+   60.74,
+   0.0
+  ],
+  "error_pct": [
+   7.33,
+   0.0
+  ],
+  "escalated_pct": [
+   0.0,
+   0.0
+  ],
+  "retried_pct": [
+   68.67,
+   0.0
+  ],
+  "recovery_pct": [
+   18.45,
+   0.0
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E2/b2": {
+  "seeds": 1,
+  "tokens_per_test": [
+   4121.37,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   2840.74,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   1280.63,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   15455.12,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   1.31,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   0.96,
+   0.0
+  ],
+  "wall_s_per_test": [
+   56.92,
+   0.0
+  ],
+  "llm_s_per_test": [
+   2.12,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   1.41,
+   0.0
+  ],
+  "pit_s_per_test": [
+   15.3,
+   0.0
+  ],
+  "error_pct": [
+   4.0,
+   0.0
+  ],
+  "escalated_pct": [
+   0.0,
+   0.0
+  ],
+  "retried_pct": [
+   31.33,
+   0.0
+  ],
+  "recovery_pct": [
+   34.04,
+   0.0
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E3/s3": {
+  "seeds": 3,
+  "tokens_per_test": [
+   9182.34,
+   146.06
+  ],
+  "prompt_tokens_per_test": [
+   5899.65,
+   132.92
+  ],
+  "completion_tokens_per_test": [
+   3282.69,
+   41.08
+  ],
+  "tokens_per_accepted": [
+   17510.93,
+   280.49
+  ],
+  "llm_calls_per_test": [
+   3.03,
+   0.05
+  ],
+  "tool_calls_per_test": [
+   2.84,
+   0.06
+  ],
+  "wall_s_per_test": [
+   103.73,
+   13.81
+  ],
+  "llm_s_per_test": [
+   8.04,
+   1.36
+  ],
+  "compile_run_s_per_test": [
+   4.66,
+   1.13
+  ],
+  "pit_s_per_test": [
+   71.1,
+   10.02
+  ],
+  "error_pct": [
+   7.78,
+   0.77
+  ],
+  "escalated_pct": [
+   39.78,
+   1.68
+  ],
+  "retried_pct": [
+   60.0,
+   5.03
+  ],
+  "recovery_pct": [
+   28.62,
+   5.86
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E5/s3-G1": {
+  "seeds": 3,
+  "tokens_per_test": [
+   8999.84,
+   140.47
+  ],
+  "prompt_tokens_per_test": [
+   5814.35,
+   56.5
+  ],
+  "completion_tokens_per_test": [
+   3185.49,
+   91.02
+  ],
+  "tokens_per_accepted": [
+   16341.37,
+   658.1
+  ],
+  "llm_calls_per_test": [
+   3.02,
+   0.03
+  ],
+  "tool_calls_per_test": [
+   2.86,
+   0.05
+  ],
+  "wall_s_per_test": [
+   106.92,
+   14.74
+  ],
+  "llm_s_per_test": [
+   9.09,
+   0.66
+  ],
+  "compile_run_s_per_test": [
+   9.38,
+   0.65
+  ],
+  "pit_s_per_test": [
+   73.64,
+   13.85
+  ],
+  "error_pct": [
+   7.11,
+   1.54
+  ],
+  "escalated_pct": [
+   37.78,
+   2.69
+  ],
+  "retried_pct": [
+   60.67,
+   0.67
+  ],
+  "recovery_pct": [
+   33.3,
+   4.59
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E5/s3-G2": {
+  "seeds": 1,
+  "tokens_per_test": [
+   11228.3,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   7331.52,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   3896.78,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   25137.99,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   3.27,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   3.11,
+   0.0
+  ],
+  "wall_s_per_test": [
+   107.54,
+   0.0
+  ],
+  "llm_s_per_test": [
+   10.79,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   10.51,
+   0.0
+  ],
+  "pit_s_per_test": [
+   69.83,
+   0.0
+  ],
+  "error_pct": [
+   8.67,
+   0.0
+  ],
+  "escalated_pct": [
+   46.67,
+   0.0
+  ],
+  "retried_pct": [
+   73.33,
+   0.0
+  ],
+  "recovery_pct": [
+   28.18,
+   0.0
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E5/s3-G6": {
+  "seeds": 1,
+  "tokens_per_test": [
+   6659.18,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   4074.17,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   2585.01,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   12972.43,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   2.01,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   2.92,
+   0.0
+  ],
+  "wall_s_per_test": [
+   58.16,
+   0.0
+  ],
+  "llm_s_per_test": [
+   7.17,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   7.31,
+   0.0
+  ],
+  "pit_s_per_test": [
+   39.25,
+   0.0
+  ],
+  "error_pct": [
+   9.33,
+   0.0
+  ],
+  "escalated_pct": [
+   39.33,
+   0.0
+  ],
+  "retried_pct": [
+   58.0,
+   0.0
+  ],
+  "recovery_pct": [
+   20.69,
+   0.0
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E5/s3-memory": {
+  "seeds": 1,
+  "tokens_per_test": [
+   8709.44,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   5510.67,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   3198.77,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   16748.92,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   3.01,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   2.91,
+   0.0
+  ],
+  "wall_s_per_test": [
+   101.01,
+   0.0
+  ],
+  "llm_s_per_test": [
+   7.97,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   5.87,
+   0.0
+  ],
+  "pit_s_per_test": [
+   71.86,
+   0.0
+  ],
+  "error_pct": [
+   10.67,
+   0.0
+  ],
+  "escalated_pct": [
+   37.33,
+   0.0
+  ],
+  "retried_pct": [
+   59.33,
+   0.0
+  ],
+  "recovery_pct": [
+   32.58,
+   0.0
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ },
+ "E5/minus_all": {
+  "seeds": 1,
+  "tokens_per_test": [
+   8459.77,
+   0.0
+  ],
+  "prompt_tokens_per_test": [
+   5312.26,
+   0.0
+  ],
+  "completion_tokens_per_test": [
+   3147.51,
+   0.0
+  ],
+  "tokens_per_accepted": [
+   20142.32,
+   0.0
+  ],
+  "llm_calls_per_test": [
+   2.25,
+   0.0
+  ],
+  "tool_calls_per_test": [
+   3.19,
+   0.0
+  ],
+  "wall_s_per_test": [
+   30.66,
+   0.0
+  ],
+  "llm_s_per_test": [
+   6.44,
+   0.0
+  ],
+  "compile_run_s_per_test": [
+   16.76,
+   0.0
+  ],
+  "pit_s_per_test": [
+   6.1,
+   0.0
+  ],
+  "error_pct": [
+   6.67,
+   0.0
+  ],
+  "escalated_pct": [
+   51.33,
+   0.0
+  ],
+  "retried_pct": [
+   69.33,
+   0.0
+  ],
+  "recovery_pct": [
+   20.19,
+   0.0
+  ],
+  "cost_usd": [
+   0.0,
+   0.0
+  ]
+ }
+}

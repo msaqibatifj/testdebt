@@ -1,0 +1,25 @@
+{
+  "config": {
+    "system": "s3",
+    "max_retries": 1,
+    "max_tokens_per_call": 8000,
+    "token_cap_per_test": 60000,
+    "temperature": 0.7,
+    "seed": 1,
+    "require_smells_removed": true,
+    "policy": "adaptive",
+    "max_steps": 6,
+    "memory": true,
+    "detector": "consensus"
+  },
+  "model": "gpt-oss-120b",
+  "eval": "data/eval_set.jsonl",
+  "skip_verify": false,
+  "pit": false,
+  "killset_gate": "on",
+  "split": "dev",
+  "frozen": true,
+  "git_commit": "3b992f21a7f663be4431ee54fc191a3afac4efa8",
+  "git_dirty": false,
+  "prompt_hash": "540031bfbe35"
+}

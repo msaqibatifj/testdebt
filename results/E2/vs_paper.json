@@ -1,0 +1,41 @@
+{
+ "metric": "smell_reduction_tsdetect (rule i, %)",
+ "rows": [
+  {
+   "project": "commons-cli",
+   "paper_reported": 86.0,
+   "b0replay_reproduced": [
+    86.4,
+    0.0
+   ],
+   "b0_reproduced": [
+    97.5,
+    0.0
+   ]
+  },
+  {
+   "project": "gson",
+   "paper_reported": 89.0,
+   "b0replay_reproduced": [
+    57.9,
+    0.0
+   ],
+   "b0_reproduced": [
+    67.2,
+    0.0
+   ]
+  },
+  {
+   "project": "jsoup",
+   "paper_reported": 91.0,
+   "b0replay_reproduced": [
+    46.0,
+    0.0
+   ],
+   "b0_reproduced": [
+    48.8,
+    0.0
+   ]
+  }
+ ]
+}

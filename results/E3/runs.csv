@@ -1,0 +1,4 @@
+config,run,accepted_rate,pass_rate,smell_reduction_tsdetect,smell_reduction_strict,accepted_losing_mutants_rate,accepted_safe_rate,tokens_per_test,tests,errors,smell_reduction_accepted
+s3,E3_s3_s1,51.3,72.7,44.4,53.4,0.0,24.0,9043,150,11,72.8
+s3,E3_s3_s2,52.7,76.7,46.2,50.5,0.0,26.7,9334,150,11,72.7
+s3,E3_s3_s3,53.3,75.3,47.6,53.5,0.0,26.7,9170,150,13,72.2

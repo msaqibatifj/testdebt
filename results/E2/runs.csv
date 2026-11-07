@@ -1,0 +1,5 @@
+config,run,accepted_rate,pass_rate,smell_reduction_tsdetect,smell_reduction_strict,accepted_losing_mutants_rate,accepted_safe_rate,tokens_per_test,tests,errors,smell_reduction_accepted
+b0,E2_b0_s1,54.7,54.7,64.2,61.7,1.2,26.7,3183,150,4,62.8
+single,E2_single_s1,82.0,82.0,53.8,49.1,,,1799,150,0,54.6
+b1,E2_b1_s1,41.3,67.3,63.0,60.5,0.0,35.3,8495,150,11,100.0
+b2,E2_b2_s1,26.7,43.3,60.7,61.8,0.0,24.0,4121,150,6,100.0
