@@ -12,15 +12,14 @@ IDs: 23I-0769, 23I-0066, 23I-0698}}
 \maketitle
 
 \begin{abstract}
-Large language models can refactor smelly unit tests, but an accepted refactoring may compile and pass while silently checking less.
-UTRefactor, the state of the art, accepts any output that compiles and passes and trusts a single smell detector.
-We present VeriRefactor, a multi-agent system in which tools, not the model, decide acceptance.
-A Supervisor coordinates Detection, Planner, Refactor and Verifier agents and adapts its next action (retry, switch strategy, narrow targets, revert to the best attempt or escalate) to the Verifier's evidence, with memory of failed approaches within and across tests.
-Three components address three gaps: a mutation-testing kill-set gate rejects any refactoring that loses a mutant the original test killed (G1);
-smells are targeted and counted as removed only when tsDetect and JNose agree (G2); and adaptive supervision replaces a fixed retry script (G6).
-On 150 held-out tests from Commons-cli, Gson and Jsoup, the full system accepts \textbf{[R: results/E3 accepted\_rate]}\% of refactorings with \textbf{[R: accepted\_safe\_rate]}\% accepted and safe,
-while switching the gate off lets \textbf{[R: results/E4 H1 s3-G1 pct]}\% of accepted outputs lose mutants. The two detectors disagree sharply on some smells ($\kappa=0.02$ for ExceptionHandling over all 484 tests),
-so single-detector reduction rates overstate removal. We release the system, trajectories and scripts that reproduce every table.
+Large language models can refactor smelly unit tests, but a refactoring that compiles and passes may still check less than the original.
+UTRefactor, the state of the art, accepts any output that compiles and passes and relies on a single smell detector.
+We present VeriRefactor, a multi-agent system in which tools decide acceptance: a Supervisor coordinates Detection, Planner, Refactor and Verifier agents and chooses its next step from the Verifier's report.
+Three components target three gaps: a mutation-testing gate rejects any refactoring that loses a mutant the original test killed (G1); smells are targeted and counted as removed only when tsDetect and JNose agree (G2); and adaptive supervision with memory replaces a fixed retry script (G6).
+On 150 held-out tests from Commons-cli, Gson and Jsoup, with \texttt{gpt-oss-120b} and three seeds, the full system accepts 52.4 $\pm$ 1.0\% of the tests and no accepted output loses a mutant; with the gate switched off, 8.0 $\pm$ 0.5\% of accepted outputs do (exact McNemar, $p<0.001$).
+The two detectors disagree sharply on some smells ($\kappa=0.02$ for ExceptionHandling), but targeting only the smells both confirm lowered the accepted-and-safe rate by 15 points, and the adaptive Supervisor did not beat a fixed retry script (24.0\% against 35.3\% accepted and safe).
+Replaying UTRefactor's published outputs through our verifier reproduces its Commons-cli result (86.4\% against 86\% smell reduction) but not its Gson and Jsoup results.
+We release the system, all trajectories and the scripts that rebuild every table.
 \end{abstract}
 
 \section{Introduction}
@@ -31,13 +30,14 @@ mutants. UTRefactor~\cite{utrefactor} accepts a refactoring once it compiles and
 \textbf{RQ3 (G6)}: does adaptive supervision (retry, switch strategy, memory) beat a fixed retry script and a single tool-using agent?
 Contributions: (i) a verifier that accepts a refactoring only if it compiles, passes, removes the targeted smells and preserves the PIT kill set;
 (ii) tsDetect+JNose consensus targets; (iii) an adaptive Supervisor with an LLM planner and cross-test memory;
-(iv) a controlled comparison of six systems on 150 held-out tests with 3 seeds.
+(iv) a controlled comparison of six systems and five ablations on 150 held-out tests, with three seeds for the full system and its gate ablation, and with every trajectory released.
 
 \section{Related Work}
 \emph{Test smells.} Test smells~\cite{garousi2018,tufano2016} are design problems in test code whose harm is debated~\cite{bavota2015}; tsDetect~\cite{peruma2020} and JNose~\cite{virginio2020} detect them, and their agreement is measured with Cohen's $\kappa$~\cite{cohen1960,landis1977}.
 UTRefactor~\cite{utrefactor} refactors smells with an LLM and a knowledge base but accepts any output that compiles and passes.
 \emph{Mutation testing and oracles.} Mutants are a reasonable proxy for real faults~\cite{just2014}; PIT~\cite{coles2016} computes kill matrices~\cite{jia2011,papadakis2019}, and the oracle problem~\cite{barr2015} motivates preserving the kill-set rather than trusting passing tests. Generated tests~\cite{fraser2011,schafer2024} face the same weakness.
 \emph{LLM agents.} Reasoning and acting~\cite{yao2023}, self-feedback~\cite{madaan2023}, verbal memory~\cite{shinn2023}, chain-of-thought~\cite{wei2022}, tool use~\cite{schick2023} and repository agents~\cite{jimenez2024,yang2024} on code models~\cite{chen2021} motivate our Supervisor, but none gates acceptance on mutation evidence.
+\emph{Acceptance by execution.} Repository-level benchmarks such as SWE-bench~\cite{jimenez2024} judge an agent's patch by running tests, and agent designs such as SWE-agent~\cite{yang2024} and Reflexion~\cite{shinn2023} feed execution results back into the next attempt. Test refactoring needs a stronger oracle than ``the tests pass'', because the code under change is the test itself; a refactored test that passes may simply check less~\cite{barr2015}. Mutation analysis supplies that oracle at the cost of runtime~\cite{jia2011,papadakis2019}, which is why we use it as a gate and report its cost separately.
 \emph{Statistics.} We use exact McNemar~\cite{mcnemar1947}, Wilcoxon~\cite{wilcoxon1945} and Wilson intervals~\cite{wilson1927}.
 
 \section{Problem Formulation}
@@ -62,6 +62,14 @@ Refactor & LLM & --\\
 Verifier & javac/JUnit, tsDetect, JNose, PIT & G1 (kill-set gate)\\
 Supervisor & memory & G6 (adaptive policy)\\\bottomrule\end{tabular}\end{table}
 \textbf{Memory.} Within a test, the Supervisor stores hashes of failed proposals (never re-verified) and the (strategy, gate) pairs that failed; across tests it stores, per project and smell, the planned approaches that failed, and shows them to the Planner.
+\textbf{Supervisor policy.} After every verification the Supervisor picks one of six actions. It \emph{accepts} when all gates pass and no targeted smell is left. It \emph{retries} with the error text the first time a strategy fails at a given gate, and \emph{switches} strategy (LLM plan, then the knowledge-base rule, then a plain prompt, then a re-plan that includes the failure and the cross-test memory) when the same strategy fails at the same gate again or the reply repeats a rejected proposal.
+When every gate passes but some targeted smells remain, it \emph{narrows} the targets to those smells; when an attempt gets less far through the gates than an earlier one, it \emph{reverts} so that the next retry starts from the best proposal so far. When attempts or the per-test token budget run out, it \emph{escalates}: the test is recorded as escalated and placed in a review queue, where a person can accept or reject it; these human decisions never change the automatic metrics.
+The \textsf{-G6} ablation replaces this policy with \textsf{b1}'s script: one knowledge-base prompt, then up to two retries that carry the error text, then rejection.
+
+\textbf{Verifier.} The Verifier runs the same stages for every system. Static checks come first: the reply must parse, keep the test's assertions (a refactoring that drops all assertions or leaves an empty test is rejected), have balanced braces, and differ from every proposal already rejected for this test.
+The patch is then applied to the test class; the class is compiled once with \texttt{javac} against the module classpath recorded by Maven and run with the JUnit launcher, falling back to a full Maven run when the fast path fails on the original class.
+Both detectors analyse the refactored methods, and PIT computes the kill set of the new tests, which is compared with the original's. Whatever happens, the original file is restored, and a \texttt{git status} check after each test stops the run if a checkout was left modified.
+
 \begin{figure}[t]\centering\includegraphics[width=\columnwidth]{architecture.png}
 \caption{Architecture and where each gap plugs in.}\label{fig:arch}\end{figure}
 
