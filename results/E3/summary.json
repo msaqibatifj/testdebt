@@ -1,0 +1,33 @@
+{
+ "s3": {
+  "seeds": 3,
+  "accepted_rate": [
+   52.43,
+   1.03
+  ],
+  "pass_rate": [
+   74.9,
+   2.03
+  ],
+  "smell_reduction_tsdetect": [
+   46.07,
+   1.6
+  ],
+  "smell_reduction_strict": [
+   52.47,
+   1.7
+  ],
+  "accepted_losing_mutants_rate": [
+   0.0,
+   0.0
+  ],
+  "accepted_safe_rate": [
+   25.8,
+   1.56
+  ],
+  "tokens_per_test": [
+   9182.33,
+   145.89
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "b0replay": {
+  "seeds": 1,
+  "accepted_rate": [
+   18.4,
+   0.0
+  ],
+  "pass_rate": [
+   18.4,
+   0.0
+  ],
+  "smell_reduction_tsdetect": [
+   57.0,
+   0.0
+  ],
+  "smell_reduction_strict": [
+   54.6,
+   0.0
+  ],
+  "accepted_losing_mutants_rate": [
+   3.4,
+   0.0
+  ],
+  "accepted_safe_rate": [
+   11.8,
+   0.0
+  ],
+  "tokens_per_test": [
+   0.0,
+   0.0
+  ]
+ }
+}

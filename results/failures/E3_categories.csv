@@ -1,0 +1,531 @@
+run,test,decision,category,stage,message
+E3_s3_s1,commons-cli:TypeHandlerTest#testCreateFile,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['MysteryGuest']
+E3_s3_s1,commons-cli:DefaultParserTest#testDeprecated,escalated,semantic change: test now fails,test run,"test run failed:
+    => org.opentest4j.AssertionFailedError: Handler must be triggered for deprecated option d1 ==> expected: <true> but was: <false>
+[        74 tests successful      ]
+[         1 tests failed          ]"
+E3_s3_s1,gson:JsonArrayAsListTest#testIndexOf,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:GsonTest#testGetAdapter_Concurrency,escalated,malformed reply,static check,unbalanced braces or parentheses
+E3_s3_s1,gson:VersionExclusionStrategyTest#testNewerVersion,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testEscapeCharacterQuoteWithoutStrictMode,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:UnsafeAllocatorInstantiationTest#testAbstractClassInstantiation,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JavaSerializationTest#testListIsSerializable,escalated,compile: other,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/JavaSerializationTest.java:57: error: unreported exception IOException; must be caught or declared to be thrown
+          List<String> serialized = serializedCopy(list);
+                                                  ^
+1 error
+"
+E3_s3_s1,gson:JsonPrimitiveTest#testAsNumber_Boolean,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:GsonTest#testNewJsonReader_Custom,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/GsonTest.java:42: error: package org.junit.jupiter.api does not exist
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+                                   ^
+data/projects/gson/gson/src/test/java/com/google/gson/GsonTest.java:42: error: static import only from classes and interfaces
+import s"
+E3_s3_s1,gson:JsonReaderTest#testReadEmptyObject,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s1,gson:JsonPrimitiveTest#testByteEqualsInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonReaderTest#testNumberWithOctalPrefix,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testStrictUnnecessaryArraySeparatorsWithSkipValue,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonWriterTest#testDoubles,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 3 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): com.google.gson.stream.JsonWriter.beforeValue line 819 VoidMethodCallMutator; com.google.gson.stream.JsonWriter.setFormattingStyle line 271 NegateConditionalsMutator; com.google.gson.stream.JsonWriter.value line 604 VoidMethodCallMutator"
+E3_s3_s1,gson:JsonReaderTest#testIntegerMismatchFailuresDoNotAdvance,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:1090: error: cannot find symbol
+          .named(""nextDouble should return 1.5 after a failed nextInt"")
+          ^
+  symbol:   method named(String)
+  location: class DoubleSubject
+1 error
+"
+E3_s3_s1,gson:JsonReaderTest#testSkipDouble,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+alue] The result of `nextName()` must be used
+[ERROR]   If you really don't want to use the result, then assign it to a variable: `var unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextName()` shouldn't be required to use its result, then annotate it"
+E3_s3_s1,gson:JsonWriterTest#testNonFiniteDoublesWhenLenient,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonPrimitiveTest#testShortEqualsLong,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonReaderTest#testCapitalizedFalseFailWhenStrict,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testEmptyString,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s1,gson:JsonPrimitiveTest#testFloatEqualsBigDecimal,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonReaderTest#testStringEndingInSlash,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s1,gson:JsonReaderTest#testMissingValue,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[997,22] [CheckReturnValue] The result of `nextName()` must be used
+  If you really don't want to use the result,"
+E3_s3_s1,gson:JsonReaderTest#testLenientPartialNonExecutePrefix,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1566,24] [CheckReturnValue] The result of `nextString()` must be used
+  If you really don't want to use the resu"
+E3_s3_s1,gson:JsonReaderTest#testUnterminatedObject,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+e result of `nextName()` must be used
+[ERROR]   If you really don't want to use the result, then assign it to a variable: `var unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextName()` shouldn't be required to use its result, then annotate it with `@"
+E3_s3_s1,gson:JsonReaderTest#testSkipObjectNameSingleQuoted,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testUnescapingInvalidCharacters,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonWriterTest#testClosedWriterThrowsOnFlush,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] warnings found and -Werror specified
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project gson: Compilation failure
+[ERROR] warnings found an"
+E3_s3_s1,gson:JsonPrimitiveTest#testByteEqualsShort,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonPrimitiveTest#testByteEqualsBigInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonReaderTest#testInvalidJsonInput,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testMixedCaseLiterals,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+var unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextBoolean()` shouldn't be required to use its result, then annotate it with `@CanIgnoreReturnValue`.
+[ERROR]   
+[ERROR]     (see https://errorprone.info/bugpattern/CheckReturnValue)
+[ERROR]   Did yo"
+E3_s3_s1,gson:JsonReaderTest#testStrictQuotedNonFiniteDoubles,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s1,gson:LongSerializationPolicyTest#testStringLongSerializationNull,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonReaderTest#testStrictSemicolonDelimitedNameValuePairWithSkipValue,escalated,compile: other,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:2141: error: method assertStrictError(MalformedJsonException,String) is already defined in class JsonReaderTest
+  private static void assertStrictError(MalformedJsonException exception, String expectedLocation) {
+                      ^
+data/projects/gson/gson/src/test/java/com/go"
+E3_s3_s1,gson:JsonPrimitiveTest#testShortEqualsInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,gson:JsonReaderTest#testPeekingUnquotedStringsPrefixedWithIntegers,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:863: error: cannot find symbol
+          .named(""The first token after beginArray should be a STRING"")
+          ^
+  symbol:   method named(String)
+  location: class ComparableSubject<JsonToken>
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:884: "
+E3_s3_s1,gson:LongSerializationPolicyTest#testDefaultLongSerialization,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testLenientNameValueSeparator,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,gson:JsonReaderTest#testReadObject,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,jsoup:ElementTest#testAddNewText,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 48 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes.add line 126 MathMutator; org.jsoup.nodes.Attributes.checkNotNull line 94 NegateConditionalsMutator; org.jsoup.nodes.Attributes.checkNotNull line 94 EmptyObjectReturnValsMutator; org.jsoup.nodes.Attributes.dedu"
+E3_s3_s1,jsoup:ElementTest#testInnerHtml,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,jsoup:ElementTest#testRelativeUrls,escalated,compile: other,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:1673: error: method testChildSizeWithMixedContent() is already defined in class ElementTest
+    public void testChildSizeWithMixedContent() {
+                ^
+1 error
+"
+E3_s3_s1,jsoup:ElementTest#testAppendRowToTable,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,jsoup:NodeTest#handlesAbsOnProtocolessAbsoluteUris,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Node.hasAttr line 105 NegateConditionalsMutator; org.jsoup.nodes.Node.hasAttr line 106 BooleanFalseReturnValsMutator"
+E3_s3_s1,jsoup:ElementTest#testGetTextNodes,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s1,jsoup:ElementTest#testGetChildText,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s1,jsoup:ParseTest#testNewsHomepage,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s1,jsoup:ElementTest#testAddBooleanAttribute,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s1,jsoup:ConnectTest#sendsRequestBodyJsonWithData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s1,jsoup:ElementTest#testNotPretty,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s1,jsoup:ConnectTest#sendsRequestBody,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s1,jsoup:ElementTest#testKeepsPreTextInCode,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s1,jsoup:ElementTest#testHasClassDomMethods,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes.indexOfKey line 78 PrimitiveReturnsMutator; org.jsoup.nodes.Attributes.indexOfKeyIgnoreCase line 87 PrimitiveReturnsMutator"
+E3_s3_s1,jsoup:ElementTest#before,escalated,semantic change: test now fails,test run,"test run failed:
+    => org.junit.ComparisonFailure: <div><div>one</div><div>two</div><p>Hello</p><p>There</p></div> expected:<[<div><div>one</div><div>two</div><p>Hello</p><p>There</p></div>]> but was:<[HTML after inserting two <div> elements before the first <p> should match the expected structure]>
+    => org.junit.ComparisonFailure: <div><div>one</div><div>two</div><p>Hello</p><p>Three</p><!--"
+E3_s3_s1,jsoup:TextNodeTest#testTextBean,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,jsoup:DocumentTest#testLocation,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:24: error: package org.junit.jupiter.api.io does not exist
+import org.junit.jupiter.api.io.TempDir;
+                               ^
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:106: error: cannot find symbol
+    public void testLocation(@TempDir File tempDir) throws IOE"
+E3_s3_s1,jsoup:ElementTest#testWholeText,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,jsoup:ElementTest#testGetDataNodes,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s1,jsoup:ElementTest#testGetElementById,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 6 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Element.child line 274 NullReturnValsMutator; org.jsoup.nodes.Element.childElementsList line 311 NegateConditionalsMutator; org.jsoup.nodes.Element.childElementsList line 315 ConditionalsBoundaryMutator; org.jsoup.nodes.El"
+E3_s3_s1,jsoup:ElementTest#testClassUpdates,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,jsoup:NodeTest#nodeIsNotASiblingOfItself,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,jsoup:ConnectTest#sendsRequestBodyJsonWithoutData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s1,jsoup:ElementTest#testHasText,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s1,jsoup:ElementTest#testManipulateTextNodes,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s1,jsoup:AttributesTest#testIteratorSkipsInternal,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 1 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes$1.hasNext line 298 MathMutator"
+E3_s3_s1,jsoup:AttributeTest#html,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s1,jsoup:ElementTest#testClassDomMethods,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s1,jsoup:ElementTest#testBrHasSpace,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s1,jsoup:TextNodeTest#testHasTextWhenIterating,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj/data/projects/jsoup/src/test/java/org/jsoup/nodes/TextNodeTest.java:[147,44] lambda expressions are not supported in -source 7
+  (use -source 8 or higher to enable lambda expressions)
+[ERROR] Fa"
+E3_s3_s1,jsoup:NodeTest#ownerDocument,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/NodeTest.java:4: error: cannot find symbol
+import org.jsoup.TextUtil;
+                ^
+  symbol:   class TextUtil
+  location: package org.jsoup
+data/projects/jsoup/src/test/java/org/jsoup/nodes/NodeTest.java:142: error: cannot find symbol
+        assertEquals(""<span>two</span> three"", TextUtil.stripNewlines(p."
+E3_s3_s1,jsoup:ElementTest#testKeepsPreTextAtDepth,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+ol:   variable TextUtil
+  location: class ElementTest
+data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:677: error: cannot find symbol
+        assertEquals(""<div><p>One</p><p><span>Two</span></p></div><p><span>Two</span><span>Three</span></p>"", TextUtil.stripNewlines(doc.body().html()));
+                                                        "
+E3_s3_s2,commons-cli:TypeHandlerTest#testCreateFile,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['MysteryGuest', 'ResourceOptimism']"
+E3_s3_s2,commons-cli:DefaultParserTest#testDeprecated,escalated,semantic change: test now fails,test run,"test run failed:
+    => org.opentest4j.AssertionFailedError: Deprecated handler should have been called for opt1 ==> expected: <true> but was: <false>
+[        74 tests successful      ]
+[         1 tests failed          ]"
+E3_s3_s2,commons-cli:HelpFormatterTest#testAccessors,escalated,semantic change: test now fails,test run,"test run failed:
+    => java.lang.NoSuchFieldException: leftPadding
+    => java.lang.NoSuchFieldException: syntaxPrefix
+    => java.lang.NoSuchFieldException: optPrefix
+    => java.lang.NoSuchFieldException: longOptPrefix
+    => java.lang.NoSuchFieldException: newLine
+    => java.lang.NoSuchFieldException: argName
+    => java.lang.NoSuchFieldException: descPadding
+[        38 tests successful     "
+E3_s3_s2,gson:JsonArrayAsListTest#testIndexOf,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:GsonTest#testGetAdapter_Concurrency,escalated,malformed reply,static check,unbalanced braces or parentheses
+E3_s3_s2,gson:GsonTest#testNewJsonReader_Custom,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/GsonTest.java:42: error: package org.junit.jupiter.api does not exist
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+                                   ^
+data/projects/gson/gson/src/test/java/com/google/gson/GsonTest.java:42: error: static import only from classes and interfaces
+import s"
+E3_s3_s2,gson:GsonTest#testNewJsonWriter_Custom,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] warnings found and -Werror specified
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project gson: Compilation failure
+[ERROR] warnings found an"
+E3_s3_s2,gson:JsonPrimitiveTest#testParsingStringAsBoolean,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+, new JsonPrimitive(5L));
+    ^
+  symbol:   variable MoreAsserts
+  location: class JsonPrimitiveTest
+data/projects/gson/gson/src/test/java/com/google/gson/JsonPrimitiveTest.java:284: error: cannot find symbol
+    MoreAsserts.assertEqualsAndHashCode(new JsonPrimitive('a'), new JsonPrimitive('a'));
+    ^
+  symbol:   variable MoreAsserts
+  location: class JsonPri"
+E3_s3_s2,gson:JsonReaderTest#testReadEmptyObject,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,gson:JsonPrimitiveTest#testByteEqualsInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,gson:JsonReaderTest#testNumberWithOctalPrefix,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s2,gson:JsonReaderTest#testStrictUnnecessaryArraySeparatorsWithSkipValue,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonWriterTest#testLongs,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 3 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): com.google.gson.stream.JsonWriter.beforeValue line 819 VoidMethodCallMutator; com.google.gson.stream.JsonWriter.setFormattingStyle line 271 NegateConditionalsMutator; com.google.gson.stream.JsonWriter.value line 617 VoidMethodCallMutator"
+E3_s3_s2,gson:JsonReaderTest#testIntegerMismatchFailuresDoNotAdvance,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_d/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1094,25] [CheckReturnValue] The result of `nextInt()` must be used
+  If you really don't want to use the resul"
+E3_s3_s2,gson:JsonReaderTest#testSkipDouble,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonWriterTest#testNonFiniteDoublesWhenLenient,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 4 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): com.google.gson.stream.JsonWriter.beforeValue line 819 VoidMethodCallMutator; com.google.gson.stream.JsonWriter.replaceTop line 490 MathMutator; com.google.gson.stream.JsonWriter.setFormattingStyle line 271 NegateConditionalsMutator; com."
+E3_s3_s2,gson:JsonPrimitiveTest#testShortEqualsLong,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,gson:JsonWriterTest#testFloats,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonReaderTest#testCapitalizedFalseFailWhenStrict,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonReaderTest#testEmptyString,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s2,gson:JsonPrimitiveTest#testFloatEqualsBigDecimal,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,gson:JsonReaderTest#testStringEndingInSlash,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s2,gson:JsonReaderTest#testMissingValue,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:993: error: cannot find symbol
+          .named(""First JSON name should be 'a'"")
+          ^
+  symbol:   method named(String)
+  location: class StringSubject
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:1004: error: cannot find symbol
+          "
+E3_s3_s2,gson:JsonReaderTest#testLenientPartialNonExecutePrefix,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_d/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1566,24] [CheckReturnValue] The result of `nextString()` must be used
+  If you really don't want to use the re"
+E3_s3_s2,gson:JsonReaderTest#testUnterminatedObject,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonReaderTest#testSkipObjectNameSingleQuoted,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:353: error: cannot find symbol
+          .named(""After skipping the object name, the next token should be NUMBER"")
+          ^
+  symbol:   method named(String)
+  location: class ComparableSubject<JsonToken>
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTes"
+E3_s3_s2,gson:JsonReaderTest#testUnescapingInvalidCharacters,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s2,gson:JsonPrimitiveTest#testByteEqualsShort,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,gson:JsonPrimitiveTest#testByteEqualsBigInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,gson:JsonReaderTest#testInvalidJsonInput,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonArrayAsListTest#testSet,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonReaderTest#testMixedCaseLiterals,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextBoolean()` shouldn't be required to use its result, then annotate it with `@CanIgnoreReturnValue`.
+[ERROR]   
+[ERROR]     (see https://errorprone.info/bugpattern/CheckReturnValue)
+[ERROR]   Did you me"
+E3_s3_s2,gson:JsonWriterTest#testNumbers,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonReaderTest#testStrictQuotedNonFiniteDoubles,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_d/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[683,24] [CheckReturnValue] The result of `readNonFiniteDouble()` must be used
+  If you really don't want to us"
+E3_s3_s2,gson:LongSerializationPolicyTest#testStringLongSerializationNull,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 1 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): com.google.gson.JsonElement.isJsonNull line 149 BooleanFalseReturnValsMutator"
+E3_s3_s2,gson:JsonReaderTest#testStrictSemicolonDelimitedNameValuePairWithSkipValue,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:1367: error: cannot find symbol
+          .named(""First name should be \""a\"""")
+          ^
+  symbol:   method named(String)
+  location: class StringSubject
+1 error
+"
+E3_s3_s2,gson:JsonPrimitiveTest#testShortEqualsInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,gson:JsonReaderTest#testPeekingUnquotedStringsPrefixedWithIntegers,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,gson:JsonReaderTest#testLenientNameValueSeparator,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:1128: error: cannot find symbol
+          .named(""First name should be 'a' for '=' separator"")
+          ^
+  symbol:   method named(String)
+  location: class StringSubject
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:1138: error: cannot find sym"
+E3_s3_s2,gson:JsonWriterTest#testMultipleTopLevelValues,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] warnings found and -Werror specified
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:testCompile (default-testCompile) on project gson: Compilation failure
+[ERROR] warnings found an"
+E3_s3_s2,gson:JsonReaderTest#testReadObject,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+ of `nextString()` must be used
+[ERROR]   If you really don't want to use the result, then assign it to a variable: `var unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextString()` shouldn't be required to use its result, then annotate it with `@CanI"
+E3_s3_s2,jsoup:ElementTest#testAddNewText,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,jsoup:ElementTest#testInnerHtml,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,jsoup:ElementTest#testRelativeUrls,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,jsoup:ElementTest#testAppendRowToTable,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 46 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Document.body line 91 NullReturnValsMutator; org.jsoup.nodes.Document.findFirstElementByTagName line 198 NegateConditionalsMutator; org.jsoup.nodes.Document.findFirstElementByTagName line 199 NullReturnValsMutator; org.js"
+E3_s3_s2,jsoup:NodeTest#handlesAbsOnProtocolessAbsoluteUris,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Node.hasAttr line 105 NegateConditionalsMutator; org.jsoup.nodes.Node.hasAttr line 106 BooleanFalseReturnValsMutator"
+E3_s3_s2,jsoup:ElementTest#testGetTextNodes,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,jsoup:ElementTest#testGetChildText,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,jsoup:ParseTest#testNewsHomepage,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s2,jsoup:ElementTest#testAddBooleanAttribute,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes.copyOf line 69 VoidMethodCallMutator; org.jsoup.nodes.Attributes.indexOfKeyIgnoreCase line 85 ConditionalsBoundaryMutator"
+E3_s3_s2,jsoup:ConnectTest#sendsRequestBodyJsonWithData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s2,jsoup:ElementTest#testNotPretty,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,jsoup:ConnectTest#sendsRequestBody,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s2,jsoup:ElementTest#testKeepsPreTextInCode,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,jsoup:ElementTest#testHasClassDomMethods,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes.indexOfKey line 78 PrimitiveReturnsMutator; org.jsoup.nodes.Attributes.indexOfKeyIgnoreCase line 87 PrimitiveReturnsMutator"
+E3_s3_s2,jsoup:ElementTest#before,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,jsoup:TextNodeTest#testTextBean,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,jsoup:AttributesTest#testIteratorHasNext,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,jsoup:DocumentTest#testLocation,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:24: error: package org.junit.jupiter.api does not exist
+import org.junit.jupiter.api.Test;
+                            ^
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:25: error: package org.junit.jupiter.api.io does not exist
+import org.junit.jupiter.api.io.TempDir;
+     "
+E3_s3_s2,jsoup:ElementTest#testWholeText,escalated,compile: other,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:1636: error: method testChildSizeWithMixedContent() is already defined in class ElementTest
+    public void testChildSizeWithMixedContent() {
+                ^
+1 error
+"
+E3_s3_s2,jsoup:ElementTest#testGetDataNodes,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:24: error: package org.junit.jupiter.api does not exist
+import org.junit.jupiter.api.Assertions;
+                            ^
+data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:782: error: cannot find symbol
+        Assertions.assertEquals(EXPECTED_SCRIPT_DATA_NODES, scriptData"
+E3_s3_s2,jsoup:ElementTest#testGetElementById,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,jsoup:ElementTest#testClassUpdates,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s2,jsoup:NodeTest#nodeIsNotASiblingOfItself,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s2,jsoup:ConnectTest#sendsRequestBodyJsonWithoutData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s2,jsoup:ElementTest#testHasText,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,jsoup:ElementTest#testManipulateTextNodes,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s2,jsoup:AttributesTest#testIteratorSkipsInternal,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 1 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes$1.hasNext line 298 MathMutator"
+E3_s3_s2,jsoup:ElementTest#testClassDomMethods,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s2,jsoup:ElementTest#testBrHasSpace,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s2,jsoup:ElementTest#testKeepsPreTextAtDepth,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,commons-cli:TypeHandlerTest#testCreateFile,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['MysteryGuest']
+E3_s3_s3,commons-cli:DefaultParserTest#testDeprecated,escalated,semantic change: test now fails,test run,"test run failed:
+    => org.opentest4j.AssertionFailedError: Handler should be invoked for deprecated option d1 ==> expected: <true> but was: <false>
+[        75 tests successful      ]
+[         1 tests failed          ]"
+E3_s3_s3,commons-cli:HelpFormatterTest#testAccessors,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonArrayAsListTest#testIndexOf,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:GsonTest#testGetAdapter_Concurrency,escalated,malformed reply,static check,unbalanced braces or parentheses
+E3_s3_s3,gson:VersionExclusionStrategyTest#testNewerVersion,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/VersionExclusionStrategyTest.java:28: error: package org.junit.jupiter.api does not exist
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+                                   ^
+data/projects/gson/gson/src/test/java/com/google/gson/VersionExclusionStrategyTest.java:28: error: static import o"
+E3_s3_s3,gson:GsonTest#testNewJsonWriter_Custom,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/gson/gson/src/test/java/com/google/gson/GsonTest.java: warnings found and -Werror specified
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:t"
+E3_s3_s3,gson:JsonPrimitiveTest#testParsingStringAsBoolean,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+, new JsonPrimitive(5L));
+    ^
+  symbol:   variable MoreAsserts
+  location: class JsonPrimitiveTest
+data/projects/gson/gson/src/test/java/com/google/gson/JsonPrimitiveTest.java:284: error: cannot find symbol
+    MoreAsserts.assertEqualsAndHashCode(new JsonPrimitive('a'), new JsonPrimitive('a'));
+    ^
+  symbol:   variable MoreAsserts
+  location: class JsonPri"
+E3_s3_s3,gson:JsonReaderTest#testReadEmptyObject,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonPrimitiveTest#testByteEqualsInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonReaderTest#testNumberWithOctalPrefix,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s3,gson:JsonReaderTest#testStrictUnnecessaryArraySeparatorsWithSkipValue,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonReaderTest#testIntegerMismatchFailuresDoNotAdvance,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1097,21] [CheckReturnValue] The result of `nextInt()` must be used
+  If you really don't want to use the resul"
+E3_s3_s3,gson:JsonReaderTest#testSkipDouble,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+] The result of `nextName()` must be used
+[ERROR]   If you really don't want to use the result, then assign it to a variable: `var unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextName()` shouldn't be required to use its result, then annotate it wit"
+E3_s3_s3,gson:JsonPrimitiveTest#testShortEqualsLong,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonReaderTest#testCapitalizedFalseFailWhenStrict,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:40: error: package org.junit.jupiter.params does not exist
+import org.junit.jupiter.params.ParameterizedTest;
+                               ^
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:41: error: package org.junit.jupiter.params.provider does"
+E3_s3_s3,gson:JsonReaderTest#testEmptyString,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s3,gson:JsonPrimitiveTest#testFloatEqualsBigDecimal,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonReaderTest#testStringEndingInSlash,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette']
+E3_s3_s3,gson:JsonReaderTest#testMissingValue,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1015,22] [CheckReturnValue] The result of `nextName()` must be used
+  If you really don't want to use the resu"
+E3_s3_s3,gson:JsonReaderTest#testLenientPartialNonExecutePrefix,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1567,24] [CheckReturnValue] The result of `nextString()` must be used
+  If you really don't want to use the re"
+E3_s3_s3,gson:JsonReaderTest#testUnterminatedObject,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+If callers of `nextString()` shouldn't be required to use its result, then annotate it with `@CanIgnoreReturnValue`.
+  
+    (see https://errorprone.info/bugpattern/CheckReturnValue)
+  Did you mean 'var unused = reader.nextString();' or to remove this line"
+E3_s3_s3,gson:JsonReaderTest#testSkipObjectNameSingleQuoted,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonReaderTest#testUnescapingInvalidCharacters,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonPrimitiveTest#testByteEqualsShort,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonPrimitiveTest#testByteEqualsBigInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonReaderTest#testInvalidJsonInput,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:469: error: cannot find symbol
+          .named(""Exception message should match the expected malformed JSON message"")
+          ^
+  symbol:   method named(String)
+  location: class ThrowableSubject
+1 error
+"
+E3_s3_s3,gson:JsonArrayAsListTest#testSet,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/JsonArrayAsListTest.java:22: error: package com.google.gson.common does not exist
+import com.google.gson.common.MoreAsserts;
+                             ^
+data/projects/gson/gson/src/test/java/com/google/gson/JsonArrayAsListTest.java:239: error: cannot find symbol
+    MoreAsserts.assertEqualsAndHashCode(li"
+E3_s3_s3,gson:JsonReaderTest#testMixedCaseLiterals,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:40: error: package org.junit.jupiter.params does not exist
+import org.junit.jupiter.params.ParameterizedTest;
+                               ^
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:41: error: package org.junit.jupiter.params.provider does"
+E3_s3_s3,gson:JsonWriterTest#testObjectsInArrays,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonWriterTest#testNumbers,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 3 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): com.google.gson.stream.JsonWriter.beforeValue line 819 VoidMethodCallMutator; com.google.gson.stream.JsonWriter.setFormattingStyle line 271 NegateConditionalsMutator; com.google.gson.stream.JsonWriter.value line 657 VoidMethodCallMutator"
+E3_s3_s3,gson:JsonReaderTest#testStrictQuotedNonFiniteDoubles,escalated,compile: missing symbol or import,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:677: error: cannot find symbol
+          .named(""Exception message should match expected format"")
+          ^
+  symbol:   method named(String)
+  location: class ThrowableSubject
+1 error
+"
+E3_s3_s3,gson:LongSerializationPolicyTest#testStringLongSerializationNull,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonReaderTest#testStrictSemicolonDelimitedNameValuePairWithSkipValue,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:[1383,22] [CheckReturnValue] The result of `nextName()` must be used
+  If you really don't want to use the resu"
+E3_s3_s3,gson:JsonPrimitiveTest#testShortEqualsInteger,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,gson:JsonReaderTest#testPeekingUnquotedStringsPrefixedWithIntegers,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,gson:JsonReaderTest#testLenientNameValueSeparator,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:40: error: package org.junit.jupiter.params does not exist
+import org.junit.jupiter.params.ParameterizedTest;
+                               ^
+data/projects/gson/gson/src/test/java/com/google/gson/stream/JsonReaderTest.java:41: error: package org.junit.jupiter.params.provider does"
+E3_s3_s3,gson:JsonReaderTest#testReadObject,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+ of `nextString()` must be used
+[ERROR]   If you really don't want to use the result, then assign it to a variable: `var unused = ...`.
+[ERROR]   
+[ERROR]   If callers of `nextString()` shouldn't be required to use its result, then annotate it with `@CanI"
+E3_s3_s3,jsoup:ElementTest#testAddNewText,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,jsoup:ElementTest#testInnerHtml,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 35 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Document.outputSettings line 568 NullReturnValsMutator; org.jsoup.nodes.Document$OutputSettings.prettyPrint line 497 BooleanFalseReturnValsMutator; org.jsoup.nodes.Element.getElementsByTag line 871 NullReturnValsMutator; "
+E3_s3_s3,jsoup:ElementTest#testRelativeUrls,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,jsoup:ElementTest#testAppendRowToTable,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,jsoup:NodeTest#handlesAbsOnProtocolessAbsoluteUris,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Node.hasAttr line 105 NegateConditionalsMutator; org.jsoup.nodes.Node.hasAttr line 106 BooleanFalseReturnValsMutator"
+E3_s3_s3,jsoup:ElementTest#testGetTextNodes,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s3,jsoup:ElementTest#testGetChildText,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,jsoup:ParseTest#testNewsHomepage,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s3,jsoup:ElementTest#testAddBooleanAttribute,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 11 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes.copyOf line 69 VoidMethodCallMutator; org.jsoup.nodes.Attributes.indexOfKey line 77 NegateConditionalsMutator; org.jsoup.nodes.Attributes.indexOfKey line 78 PrimitiveReturnsMutator; org.jsoup.nodes.Attributes.i"
+E3_s3_s3,jsoup:ConnectTest#sendsRequestBodyJsonWithData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s3,jsoup:ElementTest#testNotPretty,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s3,jsoup:ConnectTest#sendsRequestBody,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s3,jsoup:ElementTest#testKeepsPreTextInCode,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s3,jsoup:DocumentTest#DocumentsWithSameContentAreEqual,escalated,compile: other,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:174: error: incompatible types: boolean cannot be converted to String
+        assertFalse(docA.equals(docB), ""Documents with different content should not be equal"");
+                               ^
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:175: error: incompatible ty"
+E3_s3_s3,jsoup:ElementTest#testHasClassDomMethods,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 2 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes.indexOfKey line 78 PrimitiveReturnsMutator; org.jsoup.nodes.Attributes.indexOfKeyIgnoreCase line 87 PrimitiveReturnsMutator"
+E3_s3_s3,jsoup:ElementTest#before,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,jsoup:TextNodeTest#testTextBean,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,jsoup:DocumentTest#testMetaCharsetUpdateIso8859,escalated,smell not removed / new smell,smell check,failed at smell check: targeted smells still present after refactoring: ['EagerTest']
+E3_s3_s3,jsoup:DocumentTest#testLocation,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:22: error: package org.junit.jupiter.api.io does not exist
+import org.junit.jupiter.api.io.TempDir;
+                               ^
+data/projects/jsoup/src/test/java/org/jsoup/nodes/DocumentTest.java:104: error: cannot find symbol
+    public void testLocationYahooJp(@TempDir File tempDir) thr"
+E3_s3_s3,jsoup:ElementTest#testWholeText,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s3,jsoup:FormElementTest#createsFormData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/jsoup/src/test/java/org/jsoup/nodes/FormElementTest.java:[77,58] lambda expressions are not supported in -source 7
+  (use -source 8 or higher to enable lambda expressions)
+[ERROR"
+E3_s3_s3,jsoup:ElementTest#testGetDataNodes,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s3,jsoup:ElementTest#testGetElementById,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s3,jsoup:ElementTest#testClassUpdates,escalated,malformed reply,static check,identical to an earlier rejected proposal
+E3_s3_s3,jsoup:ConnectTest#sendsRequestBodyJsonWithoutData,error,infrastructure error,exception,"RuntimeError: PIT produced no mutations.xml:
+[ERROR] Failed to execute goal org.pitest:pitest-maven:1.17.4:mutationCoverage (default-cli) on project jsoup: Execution default-cli of goal org.pitest:pitest-maven:1.17.4:mutationCoverage failed: No mutations found. This probably means there is an issue "
+E3_s3_s3,jsoup:ElementTest#testHasText,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest']"
+E3_s3_s3,jsoup:ElementTest#testManipulateTextNodes,escalated,compile: other,compile,"compilation failed:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:[1663,17] method testChildSizeWithMixedContent() is already defined in class org.jsoup.nodes.ElementTest
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:testCompile (default-testCompile) on project jsoup: Compilati"
+E3_s3_s3,jsoup:AttributesTest#testIteratorSkipsInternal,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 1 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Attributes$1.hasNext line 298 MathMutator"
+E3_s3_s3,jsoup:ElementTest#testClassDomMethods,escalated,smell not removed / new smell,smell check,"failed at smell check: targeted smells still present after refactoring: ['AssertionRoulette', 'EagerTest', 'MagicNumberTest']"
+E3_s3_s3,jsoup:ElementTest#testBrHasSpace,escalated,weakened test: kill-set loss,kill-set,"kill-set lost: 1 mutant(s) killed by the original test are no longer killed. Keep an assertion that detects each of these changes (class, method, line, mutator): org.jsoup.nodes.Element.select line 396 NullReturnValsMutator"
+E3_s3_s3,jsoup:TextNodeTest#testHasTextWhenIterating,escalated,compile: API not in the project,compile,"compilation failed:
+COMPILATION ERROR
+data/projects/jsoup/src/test/java/org/jsoup/nodes/TextNodeTest.java:17: error: package org.junit.jupiter.api does not exist
+import org.junit.jupiter.api.Test;
+                            ^
+data/projects/jsoup/src/test/java/org/jsoup/nodes/TextNodeTest.java:18: error: package org.junit.jupiter.api.condition does not exist
+import org.junit.jupiter.api.condition."
+E3_s3_s3,jsoup:ElementTest#testKeepsPreTextAtDepth,escalated,compile: other,compile,"compilation failed:
+[ERROR] COMPILATION ERROR : 
+[ERROR] /home/hasan/AgenticProj_c/data/projects/jsoup/src/test/java/org/jsoup/nodes/ElementTest.java:[107,20] variable reference is already defined in class org.jsoup.nodes.ElementTest
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:testCompile (default-testCompile) on project jsoup: Compilation failure
+[ERROR] /h"

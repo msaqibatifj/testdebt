@@ -1,0 +1,2 @@
+config,run,accepted_rate,pass_rate,smell_reduction_tsdetect,smell_reduction_strict,accepted_losing_mutants_rate,accepted_safe_rate,tokens_per_test,tests,errors,smell_reduction_accepted
+b0replay,E1_b0replay_s1,18.4,18.4,57.0,54.6,3.4,11.8,0,483,19,77.1

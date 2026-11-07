@@ -1,0 +1,8 @@
+config,run,accepted_rate,pass_rate,smell_reduction_tsdetect,smell_reduction_strict,accepted_losing_mutants_rate,accepted_safe_rate,tokens_per_test,tests,errors,smell_reduction_accepted
+s3-G1,E5_s3-G1_s1,54.0,77.3,49.1,49.3,7.7,26.0,9130,150,8,73.8
+s3-G1,E5_s3-G1_s2,54.7,76.0,46.2,50.3,7.7,27.3,9019,150,12,73.2
+s3-G1,E5_s3-G1_s3,56.7,73.3,48.5,54.1,8.6,28.0,8851,150,12,72.7
+s3-G2,E5_s3-G2_s1,44.7,66.7,59.2,60.8,0.0,39.3,11228,150,13,97.0
+s3-G6,E5_s3-G6_s1,51.3,84.7,53.3,50.6,0.0,26.0,6659,150,14,73.4
+s3-memory,E5_s3-memory_s1,52.0,74.7,45.6,47.8,0.0,26.7,8709,150,16,73.7
+minus_all,E5_minus_all_s1,42.0,67.3,62.1,60.3,3.3,34.7,8460,150,10,100.0

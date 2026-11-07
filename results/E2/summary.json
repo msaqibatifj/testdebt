@@ -1,0 +1,126 @@
+{
+ "b0": {
+  "seeds": 1,
+  "accepted_rate": [
+   54.7,
+   0.0
+  ],
+  "pass_rate": [
+   54.7,
+   0.0
+  ],
+  "smell_reduction_tsdetect": [
+   64.2,
+   0.0
+  ],
+  "smell_reduction_strict": [
+   61.7,
+   0.0
+  ],
+  "accepted_losing_mutants_rate": [
+   1.2,
+   0.0
+  ],
+  "accepted_safe_rate": [
+   26.7,
+   0.0
+  ],
+  "tokens_per_test": [
+   3183.0,
+   0.0
+  ]
+ },
+ "single": {
+  "seeds": 1,
+  "accepted_rate": [
+   82.0,
+   0.0
+  ],
+  "pass_rate": [
+   82.0,
+   0.0
+  ],
+  "smell_reduction_tsdetect": [
+   53.8,
+   0.0
+  ],
+  "smell_reduction_strict": [
+   49.1,
+   0.0
+  ],
+  "accepted_losing_mutants_rate": [
+   null,
+   null
+  ],
+  "accepted_safe_rate": [
+   null,
+   null
+  ],
+  "tokens_per_test": [
+   1799.0,
+   0.0
+  ]
+ },
+ "b1": {
+  "seeds": 1,
+  "accepted_rate": [
+   41.3,
+   0.0
+  ],
+  "pass_rate": [
+   67.3,
+   0.0
+  ],
+  "smell_reduction_tsdetect": [
+   63.0,
+   0.0
+  ],
+  "smell_reduction_strict": [
+   60.5,
+   0.0
+  ],
+  "accepted_losing_mutants_rate": [
+   0.0,
+   0.0
+  ],
+  "accepted_safe_rate": [
+   35.3,
+   0.0
+  ],
+  "tokens_per_test": [
+   8495.0,
+   0.0
+  ]
+ },
+ "b2": {
+  "seeds": 1,
+  "accepted_rate": [
+   26.7,
+   0.0
+  ],
+  "pass_rate": [
+   43.3,
+   0.0
+  ],
+  "smell_reduction_tsdetect": [
+   60.7,
+   0.0
+  ],
+  "smell_reduction_strict": [
+   61.8,
+   0.0
+  ],
+  "accepted_losing_mutants_rate": [
+   0.0,
+   0.0
+  ],
+  "accepted_safe_rate": [
+   24.0,
+   0.0
+  ],
+  "tokens_per_test": [
+   4121.0,
+   0.0
+  ]
+ }
+}

@@ -1,0 +1,16 @@
+\begin{tabular}{lrrr}
+\toprule
+Failure mode & Count & \% of failures & \% of tests \\
+\midrule
+infrastructure error & 35 & 16.4 & 7.8 \\
+malformed reply & 49 & 22.9 & 10.9 \\
+compile: API not in the project & 11 & 5.1 & 2.4 \\
+compile: missing symbol or import & 13 & 6.1 & 2.9 \\
+compile: other & 7 & 3.3 & 1.6 \\
+semantic change: test now fails & 5 & 2.3 & 1.1 \\
+weakened test: kill-set loss & 21 & 9.8 & 4.7 \\
+smell not removed / new smell & 73 & 34.1 & 16.2 \\
+\midrule
+Total & 214 & 100 & 47.6 \\
+\bottomrule
+\end{tabular}
