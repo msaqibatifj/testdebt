@@ -1,0 +1,27 @@
+{
+  "accepted": 77,
+  "measured": 76,
+  "empty": 1,
+  "unmeasured": 0,
+  "preserved": 76,
+  "preserved_rate": 100.0,
+  "lines_lost_total": 0,
+  "lines_lost_mean_when_lost": 0.0,
+  "by_project": {
+    "commons-cli": {
+      "accepted": 22,
+      "measured": 21,
+      "preserved": 21
+    },
+    "gson": {
+      "accepted": 35,
+      "measured": 35,
+      "preserved": 35
+    },
+    "jsoup": {
+      "accepted": 20,
+      "measured": 20,
+      "preserved": 20
+    }
+  }
+}

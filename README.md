@@ -189,6 +189,7 @@ for e in E1 E2 E3 E5 ES E4 E6; do $X summarize $e; done
 python3 -m testdebt.team.hasan.failures runs/E3_s3_s1 runs/E3_s3_s2 runs/E3_s3_s3 --name E3
 python3 -m testdebt.team.hasan.figures
 python3 -m testdebt.team.hasan.gap_table --readme README.md
+python3 -m testdebt.eval.coverage logs/E3_s3_s1   # JaCoCo post-hoc check -> results/coverage/ (jars: see src/testdebt/tools/jacoco.py)
 python3 scripts/paired_extra.py
 ```
 Then copy the tables and figures into `paper/` as the last lines of `experiments/run_all.sh` do.

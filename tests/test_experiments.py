@@ -32,8 +32,8 @@ def test_summaries_from_saved_runs(tmp_path, monkeypatch):
     assert (tmp_path / "results/E3/runs/E3_s3_s1/report.json").exists()
     e4 = ex.summarize_e4()
     g6 = e4["paired_tests"]["G6: s3 vs b1 (accepted and safe)"]
-    assert g6["pairs"] == 10 and g6["mcnemar"]["only_a"] == 4 and "p_holm" in g6
-    assert {r["system"]: r["lost"] for r in e4["g1_killset_loss"]}["E2/b0"] == 5
+    assert g6["pairs"] == 30 and g6["mcnemar"]["only_a"] == 12   # pooled over the 3 seeds and "p_holm" in g6
+    assert {r["system"]: r["lost"] for r in e4["g1_killset_loss"]}["E2/b0"] == 15
     e6 = ex.summarize_e6()
     assert e6["E3/s3"]["llm_calls_per_test"] == (0.1, 0.0) and e6["E3/s3"]["pit_s_per_test"] == (2.0, 0.0)
 
