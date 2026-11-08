@@ -160,7 +160,9 @@ class LLMClient:
                     "response_raw_message": msg,
                 }
                 if cache_file:
-                    cache_file.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
+                    tmp = cache_file.with_suffix(".tmp")   # write then rename: a killed run leaves no half file
+                    tmp.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
+                    tmp.replace(cache_file)
                 self._log({"ts": time.time(), "tag": tag, "key": key, "cached": False, **result})
                 self.spent_today()
                 self._spent += result["usage"].get("total_tokens", 0)

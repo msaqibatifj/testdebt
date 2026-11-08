@@ -57,9 +57,11 @@ def write_report(run_dir: Path) -> dict:
 
 
 def git_state() -> tuple[str, bool]:
-    """(HEAD commit, tracked files modified): recorded in config.json so every number names the code it came from."""
+    """(HEAD commit, code changed): tracked files modified, or untracked files where code and settings live.
+    Recorded in config.json so every number names the code it came from."""
     git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True).stdout.strip()
-    return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no"))
+    return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no")
+                                          or git("ls-files", "--others", "--exclude-standard", "--", "src", "configs", "experiments", "data/splits"))
 
 
 def prompt_hash() -> str:
@@ -86,6 +88,17 @@ def check_resume(run_dir: Path, system: str, split, pit: bool, gate: str, frozen
                          "use a new --run-id or move the old run away")
 
 
+def select_input(rows: list[dict], spec: str) -> list[dict]:
+    """--input Foo.java[#method]: the eval rows of that file. Smells and module come from the eval set, so the file
+    must be one of its tests (shortcut: no detection on arbitrary files; add tsDetect on the fly if that is needed)."""
+    file, _, method = spec.partition("#")
+    hit = [r for r in rows if (r["file"] == file or r["file"].endswith("/" + file.lstrip("./")))
+           and (not method or r["method"] == method)]
+    if not hit:
+        raise SystemExit(f"--input {spec}: no test of that file{' and method' if method else ''} in the eval set")
+    return hit
+
+
 def apply_gaps(a, gaps: set) -> None:
     """gap1 = PIT kill-set gate (off: PIT still measures but never rejects), gap2 = tsDetect+JNose consensus,
     gap6 = adaptive supervision + memory. Only s3 has gap2 and gap6. Single source for run_system() and --gaps."""
@@ -107,6 +120,8 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--eval", default="data/eval_set.jsonl")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--project", default="", help="only tests of this project, e.g. commons-cli")
+    ap.add_argument("--input", default="", metavar="FooTest.java[#method]",
+                    help="only tests of this test file (path or file name), optionally one method; must be in --eval")
     ap.add_argument("--detector", choices=["tsdetect", "consensus", "union"],
                     help="s3: smells to target / count as gone; tsdetect = -G2 ablation")
     ap.add_argument("--split", choices=["dev", "test", "rest", "all"], help="only tests in data/splits/<split>.jsonl")
@@ -203,6 +218,8 @@ def main(argv: list[str] | None = None) -> None:
         rows = [by_id[i] for i in ids]
     if a.project:
         rows = [r for r in rows if r["project"] == a.project]
+    if a.input:
+        rows = select_input(rows, a.input)
     rows = rows[:a.limit] if a.limit else rows
     if a.frozen and not a.skip_verify and (bad := RestoreCheck.dirty(r["module_dir"] for r in rows)):
         raise SystemExit(f"--frozen needs clean project checkouts; modified: {bad} (git -C <dir> checkout -- .)")

@@ -128,6 +128,7 @@ SPLIT=dev LIMIT=2 bash experiments/run_all.sh        # smoke run on dev -> resul
 # one system, one seed, gaps chosen by name (gap1 kill-set gate, gap2 consensus detector, gap6 adaptive supervisor):
 python -m experiments.run_experiment --system s3 --split dev --limit 5 --gaps gap1,gap2,gap6 --seed 1
 testdebt --system s3 --split dev --limit 5 --gaps gap2,gap6      # same switches on the CLI; gap1 off = PIT measures, never rejects
+veriref --system s3 --input ArgumentIsOptionTest.java#testOption --gaps gap1,gap2   # one test file (or method) from the eval set
 python -m veriref --help                                          # alias of testdebt (dataset-based: no --input FooTest.java mode)
 ```
 
