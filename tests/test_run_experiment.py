@@ -29,3 +29,13 @@ def test_gap_mapping():
 def test_unknown_gap():
     with pytest.raises(SystemExit):
         cli.apply_gaps(_ns("s3"), {"gap9"})
+
+
+def test_select_input():
+    rows = [{"file": "data/projects/p/src/test/FooTest.java", "method": "a"},
+            {"file": "data/projects/p/src/test/FooTest.java", "method": "b"},
+            {"file": "data/projects/p/src/test/BarFooTest.java", "method": "a"}]
+    assert len(cli.select_input(rows, "FooTest.java")) == 2
+    assert cli.select_input(rows, "src/test/FooTest.java#b") == [rows[1]]
+    with pytest.raises(SystemExit):
+        cli.select_input(rows, "Missing.java")

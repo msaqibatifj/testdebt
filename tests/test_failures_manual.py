@@ -22,6 +22,9 @@ def test_failure_categories():
         "fixture clobbered by extracted setup"
     assert classify(rec(compiled=True, passed=True, killset_preserved=False))[0] == "weakened test: kill-set loss"
     assert classify(rec("escalated", "failed at compile | token cap reached", compiled=False))[0] == "budget exhausted"
+    assert classify(rec(compiled=False, problem="compilation failed:\nTIMEOUT"))[:2] == ("infrastructure error", "compile")
+    assert classify(rec(compiled=True, passed=False, problem="test run failed:\nTIMEOUT"))[:2] == \
+        ("infrastructure error", "test run")
 
 
 def test_manual_sample_and_score(tmp_path):

@@ -44,7 +44,7 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 | s1 | End-to-end pipeline as one agentic workflow on the full evaluation suite, gaps via `GapSwitch` | [x] `run_system()` |
 | s2 | Trajectory logging in every agent: `reason`, `tool_call`/`tool_result` (with token counts), `state`, `retry`, `error`, one `final` with `failure_mode` | [x] |
 | r1 | README: overview, setup, run steps, gap-resolution table | [x] gap table and results filled |
-| r2 | CLI entry point, e.g. `python -m veriref --input FooTest.java --gaps gap1,gap2` | [~] `veriref` and `testdebt` both take `--gaps`; dataset-based, no `--input` file mode |
+| r2 | CLI entry point, e.g. `python -m veriref --input FooTest.java --gaps gap1,gap2` | [x] `veriref` and `testdebt` take `--gaps` and `--input Foo.java[#method]` (file must be in the eval set, where its smells come from) |
 | r6 | `bash experiments/run_all.sh` reproduces E1-E6 into `results/` | [x] run on test from `3b992f2` with `--frozen` (reduced seed grid) |
 | r8 | Tag `phase2-final` and push before deadline; only code in the tag is graded | [ ] |
 | e3 | E3 full system on test, 3 seeds, mean ± std | [x] |

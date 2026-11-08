@@ -32,7 +32,9 @@ class KillsetGate:
         fqn, targets = (f"{pkg}.{test.class_name}", f"{pkg}.*") if pkg else (test.class_name, "*")
         mat = self.pit.run(test.module_dir, fqn, targets, test.project)
         f.parent.mkdir(parents=True, exist_ok=True)
-        f.write_text(json.dumps({k: sorted(v) for k, v in mat.items()}))
+        tmp = f.with_suffix(".tmp")       # write then rename: a killed run leaves no half file
+        tmp.write_text(json.dumps({k: sorted(v) for k, v in mat.items()}))
+        tmp.replace(f)
         return mat
 
     def before(self, test: TestRef, original_src: str) -> set:

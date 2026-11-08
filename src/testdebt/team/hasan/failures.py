@@ -42,6 +42,8 @@ def classify(r: dict) -> tuple[str, str, str]:
         if "assertions dropped" in msg:
             return "assertion dropped or empty test", "static check", msg
         return "malformed reply", "static check", msg
+    if msg.rstrip().endswith("TIMEOUT"):     # the runner killed the build/test, not the refactoring's fault
+        return "infrastructure error", "compile" if rep.get("compiled") is False else "test run", msg
     if rep.get("compiled") is False:
         if FOREIGN_API.search(msg):
             return "compile: API not in the project", "compile", msg
