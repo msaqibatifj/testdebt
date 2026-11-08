@@ -10,7 +10,7 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 |---|---|---|
 | r5 | Frozen dev/test splits in `data/splits/` (`dev_ids.txt`/`test_ids.txt` or script plus checksums), README table filled. Never tune on test. | [x] `.jsonl` files + `SHA256SUMS` + README |
 | s3 | Gap 1 as its own module behind `gaps.enabled("gap1")`, listed in `KNOWN_GAPS`; pipeline runs with `gap1: false` | [x] kill-set gate (`team/gulsher/killset_gate.py`), switch is `--gaps` / `--killset-gate off` (PIT still measures) |
-| s5 | Real tool wrappers (test runner, compiler/build, AST parser, coverage); each call logged as `tool_call`/`tool_result` | [~] JaCoCo coverage not implemented; PIT kill-set used instead |
+| s5 | Real tool wrappers (test runner, compiler/build, AST parser, coverage); each call logged as `tool_call`/`tool_result` | [x] JaCoCo wrapper `tools/jacoco.py`, run post hoc by `eval/coverage.py` on E3 seed 1 (76/76 measured keep coverage); PIT kill-set is the gate |
 | s6 | Verification, retry (cap, e.g. 3), feed error back, roll back to original and log `final` with `failure_mode` | [x] |
 | r4 | Pinned `requirements.txt`, `.env.example`, no secrets in git history | [x] checked 2026-11-06, clean |
 | e2 | E2 UTRefactor on identical split and metrics; label each number **reproduced** or **paper-reported** (`source: paper-reported`) | [x] `results/E2/vs_paper.tex`: paper-reported vs reproduced per project |

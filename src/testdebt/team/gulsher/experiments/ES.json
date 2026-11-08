@@ -1,5 +1,5 @@
 {"experiment": "ES", "question": "Sensitivity (dev split only, never test): how do acceptance and tokens change with the retry cap? s3, no PIT, first 20 dev tests.",
- "runs": [{"name": "s3-retries0", "args": ["--system", "s3", "--max-retries", "0"], "split": "dev", "limit": 20, "seeds": [1]},
-          {"name": "s3-retries1", "args": ["--system", "s3", "--max-retries", "1"], "split": "dev", "limit": 20, "seeds": [1]},
-          {"name": "s3-retries2", "args": ["--system", "s3", "--max-retries", "2"], "split": "dev", "limit": 20, "seeds": [1]},
-          {"name": "s3-retries4", "args": ["--system", "s3", "--max-retries", "4"], "split": "dev", "limit": 20, "seeds": [1]}]}
+ "runs": [{"name": "s3-retries0", "args": ["--system", "s3", "--max-retries", "0"], "split": "dev", "limit": 20, "seeds": [1, 2, 3]},
+          {"name": "s3-retries1", "args": ["--system", "s3", "--max-retries", "1"], "split": "dev", "limit": 20, "seeds": [1, 2, 3]},
+          {"name": "s3-retries2", "args": ["--system", "s3", "--max-retries", "2"], "split": "dev", "limit": 20, "seeds": [1, 2, 3]},
+          {"name": "s3-retries4", "args": ["--system", "s3", "--max-retries", "4"], "split": "dev", "limit": 20, "seeds": [1, 2, 3]}]}

@@ -10,7 +10,7 @@ All systems use one model, \texttt{gpt-oss-120b}. A stronger model might make fe
 
 \textbf{Construct.} The PIT kill set is a proxy for test strength: a weaker assertion can still kill the same mutants, and mutants outside PIT's default mutators are invisible to it. Tests with an empty baseline kill set are reported as unknown, not as safe.
 ``Smell removed'' depends on the detector: tsDetect and JNose disagree on ExceptionHandling and DuplicateAssert, and the trajectories show escalations caused by such disagreements alone. Our aggregate rule-ii reduction is not directly comparable to rule~i, because rule~ii is computed only over outputs that JNose could analyse.
-The accepted-and-safe rate checks all smells labelled in~\cite{utrefactor}; this choice makes consensus targeting look worse than a metric over targeted smells would, and we report both views. Rule~iii (the manual sample) was not completed. JaCoCo coverage, planned in Phase~1, was not used.
+The accepted-and-safe rate checks all smells labelled in~\cite{utrefactor}; this choice makes consensus targeting look worse than a metric over targeted smells would, and we report both views. Rule~iii (the manual sample) was not completed. JaCoCo line coverage was measured after the runs on one seed of \textsf{s3} only, and is not used as a gate.
 Finally, our evaluation set has 484 tests rather than the 593 of~\cite{utrefactor}, because only these match the pinned project commits, and Gson is compiled against its own test dependencies, which~\cite{utrefactor} evidently did not do.
 
 \section{Conclusion}\label{sec:conclusion}

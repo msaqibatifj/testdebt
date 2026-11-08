@@ -1,5 +1,5 @@
 {"experiment": "E2", "question": "Do we reproduce [1]'s method on our data and metrics, and how do the baselines compare? (b0replay is E1.)",
- "runs": [{"name": "b0", "args": ["--system", "b0", "--pit"], "split": "test", "seeds": [1]},
-          {"name": "single", "args": ["--system", "single"], "split": "test", "seeds": [1]},
-          {"name": "b1", "args": ["--system", "b1", "--pit"], "split": "test", "seeds": [1]},
-          {"name": "b2", "args": ["--system", "b2", "--pit"], "split": "test", "seeds": [1]}]}
+ "runs": [{"name": "b0", "args": ["--system", "b0", "--pit"], "split": "test", "seeds": [1, 2, 3]},
+          {"name": "single", "args": ["--system", "single"], "split": "test", "seeds": [1, 2, 3]},
+          {"name": "b1", "args": ["--system", "b1", "--pit"], "split": "test", "seeds": [1, 2, 3]},
+          {"name": "b2", "args": ["--system", "b2", "--pit"], "split": "test", "seeds": [1, 2, 3]}]}

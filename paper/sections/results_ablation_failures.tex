@@ -24,6 +24,7 @@ The answer is yes. With the gate, no accepted output of \textsf{s3} lost a mutan
 On the tests with a non-empty baseline kill set (129 to 134 tests per seed), the loss rate is 0\% against 4.8 $\pm$ 0.6\%.
 Pooled over 450 (test, seed) pairs, 19 pairs were accepted-and-weakened without the gate and none with it (exact McNemar, Holm-corrected $p<0.001$; 95\% bootstrap interval for the difference $-6.2$ to $-2.4$ points). Token use did not differ (Wilcoxon $p=0.37$).
 The baselines also lose mutants: 3 of the 88 checked published outputs (3.4\%, Wilson interval 1.2--9.5\%) and 1 of 81 \textsf{b0} outputs (1.2\%). These are outputs that~\cite{utrefactor}'s acceptance rule would count as successful refactorings.
+Line coverage agrees with the gate on \textsf{s3}: replaying the 77 accepted outputs of seed~1 under JaCoCo, all 76 that cover main code still cover every line the original covered (one test covers no main code and is reported as unknown). The check does detect loss: replacing a test with an empty one drops 133 of its 190 lines.
 
 \subsection{RQ2 (G2): does detector consensus make smell removal more trustworthy?}
 \textbf{H2:} the gap between rule~i and rule~ii is largest for the smells on which the detectors disagree.
