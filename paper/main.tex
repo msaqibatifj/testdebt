@@ -17,7 +17,7 @@ UTRefactor, the state of the art, accepts any output that compiles and passes an
 We present VeriRefactor, a multi-agent system in which tools decide acceptance: a Supervisor coordinates Detection, Planner, Refactor and Verifier agents and chooses its next step from the Verifier's report.
 Three components target three gaps: a mutation-testing gate rejects any refactoring that loses a mutant the original test killed (G1); smells are targeted and counted as removed only when tsDetect and JNose agree (G2); and adaptive supervision with memory replaces a fixed retry script (G6).
 On 150 held-out tests from Commons-cli, Gson and Jsoup, with \texttt{gpt-oss-120b} and three seeds, the full system accepts 52.4 $\pm$ 1.0\% of the tests and no accepted output loses a mutant; with the gate switched off, 8.0 $\pm$ 0.5\% of accepted outputs do (exact McNemar, $p<0.001$).
-The two detectors disagree sharply on some smells ($\kappa=0.02$ for ExceptionHandling), but targeting only the smells both confirm lowered the accepted-and-safe rate by 15 points, and the adaptive Supervisor did not beat a fixed retry script (24.0\% against 35.3\% accepted and safe).
+The two detectors disagree sharply on some smells ($\kappa=0.02$ for ExceptionHandling), but targeting only the smells both confirm lowered the accepted-and-safe rate by 15 points, and the adaptive Supervisor did not beat a fixed retry script (24.0\% against 35.3\% accepted and safe, seed~1).
 Replaying UTRefactor's published outputs through our verifier reproduces its Commons-cli result (86.4\% against 86\% smell reduction) but not its Gson and Jsoup results.
 We release the system, all trajectories and the scripts that rebuild every table.
 \end{abstract}
