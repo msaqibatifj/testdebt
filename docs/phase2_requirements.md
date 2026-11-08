@@ -66,7 +66,7 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 |---|---|---|
 | p1 | Every Phase 1 supervisor comment addressed; one line per comment sent to Saqib | n/a: no Phase 1 feedback received |
 | s7 | Devlog entries: date, failure seen, change, measured effect on dev (`docs/devlog.md`) | [x] every effect cell measured from dev/pilot runs |
-| r7 | Commits under your own name (balanced history) | [~] 24 / 7 / 7 commits (Saqib / Gulsher / Hasan, `.mailmap` merges Gulsher's two names) |
+| r7 | Commits under your own name (balanced history) | [~] 24 / 11 / 7 commits (Saqib / Gulsher / Hasan, `.mailmap` merges Gulsher's two names) |
 | e10 | Gap-resolution table filled, identical in README and paper; check against `results/` | [x] README and `paper/tables/gap_table.tex` both generated from `results/` (checked identical 2026-11-08) |
 | w9 | About 10 references with DOIs each (25-30 total, peer-reviewed preferred) | [x] 26 entries, all 26 DOIs resolve at doi.org (checked 2026-11-08) |
 | w10 | Every number in the paper traces to `results/` or `logs/` | [x] tables byte-identical to `results/`; prose spot-checked against `results/E*/summary.json` and `E4/paired_extra.json`; seed-1 vs 3-seed numbers now labelled |
