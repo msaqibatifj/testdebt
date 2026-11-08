@@ -39,8 +39,8 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 
 | ID | Requirement | Status |
 |---|---|---|
-| p2 | README "Phase 1 feedback addressed" and "Changes since Phase 1" | [~] needs members' feedback lines |
-| p3 | Confirm base paper (UTRefactor) and gaps unchanged; any change needs **written** approval from Meemon Khan | [ ] confirm |
+| p2 | README "Phase 1 feedback addressed" and "Changes since Phase 1" | [~] no Phase 1 feedback received; "Changes since Phase 1" done |
+| p3 | Confirm base paper (UTRefactor) and gaps unchanged; any change needs **written** approval from Meemon Khan | [x] unchanged vs Phase 1 (`4f7c545`), checked 2026-11-08 |
 | s1 | End-to-end pipeline as one agentic workflow on the full evaluation suite, gaps via `GapSwitch` | [x] `run_system()` |
 | s2 | Trajectory logging in every agent: `reason`, `tool_call`/`tool_result` (with token counts), `state`, `retry`, `error`, one `final` with `failure_mode` | [x] |
 | r1 | README: overview, setup, run steps, gap-resolution table | [x] gap table and results filled |
@@ -64,7 +64,7 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 
 | ID | Requirement | Status |
 |---|---|---|
-| p1 | Every Phase 1 supervisor comment addressed; one line per comment sent to Saqib | [ ] comments not in repo |
+| p1 | Every Phase 1 supervisor comment addressed; one line per comment sent to Saqib | n/a: no Phase 1 feedback received |
 | s7 | Devlog entries: date, failure seen, change, measured effect on dev (`docs/devlog.md`) | [x] every effect cell measured from dev/pilot runs |
 | r7 | Commits under your own name (balanced history) | [~] 24 / 7 / 7 commits (Saqib / Gulsher / Hasan, `.mailmap` merges Gulsher's two names) |
 | e10 | Gap-resolution table filled, identical in README and paper; check against `results/` | [x] README and `paper/tables/gap_table.tex` both generated from `results/` (checked identical 2026-11-08) |

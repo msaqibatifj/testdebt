@@ -197,7 +197,7 @@ Then copy the tables and figures into `paper/` as the last lines of `experiments
 _Supervisor comments are not in the repo; each member must paste theirs here (`comment -> change -> commit`) before the tag._
 
 - Candidate fixes from history: PIT baseline measured refactored code (`5cf24e3`); splits frozen (`0e1f7da`); per-test error capture (`888b2eb`).
-- Base paper (UTRefactor) and gaps G1, G2, G6 are unchanged since Phase 1 (to be confirmed by Saqib; any change needs Meemon Khan's written approval).
+- Base paper (UTRefactor) and gaps G1, G2, G6 are unchanged since Phase 1 (checked 2026-11-08 against the Phase 1 code, `4f7c545`: G1 kill-set gate, G2 second detector, G6 S3 vs B1/B2; no change needed Meemon Khan's approval).
 
 ## Changes since Phase 1
 
