@@ -50,13 +50,13 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 | e3 | E3 full system on test, 3 seeds, mean ± std | [x] |
 | e6 | E6 efficiency and reliability: latency, tokens, tool calls, retries, recovery rate; cost $0 on free tier | [x] |
 | e7 | Log model ID, temperature, system-prompt hash, seed, git commit on every run | [x] all in `config.json`, incl. `prompt_hash` |
-| w1 | IEEEtran two-column, 8-10 pages including references | [x] Hasan's build is 8 pages; recheck after final compile |
+| w1 | IEEEtran two-column, 8-10 pages including references | [x] 8 pages (Overleaf build, 8 Nov) |
 | w2 | Front matter: title, G2-10, names, IDs, institutional emails | [x] emails follow the institutional pattern i23XXXX@isb.nu.edu.pk |
 | w3 | Abstract, 150-250 words (write last) | [x] 245 words |
 | w4 | Introduction (ends with RQs per gap and contributions), Related Work, Problem Formulation (input suite, smell set, tool set, state space, output, constraints) | [x] |
 | w5 | Proposed System plus architecture diagram, same figure in `docs/architecture.md` | [x] diagram exists |
-| u1 | PDF named `Phase2_G2-10_23I-0769_Paper.pdf` | [~] Hasan built one (7 Nov); rebuild from the tag |
-| u2 | LaTeX source ZIP via `bash paper/make_zip.sh` | [~] Hasan built one (7 Nov); rebuild from the tag |
+| u1 | PDF named `Phase2_G2-10_23I-0769_Paper.pdf` | [x] Overleaf build of 8 Nov (8 pages), matches current paper source |
+| u2 | LaTeX source ZIP via `bash paper/make_zip.sh` | [x] Overleaf build of 8 Nov (8 pages), matches current paper source |
 | u3 | Links to repo (public or shared with supervisor) and the `phase2-final` tag | [ ] |
 | u4 | Upload to Google Classroom (group head only) | [ ] |
 
