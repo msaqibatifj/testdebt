@@ -3,7 +3,7 @@
 % (scripts/paired_extra.py) and results/failures/E3_counts.json.
 \section{Results}\label{sec:results}
 
-All numbers in this section refer to the 150-test split, with the same tests for every system. Where three seeds were run (\textsf{s3} and \textsf{s3-G1}) we give mean $\pm$ standard deviation; every other row is a single seed.
+All numbers in this section refer to the 150-test split, with the same tests for every system. Where three seeds were run (\textsf{s3} and \textsf{s3-G1}) we give mean $\pm$ standard deviation; every other row is a single seed. Paired tests against a single-seed configuration use seed~1 of \textsf{s3} (51.3\% accepted, 24.0\% accepted-and-safe; the three-seed means are 52.4 $\pm$ 1.0\% and 25.8 $\pm$ 1.6\%).
 Table~\ref{tab:systems} lists all systems. Table~\ref{tab:vspaper} sets our numbers next to the ones printed in~\cite{utrefactor}, and each base-paper figure is marked as \emph{reproduced} (we ran it) or \emph{paper-reported} (copied from~\cite{utrefactor}).
 
 \begin{table*}[t]\centering\caption{All systems on the test split (E1--E3). Red.\ i: smell reduction counted by tsDetect alone, as in~\cite{utrefactor}; Red.\ ii: a smell counts as removed only when both detectors stop reporting it; Lose mut.: share of accepted outputs that lose at least one mutant; Acc.+safe: accepted, kill set preserved, and none of the labelled smells left under rule~ii. Top row: mean $\pm$ sd over three seeds.}\label{tab:systems}

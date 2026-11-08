@@ -177,8 +177,8 @@ Numbers from `results/` (mean ± sd over three seeds for `s3` and `s3-G1`, one s
 | `s3`, fixed policy (`-G6`) | 51.3 | 26.0 | 0 | 6,659 |
 
 - **G1** works: the gate keeps every accepted output at full mutant strength (paired McNemar over 450 pairs, p < 0.001).
-- **G2** is partial: the detectors disagree on some smells (kappa 0.02 on ExceptionHandling), but targeting only consensus smells lowers accepted-and-safe by 15 points.
-- **G6** is not supported: the adaptive Supervisor is below the fixed-retry baseline `b1` (24.0 vs 35.3 %, p = 0.003) and level with its own fixed policy.
+- **G2** is partial: the detectors disagree on some smells (kappa 0.02 on ExceptionHandling), but targeting only consensus smells lowers accepted-and-safe by 15 points (seed 1; 13.5 against the three-seed mean).
+- **G6** is not supported: the adaptive Supervisor is below the fixed-retry baseline `b1` (24.0 vs 35.3 % on seed 1, p = 0.003; three-seed mean 25.8 ± 1.6) and level with its own fixed policy.
 
 Rebuild every table and figure from the run folders (unpack `hasan_runs.tgz` and `hasan_e1.tgz` into the repository root, so they land in `runs/`; no LLM calls):
 
