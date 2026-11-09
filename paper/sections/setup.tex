@@ -19,7 +19,7 @@ per-test token cap and test set. E3 is \textsf{s3} with all three gap components
 E2 numbers are labelled \emph{reproduced} when we ran the system and \emph{paper-reported} when they are copied from~\cite{utrefactor}.
 
 \textbf{Model and parameters.} All LLM calls go to Cerebras \texttt{gpt-oss-120b} (free tier, 5 requests/min, 950k tokens/day) at temperature 0.7, at most
-8000 output tokens per call and 60\,000 tokens per test. Because one test-split run of the full system takes hours (PIT), we use a reduced grid: seeds 1, 2 and 3 for the full system (E3) and for \textsf{-G1} (E5), and seed 1 for the baselines and the other ablations (see \texttt{experiments/E*.json}); mean $\pm$ sd is therefore reported only where 3 seeds were run. A sensitivity run (ES) varies the retry cap (0, 1, 2, 4) for \textsf{s3} on the first 20 dev tests; the LLM response cache is keyed by prompt and seed.
+8000 output tokens per call and 60\,000 tokens per test. Every configuration on the test split is run with seeds 1, 2 and 3 (see \texttt{experiments/E*.json}), and we report mean $\pm$ sd over them; the replay \textsf{b0replay} calls no LLM and is run once. A sensitivity run (ES) varies the retry cap (0, 1, 2, 4) for \textsf{s3} on the first 20 dev tests; the LLM response cache is keyed by prompt and seed.
 Every run records the model ID, temperature, system-prompt hash, seed and git commit in \texttt{config.json} and in the trajectory metadata.
 
 \textbf{Tooling.} tsDetect (v3 jar from the replication package) and JNose (jnose-core 0.9.0, the last release built for Java~21) detect smells at method level;

@@ -1,21 +1,21 @@
 {
  "s3-retries0": {
-  "seeds": 1,
+  "seeds": 3,
   "accepted_rate": [
-   75.0,
-   0.0
+   76.67,
+   2.89
   ],
   "pass_rate": [
-   85.0,
-   0.0
+   86.67,
+   2.89
   ],
   "smell_reduction_tsdetect": [
-   79.3,
-   0.0
+   80.47,
+   2.02
   ],
   "smell_reduction_strict": [
-   75.9,
-   0.0
+   77.03,
+   1.96
   ],
   "accepted_losing_mutants_rate": [
    null,
@@ -26,27 +26,27 @@
    null
   ],
   "tokens_per_test": [
-   4317.0,
-   0.0
+   4271.67,
+   90.01
   ]
  },
  "s3-retries1": {
-  "seeds": 1,
+  "seeds": 3,
   "accepted_rate": [
-   90.0,
-   0.0
+   88.33,
+   2.89
   ],
   "pass_rate": [
-   95.0,
-   0.0
+   91.67,
+   2.89
   ],
   "smell_reduction_tsdetect": [
-   86.2,
-   0.0
+   83.9,
+   3.98
   ],
   "smell_reduction_strict": [
-   82.8,
-   0.0
+   80.5,
+   3.98
   ],
   "accepted_losing_mutants_rate": [
    null,
@@ -57,27 +57,27 @@
    null
   ],
   "tokens_per_test": [
-   5535.0,
-   0.0
+   5181.33,
+   364.44
   ]
  },
  "s3-retries2": {
-  "seeds": 1,
+  "seeds": 3,
   "accepted_rate": [
-   90.0,
-   0.0
+   88.33,
+   2.89
   ],
   "pass_rate": [
-   90.0,
-   0.0
+   88.33,
+   2.89
   ],
   "smell_reduction_tsdetect": [
-   75.9,
-   0.0
+   78.2,
+   3.98
   ],
   "smell_reduction_strict": [
-   84.6,
-   0.0
+   88.3,
+   3.86
   ],
   "accepted_losing_mutants_rate": [
    null,
@@ -88,27 +88,27 @@
    null
   ],
   "tokens_per_test": [
-   6276.0,
-   0.0
+   5690.0,
+   594.16
   ]
  },
  "s3-retries4": {
-  "seeds": 1,
+  "seeds": 3,
   "accepted_rate": [
-   95.0,
-   0.0
+   91.67,
+   2.89
   ],
   "pass_rate": [
-   95.0,
-   0.0
+   91.67,
+   2.89
   ],
   "smell_reduction_tsdetect": [
-   79.3,
-   0.0
+   78.17,
+   1.96
   ],
   "smell_reduction_strict": [
-   88.5,
-   0.0
+   88.33,
+   0.29
   ],
   "accepted_losing_mutants_rate": [
    null,
@@ -119,8 +119,8 @@
    null
   ],
   "tokens_per_test": [
-   6698.0,
-   0.0
+   6289.67,
+   628.44
   ]
  }
 }

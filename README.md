@@ -123,7 +123,7 @@ With `--skip-verify` nothing is compiled or run. The report then shows `accepted
 bash experiments/run_all.sh                          # test split, frozen -> results/E1..E6, failures, figures, gap table into this README
 SPLIT=dev LIMIT=2 bash experiments/run_all.sh        # smoke run on dev -> results/dev/
 # the runner is src/testdebt/team/gulsher/experiments.py; seeds per config are in team/gulsher/experiments/E*.json
-# reduced grid (a full test-split run of s3 with PIT takes hours): E3 and E5 -G1 use seeds 1-3, the rest seed 1
+# every reported config uses seeds 1-3 (E1 b0replay is a deterministic replay, one run)
 # PIT_THREADS=8 bash experiments/run_all.sh   # more PIT threads on a many-core machine (default 2)
 # one system, one seed, gaps chosen by name (gap1 kill-set gate, gap2 consensus detector, gap6 adaptive supervisor):
 python -m experiments.run_experiment --system s3 --split dev --limit 5 --gaps gap1,gap2,gap6 --seed 1
@@ -156,30 +156,30 @@ Generated from `results/` (`python3 -m testdebt.team.hasan.gap_table --readme RE
 <!-- gap-table -->
 | Gap | Method / component | Metric | Base paper result | Our result (S3) | Addressed? |
 |---|---|---|---|---|---|
-| G1 | Kill-set gate (`killset_gate.py`) | Accepted outputs losing a mutant (%) | 1.2 (b0, reproduced); 3.4 (b0replay, reproduced) | 0 | Fully |
-| G2 | Consensus detector, tsDetect + JNose (`consensus.py`) | Smell reduction, rule ii (%) | 61.7 (b0, reproduced); 54.6 (b0replay, reproduced); rule i: 86 / 89 / 91 (reported in [1]) | 52.47 ± 1.7 | Partially |
-| G6 | Adaptive Supervisor + memory (`agents/supervisor.py`) | Accepted and safe (%) | 26.7 (b0, reproduced); 11.8 (b0replay, reproduced) | 25.8 ± 1.56 | Not |
+| G1 | Kill-set gate (`killset_gate.py`) | Accepted outputs losing a mutant (%) | 2.17 ± 0.84 (b0, reproduced); 3.4 (b0replay, reproduced) | 0 | Fully |
+| G2 | Consensus detector, tsDetect + JNose (`consensus.py`) | Smell reduction, rule ii (%) | 63.07 ± 1.31 (b0, reproduced); 54.6 (b0replay, reproduced); rule i: 86 / 89 / 91 (reported in [1]) | 52.47 ± 1.7 | Partially |
+| G6 | Adaptive Supervisor + memory (`agents/supervisor.py`) | Accepted and safe (%) | 26 ± 1.76 (b0, reproduced); 11.8 (b0replay, reproduced) | 25.8 ± 1.56 | Partially |
 <!-- /gap-table -->
 
 ## Phase 2 results (test split, 150 tests)
 
-Numbers from `results/` (mean ± sd over three seeds for `s3` and `s3-G1`, one seed otherwise). Full tables: `paper/tables/`.
+Numbers from `results/` (mean ± sd over three seeds; `b0replay` is a deterministic replay, one run). Full tables: `paper/tables/`.
 
 | System | Accepted % | Accepted and safe % | Accepted outputs losing a mutant % | Tokens/test |
 |---|---|---|---|---|
 | `b0replay` (UTRefactor's published outputs, 484 tests) | 18.4 | 11.8 | 3.4 | 0 |
-| `b0` (UTRefactor's prompt, our model) | 54.7 | 26.7 | 1.2 | 3,183 |
-| `single` (plain prompt) | 82.0 | - | - | 1,799 |
-| `b1` (fixed retry script) | 41.3 | 35.3 | 0 | 8,495 |
-| `b2` (single tool-using agent) | 26.7 | 24.0 | 0 | 4,121 |
+| `b0` (UTRefactor's prompt, our model) | 52.0 ± 2.4 | 26.0 ± 1.8 | 2.2 ± 0.8 | 3,209 ± 27 |
+| `single` (plain prompt) | 80.7 ± 1.4 | - | - | 1,764 ± 31 |
+| `b1` (fixed retry script) | 40.4 ± 2.1 | 35.8 ± 2.0 | 0 | 8,628 ± 177 |
+| `b2` (single tool-using agent) | 25.6 ± 1.4 | 23.3 ± 1.2 | 0 | 4,173 ± 45 |
 | `s3` (full system) | 52.4 ± 1.0 | 25.8 ± 1.6 | 0 | 9,182 ± 146 |
 | `s3`, kill-set gate off (`-G1`) | 55.1 ± 1.4 | 27.1 ± 1.0 | 8.0 ± 0.5 | 9,000 ± 140 |
-| `s3`, tsDetect targets (`-G2`) | 44.7 | 39.3 | 0 | 11,228 |
-| `s3`, fixed policy (`-G6`) | 51.3 | 26.0 | 0 | 6,659 |
+| `s3`, tsDetect targets (`-G2`) | 47.8 ± 3.3 | 40.9 ± 1.7 | 0 | 11,243 ± 13 |
+| `s3`, fixed policy (`-G6`) | 50.9 ± 0.8 | 26.2 ± 0.4 | 0 | 6,646 ± 26 |
 
 - **G1** works: the gate keeps every accepted output at full mutant strength (paired McNemar over 450 pairs, p < 0.001).
-- **G2** is partial: the detectors disagree on some smells (kappa 0.02 on ExceptionHandling), but targeting only consensus smells lowers accepted-and-safe by 15 points (seed 1; 13.5 against the three-seed mean).
-- **G6** is not supported: the adaptive Supervisor is below the fixed-retry baseline `b1` (24.0 vs 35.3 % on seed 1, p = 0.003; three-seed mean 25.8 ± 1.6) and level with its own fixed policy.
+- **G2** is partial: the detectors disagree on some smells (kappa 0.02 on ExceptionHandling), but targeting only consensus smells lowers accepted-and-safe by 15 points (40.9 vs 25.8 %, 450 pairs, p < 0.001).
+- **G6** is partial: with matched targets (`-G2`) the adaptive system beats `b1` by 5.1 points (p = 0.02), but the full system is below the fixed-retry baseline `b1` (25.8 vs 35.8 %, 450 pairs, p < 0.001) and level with its own fixed policy (26.2 %, p = 0.85). The in-system ablation shows the policy alone is not the cause.
 
 Rebuild every table and figure from the run folders (unpack `hasan_runs.tgz` and `hasan_e1.tgz` into the repository root, so they land in `runs/`; no LLM calls):
 
