@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # E1-E6 (+ ES sensitivity on dev) -> results/, logs/, paper/tables, paper/figures in one command, resumable
 # (a finished run is skipped). Needs: scripts/setup_projects.sh done, .env with the Cerebras key, JNose jars.
-# Reduced grid: seeds per config are in src/testdebt/team/gulsher/experiments/E*.json.
+# Seeds per config (1-3 everywhere) are in src/testdebt/team/gulsher/experiments/E*.json.
 #   bash experiments/run_all.sh                    # test split, frozen (clean tree)
 #   SPLIT=dev LIMIT=2 bash experiments/run_all.sh  # smoke test on dev, writes results/dev/E1..E5
 set -euo pipefail

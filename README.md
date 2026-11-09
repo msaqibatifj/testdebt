@@ -43,7 +43,7 @@ confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervi
 | G2: JNose second detector, consensus targets (`--detector`), rule ii strict reduction; detector agreement (`results/E4/`) | merged (Hasan, `team/hasan/`) |
 | Statistics, failure categories and case export, manual-sample labelling, figures, gap table, reference check | merged (Hasan, `team/hasan/`) |
 | G1 kill-set gate, experiment runner E1-E6, CI | merged (Gulsher, `team/gulsher/`) |
-| JaCoCo coverage | not implemented: the PIT kill-set is the test-strength measure |
+| JaCoCo coverage (`tools/jacoco.py`, `eval/coverage.py`) | working, post hoc on E3 seed 1 (76/76 accepted outputs keep coverage); the PIT kill-set is the gate |
 
 ## Quick start (WSL / Ubuntu)
 
@@ -53,7 +53,7 @@ export PATH=$HOME/apache-maven-3.9.9/bin:$PATH
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
 cp .env.example .env                        # then put your Cerebras key in .env
-python3 -m pytest -q                        # 99 passed, 2 skipped (with Java); no network needed
+python3 -m pytest -q                        # 103 passed, 2 skipped (with Java); no network needed
 bash scripts/setup_projects.sh              # clones UTRefactor + 3 projects, pins commits, builds data/eval_set*.jsonl
 bash src/testdebt/team/hasan/get_jnose.sh   # JNose jars (second detector, G2); needs Java 21 to run
 bash scripts/check_builds.sh                # week-1 gate: each pinned project builds and a test class passes
