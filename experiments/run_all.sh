@@ -4,6 +4,7 @@
 # Seeds per config (1-3 everywhere) are in src/testdebt/team/gulsher/experiments/E*.json.
 #   bash experiments/run_all.sh                    # test split, frozen (clean tree)
 #   SPLIT=dev LIMIT=2 bash experiments/run_all.sh  # smoke test on dev, writes results/dev/E1..E5
+#   RUN=0 bash experiments/run_all.sh              # no new runs: rebuild results/ and paper tables from runs/ (make reproduce)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 command -v mvn >/dev/null || export PATH="${MAVEN_HOME:-$HOME/apache-maven-3.9.9}/bin:$PATH"
@@ -12,11 +13,12 @@ if [ "${SPLIT:-test}" = dev ]; then
   for e in E1 E2 E3 E5; do $X run $e --dev --limit "${LIMIT:-2}"; $X summarize $e --dev; done
   exit 0
 fi
-for e in E1 E2 E3 E5 ES; do $X run $e --frozen; $X summarize $e; done   # E5 after E3: its delta table needs E3
-python3 -m testdebt.team.hasan.agreement --split all      # E4 detector agreement, no LLM
+for e in E1 E2 E3 E5 ES; do [ "${RUN:-1}" = 0 ] || $X run $e --frozen; $X summarize $e; done   # E5 after E3: its delta table needs E3
+[ "${RUN:-1}" = 0 ] || python3 -m testdebt.team.hasan.agreement --split all   # E4 detector agreement, no LLM (needs JNose)
 $X summarize E4
 $X summarize E6
 python3 -m testdebt.team.hasan.failures runs/E3_s3_s1 runs/E3_s3_s2 runs/E3_s3_s3 --name E3
+python3 scripts/paired_extra.py >/dev/null
 python3 -m testdebt.team.hasan.figures
 python3 -m testdebt.team.hasan.gap_table --readme README.md
 
