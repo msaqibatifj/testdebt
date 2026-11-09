@@ -46,6 +46,8 @@ confirmed by two detectors (tsDetect + JNose consensus), **G6** adaptive supervi
 | JaCoCo coverage (`tools/jacoco.py`, `eval/coverage.py`) | working, post hoc on E3 seed 1 (76/76 accepted outputs keep coverage); the PIT kill-set is the gate |
 
 ## Quick start (WSL / Ubuntu)
+`make help` lists one-word targets for everything below: `make setup`, `make test`, `make smoke`, `make demo` (S3 on 3 dev
+tests), `make dev`, `make reproduce` (rebuild every table and figure from `logs/`, no LLM), `make all`, `make zip`.
 
 ```bash
 bash scripts/install_env.sh                 # JDK 17 + Maven 3.9.9 (one time; asks for sudo)
