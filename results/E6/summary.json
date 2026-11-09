@@ -63,22 +63,22 @@
   ]
  },
  "E2/b0": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   3182.67,
-   0.0
+   3208.66,
+   26.51
   ],
   "prompt_tokens_per_test": [
    1959.59,
    0.0
   ],
   "completion_tokens_per_test": [
-   1223.08,
-   0.0
+   1249.06,
+   26.51
   ],
   "tokens_per_accepted": [
-   5821.96,
-   0.0
+   6180.64,
+   329.98
   ],
   "llm_calls_per_test": [
    1.0,
@@ -89,24 +89,24 @@
    0.0
   ],
   "wall_s_per_test": [
-   3.54,
-   0.0
+   6.24,
+   2.4
   ],
   "llm_s_per_test": [
-   2.43,
-   0.0
+   1.97,
+   0.4
   ],
   "compile_run_s_per_test": [
-   1.92,
-   0.0
+   3.82,
+   1.66
   ],
   "pit_s_per_test": [
-   0.0,
-   0.0
+   0.08,
+   0.13
   ],
   "error_pct": [
-   2.67,
-   0.0
+   2.89,
+   0.38
   ],
   "escalated_pct": [
    0.0,
@@ -126,22 +126,22 @@
   ]
  },
  "E2/single": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   1799.35,
-   0.0
+   1763.72,
+   31.3
   ],
   "prompt_tokens_per_test": [
    802.45,
    0.0
   ],
   "completion_tokens_per_test": [
-   996.89,
-   0.0
+   961.26,
+   31.3
   ],
   "tokens_per_accepted": [
-   2194.33,
-   0.0
+   2186.42,
+   13.49
   ],
   "llm_calls_per_test": [
    1.0,
@@ -152,24 +152,24 @@
    0.0
   ],
   "wall_s_per_test": [
-   15.84,
-   0.0
+   13.57,
+   1.99
   ],
   "llm_s_per_test": [
-   2.12,
-   0.0
+   1.46,
+   0.57
   ],
   "compile_run_s_per_test": [
-   2.83,
-   0.0
+   3.7,
+   0.8
   ],
   "pit_s_per_test": [
    0.0,
    0.0
   ],
   "error_pct": [
-   0.0,
-   0.0
+   0.22,
+   0.38
   ],
   "escalated_pct": [
    0.0,
@@ -189,62 +189,62 @@
   ]
  },
  "E2/b1": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   8494.95,
-   0.0
+   8627.78,
+   176.53
   ],
   "prompt_tokens_per_test": [
-   5323.39,
-   0.0
+   5333.96,
+   48.68
   ],
   "completion_tokens_per_test": [
-   3171.55,
-   0.0
+   3293.82,
+   136.46
   ],
   "tokens_per_accepted": [
-   20552.29,
-   0.0
+   21388.6,
+   1598.57
   ],
   "llm_calls_per_test": [
-   2.25,
-   0.0
+   2.27,
+   0.04
   ],
   "tool_calls_per_test": [
-   2.18,
-   0.0
+   2.19,
+   0.03
   ],
   "wall_s_per_test": [
-   88.96,
-   0.0
+   112.53,
+   20.48
   ],
   "llm_s_per_test": [
-   6.78,
-   0.0
+   5.42,
+   1.18
   ],
   "compile_run_s_per_test": [
-   6.71,
-   0.0
+   7.87,
+   1.0
   ],
   "pit_s_per_test": [
-   60.74,
-   0.0
+   86.18,
+   22.08
   ],
   "error_pct": [
    7.33,
-   0.0
+   0.67
   ],
   "escalated_pct": [
    0.0,
    0.0
   ],
   "retried_pct": [
-   68.67,
-   0.0
+   69.33,
+   2.4
   ],
   "recovery_pct": [
-   18.45,
-   0.0
+   18.28,
+   0.63
   ],
   "cost_usd": [
    0.0,
@@ -252,50 +252,50 @@
   ]
  },
  "E2/b2": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   4121.37,
-   0.0
+   4172.85,
+   44.72
   ],
   "prompt_tokens_per_test": [
-   2840.74,
-   0.0
+   2871.76,
+   42.03
   ],
   "completion_tokens_per_test": [
-   1280.63,
-   0.0
+   1301.09,
+   33.91
   ],
   "tokens_per_accepted": [
-   15455.12,
-   0.0
+   16365.54,
+   1027.69
   ],
   "llm_calls_per_test": [
-   1.31,
-   0.0
+   1.33,
+   0.02
   ],
   "tool_calls_per_test": [
-   0.96,
-   0.0
+   0.98,
+   0.02
   ],
   "wall_s_per_test": [
-   56.92,
-   0.0
+   54.12,
+   2.48
   ],
   "llm_s_per_test": [
-   2.12,
-   0.0
+   2.22,
+   0.1
   ],
   "compile_run_s_per_test": [
-   1.41,
-   0.0
+   4.23,
+   2.52
   ],
   "pit_s_per_test": [
-   15.3,
-   0.0
+   28.71,
+   11.69
   ],
   "error_pct": [
-   4.0,
-   0.0
+   3.56,
+   0.38
   ],
   "escalated_pct": [
    0.0,
@@ -303,11 +303,11 @@
   ],
   "retried_pct": [
    31.33,
-   0.0
+   2.0
   ],
   "recovery_pct": [
-   34.04,
-   0.0
+   29.5,
+   7.83
   ],
   "cost_usd": [
    0.0,
@@ -441,62 +441,62 @@
   ]
  },
  "E5/s3-G2": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   11228.3,
-   0.0
+   11243.16,
+   13.17
   ],
   "prompt_tokens_per_test": [
-   7331.52,
-   0.0
+   7393.79,
+   57.07
   ],
   "completion_tokens_per_test": [
-   3896.78,
-   0.0
+   3849.36,
+   44.03
   ],
   "tokens_per_accepted": [
-   25137.99,
-   0.0
+   23607.69,
+   1613.52
   ],
   "llm_calls_per_test": [
-   3.27,
-   0.0
+   3.26,
+   0.01
   ],
   "tool_calls_per_test": [
-   3.11,
-   0.0
+   3.15,
+   0.03
   ],
   "wall_s_per_test": [
-   107.54,
-   0.0
+   119.73,
+   10.7
   ],
   "llm_s_per_test": [
-   10.79,
-   0.0
+   7.87,
+   2.57
   ],
   "compile_run_s_per_test": [
-   10.51,
-   0.0
+   10.33,
+   2.76
   ],
   "pit_s_per_test": [
-   69.83,
-   0.0
+   84.11,
+   12.45
   ],
   "error_pct": [
-   8.67,
-   0.0
+   6.44,
+   2.34
   ],
   "escalated_pct": [
-   46.67,
-   0.0
+   45.78,
+   1.02
   ],
   "retried_pct": [
-   73.33,
-   0.0
+   73.56,
+   0.38
   ],
   "recovery_pct": [
-   28.18,
-   0.0
+   32.93,
+   4.56
   ],
   "cost_usd": [
    0.0,
@@ -504,62 +504,62 @@
   ]
  },
  "E5/s3-G6": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   6659.18,
-   0.0
+   6646.09,
+   25.9
   ],
   "prompt_tokens_per_test": [
-   4074.17,
-   0.0
+   4043.62,
+   48.76
   ],
   "completion_tokens_per_test": [
-   2585.01,
-   0.0
+   2602.47,
+   23.25
   ],
   "tokens_per_accepted": [
-   12972.43,
-   0.0
+   13061.5,
+   148.14
   ],
   "llm_calls_per_test": [
    2.01,
-   0.0
+   0.02
   ],
   "tool_calls_per_test": [
-   2.92,
-   0.0
+   2.9,
+   0.04
   ],
   "wall_s_per_test": [
-   58.16,
-   0.0
+   120.35,
+   54.14
   ],
   "llm_s_per_test": [
-   7.17,
-   0.0
+   5.09,
+   1.8
   ],
   "compile_run_s_per_test": [
-   7.31,
-   0.0
+   7.07,
+   0.21
   ],
   "pit_s_per_test": [
-   39.25,
-   0.0
+   93.62,
+   47.48
   ],
   "error_pct": [
-   9.33,
-   0.0
+   10.44,
+   1.92
   ],
   "escalated_pct": [
-   39.33,
-   0.0
+   38.67,
+   1.15
   ],
   "retried_pct": [
    58.0,
-   0.0
+   0.67
   ],
   "recovery_pct": [
-   20.69,
-   0.0
+   22.97,
+   2.83
   ],
   "cost_usd": [
    0.0,
@@ -567,62 +567,62 @@
   ]
  },
  "E5/s3-memory": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   8709.44,
-   0.0
+   8730.93,
+   104.73
   ],
   "prompt_tokens_per_test": [
-   5510.67,
-   0.0
+   5513.05,
+   47.23
   ],
   "completion_tokens_per_test": [
-   3198.77,
-   0.0
+   3217.88,
+   58.28
   ],
   "tokens_per_accepted": [
-   16748.92,
-   0.0
+   17572.32,
+   886.86
   ],
   "llm_calls_per_test": [
    3.01,
-   0.0
+   0.02
   ],
   "tool_calls_per_test": [
-   2.91,
-   0.0
+   2.9,
+   0.04
   ],
   "wall_s_per_test": [
-   101.01,
-   0.0
+   121.71,
+   18.93
   ],
   "llm_s_per_test": [
-   7.97,
-   0.0
+   6.1,
+   1.63
   ],
   "compile_run_s_per_test": [
-   5.87,
-   0.0
+   9.84,
+   3.46
   ],
   "pit_s_per_test": [
-   71.86,
-   0.0
+   88.78,
+   16.02
   ],
   "error_pct": [
-   10.67,
-   0.0
+   11.33,
+   2.4
   ],
   "escalated_pct": [
-   37.33,
-   0.0
+   38.89,
+   1.39
   ],
   "retried_pct": [
-   59.33,
-   0.0
+   58.89,
+   0.77
   ],
   "recovery_pct": [
-   32.58,
-   0.0
+   26.37,
+   5.96
   ],
   "cost_usd": [
    0.0,
@@ -630,62 +630,62 @@
   ]
  },
  "E5/minus_all": {
-  "seeds": 1,
+  "seeds": 3,
   "tokens_per_test": [
-   8459.77,
-   0.0
+   8631.93,
+   289.67
   ],
   "prompt_tokens_per_test": [
-   5312.26,
-   0.0
+   5344.32,
+   119.37
   ],
   "completion_tokens_per_test": [
-   3147.51,
-   0.0
+   3287.61,
+   179.48
   ],
   "tokens_per_accepted": [
-   20142.32,
-   0.0
+   21060.65,
+   1848.85
   ],
   "llm_calls_per_test": [
-   2.25,
-   0.0
+   2.27,
+   0.05
   ],
   "tool_calls_per_test": [
-   3.19,
-   0.0
+   3.2,
+   0.04
   ],
   "wall_s_per_test": [
-   30.66,
-   0.0
+   21.62,
+   8.32
   ],
   "llm_s_per_test": [
-   6.44,
-   0.0
+   5.36,
+   0.97
   ],
   "compile_run_s_per_test": [
-   16.76,
-   0.0
+   11.15,
+   5.27
   ],
   "pit_s_per_test": [
-   6.1,
-   0.0
+   3.29,
+   2.71
   ],
   "error_pct": [
-   6.67,
-   0.0
+   7.33,
+   1.15
   ],
   "escalated_pct": [
-   51.33,
-   0.0
+   51.56,
+   1.02
   ],
   "retried_pct": [
-   69.33,
-   0.0
+   69.56,
+   3.01
   ],
   "recovery_pct": [
-   20.19,
-   0.0
+   19.49,
+   0.63
   ],
   "cost_usd": [
    0.0,

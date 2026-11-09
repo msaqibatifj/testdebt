@@ -1,6 +1,6 @@
 # Phase 2 requirements (AI4015, Group G2-10)
 
-Deadline: **Tue 10 Nov 2026, 11:59 PM PKT** (moved from Sun 8 Nov). Status updated 2026-11-08 after merging Hasan's runs (`442853d`).
+Deadline: **Tue 10 Nov 2026, 11:59 PM PKT** (moved from Sun 8 Nov). Status updated 2026-11-09 after merging Hasan's seeds 2-3 (`3b70388`).
 Members: M Saqib Atif (23I-0769, group head), Gulsher Khan (23I-0066), Hasan Altaf (23I-0698).
 Status key: [x] done in repo, [~] partly done, [ ] not done.
 
@@ -24,10 +24,10 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 | ID | Requirement | Status |
 |---|---|---|
 | s4 | Gap 2 as its own module behind `gaps.enabled("gap2")`; pipeline runs with `gap2: false` | [x] `--detector tsdetect` is the off switch |
-| r3 | Unit and integration tests for deterministic modules (detectors, metrics, parsers, gap switches); one integration test with mocked LLM; `pytest -q` before each push | [x] 98 pass, 3 skip (2026-11-08) |
+| r3 | Unit and integration tests for deterministic modules (detectors, metrics, parsers, gap switches); one integration test with mocked LLM; `pytest -q` before each push | [x] 103 pass, 2 skip (2026-11-09) |
 | e1 | E1 Phase 1 baseline, 3 seeds | [x] b0replay on 484 tests (deterministic, no LLM, so one run); 19 tool errors |
 | e4 | One experiment per gap hypothesis (H1: adding X increases Y on subset Z), report the subset number | [x] `results/E4/` (H1/H2/H3 subsets, paired tests, `paired_extra.json`) |
-| e5 | Ablation: `full`, `minus_gap1`, `minus_gap2`, `minus_all`; `full` must match E3; report change from `full` | [~] all variants run, delta table in paper; only -G1 has 3 seeds, the rest 1 seed (disclosed) |
+| e5 | Ablation: `full`, `minus_gap1`, `minus_gap2`, `minus_all`; `full` must match E3; report change from `full` | [x] all variants, 3 seeds each (seeds 2-3 by Hasan, `3b70388`); delta table regenerated |
 | e8 | Failure modes categorized with counts and percentages on test (`results/tables/failures.md`); category names agreed with Gulsher | [x] `results/failures/` (214 failures, 8 categories) |
 | e9 | 2 success + 2 failure trajectories with step-by-step post-mortems (root cause and fix for failures) | [x] paper, Failure Analysis |
 | w7 | Paper: Results by gap (RQ1, RQ2), gap-resolution table, mean ± std, E2 labelled reproduced/paper-reported | [x] |
@@ -45,7 +45,7 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 | s2 | Trajectory logging in every agent: `reason`, `tool_call`/`tool_result` (with token counts), `state`, `retry`, `error`, one `final` with `failure_mode` | [x] |
 | r1 | README: overview, setup, run steps, gap-resolution table | [x] gap table and results filled |
 | r2 | CLI entry point, e.g. `python -m veriref --input FooTest.java --gaps gap1,gap2` | [x] `veriref` and `testdebt` take `--gaps` and `--input Foo.java[#method]` (file must be in the eval set, where its smells come from) |
-| r6 | `bash experiments/run_all.sh` reproduces E1-E6 into `results/` | [x] run on test from `3b992f2` with `--frozen` (reduced seed grid) |
+| r6 | `bash experiments/run_all.sh` reproduces E1-E6 into `results/` | [x] run on test with `--frozen` (seed 1 from `3b992f2`, seeds 2-3 of E2/E5/ES from `e9ff1c8`); 3 seeds everywhere |
 | r8 | Tag `phase2-final` and push before deadline; only code in the tag is graded | [ ] |
 | e3 | E3 full system on test, 3 seeds, mean ± std | [x] |
 | e6 | E6 efficiency and reliability: latency, tokens, tool calls, retries, recovery rate; cost $0 on free tier | [x] |
@@ -55,8 +55,8 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 | w3 | Abstract, 150-250 words (write last) | [x] 245 words |
 | w4 | Introduction (ends with RQs per gap and contributions), Related Work, Problem Formulation (input suite, smell set, tool set, state space, output, constraints) | [x] |
 | w5 | Proposed System plus architecture diagram, same figure in `docs/architecture.md` | [x] diagram exists |
-| u1 | PDF named `Phase2_G2-10_23I-0769_Paper.pdf` | [x] Overleaf build of 8 Nov (8 pages), matches current paper source |
-| u2 | LaTeX source ZIP via `bash paper/make_zip.sh` | [x] Overleaf build of 8 Nov (8 pages), matches current paper source |
+| u1 | PDF named `Phase2_G2-10_23I-0769_Paper.pdf` | [ ] stale: paper text and tables changed 9 Nov (3-seed numbers); rebuild on Overleaf, check 8-10 pages |
+| u2 | LaTeX source ZIP via `bash paper/make_zip.sh` | [ ] stale: rebuild after the paper is final |
 | u3 | Links to repo (public or shared with supervisor) and the `phase2-final` tag | [ ] |
 | u4 | Upload to Google Classroom (group head only) | [ ] |
 
@@ -66,10 +66,10 @@ Status key: [x] done in repo, [~] partly done, [ ] not done.
 |---|---|---|
 | p1 | Every Phase 1 supervisor comment addressed; one line per comment sent to Saqib | n/a: no Phase 1 feedback received |
 | s7 | Devlog entries: date, failure seen, change, measured effect on dev (`docs/devlog.md`) | [x] every effect cell measured from dev/pilot runs |
-| r7 | Commits under your own name (balanced history) | [~] 24 / 11 / 7 commits (Saqib / Gulsher / Hasan, `.mailmap` merges Gulsher's two names) |
-| e10 | Gap-resolution table filled, identical in README and paper; check against `results/` | [x] README and `paper/tables/gap_table.tex` both generated from `results/` (checked identical 2026-11-08) |
+| r7 | Commits under your own name (balanced history) | [~] 24 / 13 / 8 commits (Saqib / Gulsher / Hasan, `.mailmap` merges Gulsher's two names) |
+| e10 | Gap-resolution table filled, identical in README and paper; check against `results/` | [~] G6 changed to Partially (9 Nov): README and `results/` regenerated; `paper/tables/gap_table.tex` and the G6 conclusion line not yet updated |
 | w9 | About 10 references with DOIs each (25-30 total, peer-reviewed preferred) | [x] 26 entries, all 26 DOIs resolve at doi.org (checked 2026-11-08) |
-| w10 | Every number in the paper traces to `results/` or `logs/` | [x] tables byte-identical to `results/`; prose spot-checked against `results/E*/summary.json` and `E4/paired_extra.json`; seed-1 vs 3-seed numbers now labelled |
+| w10 | Every number in the paper traces to `results/` or `logs/` | [x] tables byte-identical to `results/`; prose updated to 3-seed numbers on 9 Nov by search for old values; needs a full re-read after the paper is final |
 
 ## Handoffs
 

@@ -9,39 +9,39 @@
   "tokens_per_test": -182.33
  },
  "s3-G2": {
-  "accepted_rate": -7.73,
-  "pass_rate": -8.2,
-  "smell_reduction_tsdetect": 13.13,
-  "smell_reduction_strict": 8.33,
+  "accepted_rate": -4.66,
+  "pass_rate": -2.23,
+  "smell_reduction_tsdetect": 13.03,
+  "smell_reduction_strict": 7.03,
   "accepted_losing_mutants_rate": 0.0,
-  "accepted_safe_rate": 13.5,
-  "tokens_per_test": 2045.67
+  "accepted_safe_rate": 15.1,
+  "tokens_per_test": 2060.67
  },
  "s3-G6": {
-  "accepted_rate": -1.13,
-  "pass_rate": 9.8,
-  "smell_reduction_tsdetect": 7.23,
-  "smell_reduction_strict": -1.87,
+  "accepted_rate": -1.56,
+  "pass_rate": 7.33,
+  "smell_reduction_tsdetect": 5.93,
+  "smell_reduction_strict": -2.07,
   "accepted_losing_mutants_rate": 0.0,
-  "accepted_safe_rate": 0.2,
-  "tokens_per_test": -2523.33
+  "accepted_safe_rate": 0.43,
+  "tokens_per_test": -2536.33
  },
  "s3-memory": {
-  "accepted_rate": -0.43,
-  "pass_rate": -0.2,
-  "smell_reduction_tsdetect": -0.47,
-  "smell_reduction_strict": -4.67,
+  "accepted_rate": -2.63,
+  "pass_rate": -0.67,
+  "smell_reduction_tsdetect": -0.6,
+  "smell_reduction_strict": -5.3,
   "accepted_losing_mutants_rate": 0.0,
-  "accepted_safe_rate": 0.9,
-  "tokens_per_test": -473.33
+  "accepted_safe_rate": -0.23,
+  "tokens_per_test": -451.33
  },
  "minus_all": {
-  "accepted_rate": -10.43,
-  "pass_rate": -7.6,
-  "smell_reduction_tsdetect": 16.03,
-  "smell_reduction_strict": 7.83,
-  "accepted_losing_mutants_rate": 3.3,
-  "accepted_safe_rate": 8.9,
-  "tokens_per_test": -722.33
+  "accepted_rate": -11.3,
+  "pass_rate": -12.67,
+  "smell_reduction_tsdetect": 18.63,
+  "smell_reduction_strict": 10.33,
+  "accepted_losing_mutants_rate": 4.63,
+  "accepted_safe_rate": 8.87,
+  "tokens_per_test": -550.33
  }
 }
