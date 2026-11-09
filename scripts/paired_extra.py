@@ -9,12 +9,13 @@ from pathlib import Path
 from testdebt.team.gulsher.experiments import _paired
 from testdebt.team.hasan.stats import holm
 
+S = lambda run: [f"{run}_s{i}" for i in (1, 2, 3)]  # pooled over seeds, as in summarize_e4
 PAIRS = {  # name: (system A runs, system B runs, flag)
-    "G6 matched targets: s3-G2 vs b1 (accepted and safe)": (["E5_s3-G2_s1"], ["E2_b1_s1"], "safe"),
-    "G6 matched targets: s3-G2 vs b2 (accepted and safe)": (["E5_s3-G2_s1"], ["E2_b2_s1"], "safe"),
-    "G6 inside S3: s3 vs s3-G6 (accepted and safe)": (["E3_s3_s1"], ["E5_s3-G6_s1"], "safe"),
-    "G2 inside S3: s3 vs s3-G2 (accepted and safe)": (["E3_s3_s1"], ["E5_s3-G2_s1"], "safe"),
-    "G2 inside S3: s3 vs s3-G2 (accepted)": (["E3_s3_s1"], ["E5_s3-G2_s1"], "accepted"),
+    "G6 matched targets: s3-G2 vs b1 (accepted and safe)": (S("E5_s3-G2"), S("E2_b1"), "safe"),
+    "G6 matched targets: s3-G2 vs b2 (accepted and safe)": (S("E5_s3-G2"), S("E2_b2"), "safe"),
+    "G6 inside S3: s3 vs s3-G6 (accepted and safe)": (S("E3_s3"), S("E5_s3-G6"), "safe"),
+    "G2 inside S3: s3 vs s3-G2 (accepted and safe)": (S("E3_s3"), S("E5_s3-G2"), "safe"),
+    "G2 inside S3: s3 vs s3-G2 (accepted)": (S("E3_s3"), S("E5_s3-G2"), "accepted"),
 }
 out = {k: _paired(a, b, f) for k, (a, b, f) in PAIRS.items()}
 ps = holm([v["mcnemar"]["p"] for v in out.values()])

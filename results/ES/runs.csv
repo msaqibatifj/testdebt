@@ -1,5 +1,13 @@
 config,run,accepted_rate,pass_rate,smell_reduction_tsdetect,smell_reduction_strict,accepted_losing_mutants_rate,accepted_safe_rate,tokens_per_test,tests,errors,smell_reduction_accepted
 s3-retries0,ES_s3-retries0_s1,75.0,85.0,79.3,75.9,,,4317,20,0,90.5
+s3-retries0,ES_s3-retries0_s2,75.0,85.0,79.3,75.9,,,4330,20,0,90.5
+s3-retries0,ES_s3-retries0_s3,80.0,90.0,82.8,79.3,,,4168,20,0,91.3
 s3-retries1,ES_s3-retries1_s1,90.0,95.0,86.2,82.8,,,5535,20,0,91.7
+s3-retries1,ES_s3-retries1_s2,85.0,90.0,79.3,75.9,,,5202,20,0,87.5
+s3-retries1,ES_s3-retries1_s3,90.0,90.0,86.2,82.8,,,4807,20,0,92.0
 s3-retries2,ES_s3-retries2_s1,90.0,90.0,75.9,84.6,,,6276,20,0,88.0
+s3-retries2,ES_s3-retries2_s2,85.0,85.0,75.9,88.0,,,5706,20,0,87.5
+s3-retries2,ES_s3-retries2_s3,90.0,90.0,82.8,92.3,,,5088,20,0,92.0
 s3-retries4,ES_s3-retries4_s1,95.0,95.0,79.3,88.5,,,6698,20,0,88.5
+s3-retries4,ES_s3-retries4_s2,90.0,90.0,75.9,88.0,,,6605,20,0,88.0
+s3-retries4,ES_s3-retries4_s3,90.0,90.0,79.3,88.5,,,5566,20,0,92.0
